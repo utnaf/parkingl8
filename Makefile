@@ -26,9 +26,20 @@ cc:
 	$(BASE_DOCKER_COMPOSE) exec app php artisan route:clear
 .PHONY: cc
 
+build:
+	$(BASE_DOCKER_COMPOSE) stop \
+	&& $(BASE_DOCKER_COMPOSE) rm -f \
+	&& $(BASE_DOCKER_COMPOSE) pull \
+	&& $(BASE_DOCKER_COMPOSE) build --no-cache
+.PHONY: build
+
 test:
 	$(BASE_DOCKER_COMPOSE) exec app php vendor/bin/phpunit
 .PHONY: test
+
+test-coverage:
+	$(BASE_DOCKER_COMPOSE) exec app php vendor/bin/phpunit --coverage-html ./docs/report --testdox-html ./docs/testdox.html --testdox-text ./docs/testdox.txt
+.PHONY: test-coverage
 
 %:
 	@:

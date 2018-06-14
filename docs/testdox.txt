@@ -1,0 +1,21 @@
+Feature\ParkingLot
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login 
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login 
+ [x] Ok if logged in
+
+Unit\Repositories\EntryRepository
+ [x] Given a DB with 10 items when I ask for all the items then it give a collection of 10 Entry
+ [x] Given a DB with 10 items when I ask for the item with id 1 then it gives me the correct item
+ [x] When I ask ask for a non-existing item then it throws the correct exception
+ [x] Given free space in the lot when I try to insert a new entry then it returns the new entry
+ [x] Given no free space in the lot when I try to insert a new entry then it throws the correct exception
+
+Unit\Repositories\ParkingLotRepository
+ [x] Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot
+ [x] Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item
+ [x] When I ask ask for a non-existing item then it throws the correct exception
+
+Unit\Services\FreeSpotService
+ [x] Given free spots it should return true
+ [x] Given no free spots it should return false
+

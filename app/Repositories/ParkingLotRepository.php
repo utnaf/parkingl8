@@ -5,15 +5,16 @@ namespace Parking\Repositories;
 
 use Illuminate\Support\Collection;
 use Parking\ParkingLot;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class ParkingLotRepository {
+class ParkingLotRepository {
 
+    /** @return ParkingLot[] */
     public function getAll(): Collection {
-        return ParkingLot::all();
+        return ParkingLot::withCount('entries')->get();
     }
 
-    /** @throws ResourceNotFoundException */
+    /** @throws NotFoundHttpException */
     public function getById(int $id): ParkingLot {
         $lot = ParkingLot::withCount('entries')->find($id);
 
@@ -21,7 +22,7 @@ final class ParkingLotRepository {
             return $lot;
         }
 
-        throw new ResourceNotFoundException(
+        throw new NotFoundHttpException(
             sprintf("Can't find a ParkingLot with id of %d", $id)
         );
     }

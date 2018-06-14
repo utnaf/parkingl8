@@ -26,11 +26,11 @@ $factory->define(
             $payedAt    = $faker->dateTimeInInterval($arrivedAt, '+1 days');
             $exitedAt   = $faker->dateTimeInInterval($payedAt, '+8 minutes');
             $hoursSpent = Carbon::createFromTimestamp($exitedAt->getTimestamp())->diffInHours();
-            $price      = $hoursSpent * $currentLot->getAttribute('hourly_fare');
+            $price      = $hoursSpent * $currentLot->hourlyFare;
         }
 
         return [
-            'parking_lot_id' => $currentLot->getKey(),
+            'parking_lot_id' => $currentLot->id,
             'arrived_at'     => $arrivedAt,
             'payed_at'       => $payedAt,
             'exited_at'      => $exitedAt,

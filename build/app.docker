@@ -8,4 +8,6 @@ RUN apt-get update \
     && pecl install mcrypt-1.0.1 \
     && docker-php-ext-enable mcrypt \
     && apt-get install -y git-core \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && pecl install xdebug-2.6.0beta1 \
+    && docker-php-ext-enable xdebug

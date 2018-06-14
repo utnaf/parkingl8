@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Documentation</title>
+        <style>
+            body {
+                text-rendering: optimizeLegibility;
+                font-variant-ligatures: common-ligatures;
+                font-kerning: normal;
+                margin-left: 2em;
+            }
+
+            body > ul > li {
+                font-family: Source Serif Pro, PT Sans, Trebuchet MS, Helvetica, Arial;
+                font-size: 2em;
+            }
+
+            h2 {
+                font-family: Tahoma, Helvetica, Arial;
+                font-size: 3em;
+            }
+
+            ul {
+                list-style: none;
+                margin-bottom: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="Tests\Feature\ParkingLotTest">Feature\ParkingLot</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login </li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login </li>
+            <li style="color: #555753;">✓ Ok if logged in</li>
+        </ul>
+        <h2 id="Tests\Unit\Repositories\EntryRepositoryTest">Unit\Repositories\EntryRepository</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given a DB with 10 items when I ask for all the items then it give a collection of 10 Entry</li>
+            <li style="color: #555753;">✓ Given a DB with 10 items when I ask for the item with id 1 then it gives me the correct item</li>
+            <li style="color: #555753;">✓ When I ask ask for a non-existing item then it throws the correct exception</li>
+            <li style="color: #555753;">✓ Given free space in the lot when I try to insert a new entry then it returns the new entry</li>
+            <li style="color: #555753;">✓ Given no free space in the lot when I try to insert a new entry then it throws the correct exception</li>
+        </ul>
+        <h2 id="Tests\Unit\Repositories\ParkingLotRepositoryTest">Unit\Repositories\ParkingLotRepository</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot</li>
+            <li style="color: #555753;">✓ Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item</li>
+            <li style="color: #555753;">✓ When I ask ask for a non-existing item then it throws the correct exception</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\FreeSpotServiceTest">Unit\Services\FreeSpotService</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given free spots it should return true</li>
+            <li style="color: #555753;">✓ Given no free spots it should return false</li>
+        </ul>
+    </body>
+</html>

@@ -22,9 +22,9 @@
         "apidoc": "^0.17.6"
     },
     "apidoc": {
-        "title": "Apidoc for Parkingl8",
+        "title": "Apidoc for ParkingL8",
         "version": "1.0.0",
         "description": "Here the doc for the API",
-        "name": "Parkingl8"
+        "name": "ParkingL8"
     }
 }

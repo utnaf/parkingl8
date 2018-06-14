@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tests\Unit\Repositories;
 
@@ -8,6 +9,7 @@ use Parking\ParkingLot;
 use Parking\Repositories\ParkingLotRepository;
 use Tests\TestCase;
 
+/** @coversDefaultClass \Parking\Repositories\ParkingLotRepository */
 final class ParkingLotRepositoryTest extends TestCase {
     use RefreshDatabase;
 
@@ -28,7 +30,7 @@ final class ParkingLotRepositoryTest extends TestCase {
         });
     }
 
-    /** @testdox Give a DB with 3 items when I ask for the item with id 1 then it gives me the correct item */
+    /** @testdox Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item */
     public function testGetById() {
         /** @var Collection $lots */
         $lots = factory(ParkingLot::class, static::LOTS_COUNT)->create();
@@ -41,8 +43,8 @@ final class ParkingLotRepositoryTest extends TestCase {
     }
 
     /**
-     * @testdox Give a DB with 3 items when I ask for the item with id 1 then it gives me the correct item
-     * @expectedException \Symfony\Component\Routing\Exception\ResourceNotFoundException
+     * @testdox When I ask ask for a non-existing item then it throws the correct exception
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testGetByIdThrowException() {
         $repository = new ParkingLotRepository;

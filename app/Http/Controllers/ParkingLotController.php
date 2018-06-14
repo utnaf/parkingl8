@@ -5,8 +5,9 @@ namespace Parking\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Parking\Repositories\EntryRepository;
 use Parking\Repositories\ParkingLotRepository;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ParkingLotController extends Controller {
     /**
@@ -37,24 +38,71 @@ class ParkingLotController extends Controller {
      * @apiError (404) {Int} status Status of the request
      * @apiError (404) {String} message String containing the error
      */
-    public function item(string $id, ParkingLotRepository $parkingLotRepository): JsonResponse {
+    public function show(string $id, ParkingLotRepository $parkingLotRepository): JsonResponse {
         try {
             $lot = $parkingLotRepository->getById((int) $id);
         }
-        catch (ResourceNotFoundException $e) {
-            return new JsonResponse(
-                [
-                    'status'  => Response::HTTP_NOT_FOUND,
-                    'message' => $e->getMessage(),
-                ],
-                Response::HTTP_NOT_FOUND
-            );
+        catch (HttpException $e) {
+            return $this->handleException($e);
         }
 
         return new JsonResponse(
             [
                 'lot' => $lot,
             ]
+        );
+    }
+
+    /**
+     * @api {get} /api/lots/:id/entries Request all the entries of a lot
+     * @apiName GetParkingLotEntries
+     * @apiGroup ParkingLots
+     * @apiVersion 1.0.0
+     *
+     * @apiSuccess (200) {Entries[]} entries The list of the entries for a parking log
+     * @apiError (404) {Int} status Status of the request
+     * @apiError (404) {String} message String containing the error
+     */
+    public function entries(string $parkingLotId, EntryRepository $entryRepository): JsonResponse {
+        try {
+            $entries = $entryRepository->getByParkingLotId((int) $parkingLotId);
+        }
+        catch (HttpException $e) {
+            return $this->handleException($e);
+        }
+
+        return new JsonResponse(
+            [
+                'entries' => $entries,
+            ]
+        );
+    }
+
+    /**
+     * @api {post} /api/lots/:id/entries Create a new entry in the specified lot
+     * @apiName AddEntryToParkingLot
+     * @apiGroup ParkingLots
+     * @apiVersion 1.0.0
+     *
+     * @apiSuccess (201) {Entry} entry The created entry
+     * @apiError (404) {Int} status Status of the request
+     * @apiError (404) {String} message String containing the error
+     * @apiError (406) {Int} status Status of the request
+     * @apiError (406) {String} message String containing the error
+     */
+    public function addEntry(string $parkingLotId, EntryRepository $entryRepository): JsonResponse {
+        try {
+            $entry = $entryRepository->addToParkingLot((int) $parkingLotId);
+        }
+        catch (HttpException $e) {
+            return $this->handleException($e);
+        }
+
+        return new JsonResponse(
+            [
+                'entry' => $entry,
+            ]
+            , Response::HTTP_CREATED
         );
     }
 }

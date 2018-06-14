@@ -3,10 +3,14 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Parking\Entry;
 use Parking\ParkingLot;
 use Parking\User;
 use Tests\TestCase;
 
+/**
+ * @coversDefaultClass \Parking\Http\Controllers\ParkingLotController
+ */
 class ParkingLotTest extends TestCase {
 
     use RefreshDatabase;
@@ -42,5 +46,4 @@ class ParkingLotTest extends TestCase {
         $response->assertStatus(200);
         $response->assertJsonCount(static::LOTS_COUNT, 'lots');
     }
-
 }

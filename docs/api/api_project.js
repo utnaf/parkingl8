@@ -1,0 +1,1 @@
+define({  "title": "Apidoc for Parkingl8",  "version": "1.0.0",  "description": "Here the doc for the API",  "name": "Parkingl8",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2018-06-14T16:45:39.476Z",    "url": "http://apidocjs.com",    "version": "0.17.6"  }});

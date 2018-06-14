@@ -4,9 +4,13 @@ declare(strict_types=1);
 namespace Parking\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Parking\Entry;
 use Parking\Service\FreeSpotsService;
+use Parking\Service\Validators\ValidatorFactory;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,7 +27,7 @@ class EntryRepository {
         FreeSpotsService $freeSpotsService
     ) {
         $this->parkingLotRepository = $parkingLotRepository;
-        $this->freeSpotsService = $freeSpotsService;
+        $this->freeSpotsService     = $freeSpotsService;
     }
 
     /**
@@ -43,7 +47,7 @@ class EntryRepository {
         }
 
         throw new NotFoundHttpException(
-            sprintf("Can't find a ParkingLot with id of %d", $id)
+            sprintf('Can\'t find a ParkingLot with id of %d', $id)
         );
     }
 
@@ -56,12 +60,49 @@ class EntryRepository {
         $parkingLot = $this->parkingLotRepository->getById($parkingLotId);
 
         //notice: we can probably go into some race condition here, consider locking tables
-        if(!$this->freeSpotsService->areThereFreeSpots($parkingLot)) {
+        if (!$this->freeSpotsService->areThereFreeSpots($parkingLot)) {
             throw new NotAcceptableHttpException(
-                sprintf("ParkingLot %d does not have any free spot", $parkingLotId)
+                sprintf('ParkingLot %d does not have any free spot', $parkingLotId)
             );
         }
 
         return $parkingLot->entries()->create();
+    }
+
+    /**
+     * @throws BadRequestHttpException
+     * @throws NotFoundHttpException
+     * @throws HttpException
+     */
+    public function updateFields(int $id, array $data): Entry {
+        $entry = Entry::find($id);
+
+        if (!$entry instanceof Entry) {
+            throw new NotFoundHttpException(
+                sprintf('Can\'t find an entry with id %d', $id)
+            );
+        }
+
+        $field = key($data);
+        $validator = ValidatorFactory::getValidatorFromFieldName($field);
+        if(!$validator->pass($data)) {
+            throw new $validator->getException();
+        }
+
+        $value = current($data);
+        $entry->setAttribute($field, $value);
+        return $this->save($entry);
+    }
+
+    /** @throws HttpException */
+    private function save(Entry $entry): Entry {
+        if(!$entry->save()) {
+            throw new HttpException(
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                'Something bad Happened'
+            );
+        }
+
+        return $entry;
     }
 }

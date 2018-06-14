@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Parking\ParkingLot;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ParkingLotRepository {
+final class ParkingLotRepository {
 
     /** @return ParkingLot[] */
     public function getAll(): Collection {
@@ -23,7 +23,7 @@ class ParkingLotRepository {
         }
 
         throw new NotFoundHttpException(
-            sprintf("Can't find a ParkingLot with id of %d", $id)
+            sprintf('Can\'t find a ParkingLot with id %d', $id)
         );
     }
 }

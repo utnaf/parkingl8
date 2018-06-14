@@ -15,6 +15,7 @@ class ParkingLotController extends Controller {
      * @apiName GetParkingLots
      * @apiGroup ParkingLots
      * @apiVersion 1.0.0
+     * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (200) {ParkingLot[]} lots List of parking lots
      */
@@ -33,6 +34,7 @@ class ParkingLotController extends Controller {
      * @apiName GetParkingLot
      * @apiGroup ParkingLots
      * @apiVersion 1.0.0
+     * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (200) {ParkingLot} lot The requested parking lot
      * @apiError (404) {Int} status Status of the request
@@ -58,6 +60,7 @@ class ParkingLotController extends Controller {
      * @apiName GetParkingLotEntries
      * @apiGroup ParkingLots
      * @apiVersion 1.0.0
+     * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (200) {Entries[]} entries The list of the entries for a parking log
      * @apiError (404) {Int} status Status of the request
@@ -83,6 +86,7 @@ class ParkingLotController extends Controller {
      * @apiName AddEntryToParkingLot
      * @apiGroup ParkingLots
      * @apiVersion 1.0.0
+     * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (201) {Entry} entry The created entry
      * @apiError (404) {Int} status Status of the request

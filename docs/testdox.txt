@@ -19,3 +19,16 @@ Unit\Services\FreeSpotService
  [x] Given free spots it should return true
  [x] Given no free spots it should return false
 
+Unit\Services\Validators\PriceValidator
+ [x] Given a price it should return if it's correct or wrong in the right way correct price 1
+ [x] Given a price it should return if it's correct or wrong in the right way correct price 2
+ [x] Given a price it should return if it's correct or wrong in the right way correct price 3
+ [x] Given a price it should return if it's correct or wrong in the right way wrong price 1
+ [x] Given a price it should return if it's correct or wrong in the right way wrong price 2
+ [x] Given a price it should return if it's correct or wrong in the right way wrong price 3
+
+Unit\Services\Validators\ValidatorFactory
+ [x] Given a field it returns the correct class 
+ [x] Given a field it returns the correct class 
+ [x] Given a wrong field it throws the correct exception
+

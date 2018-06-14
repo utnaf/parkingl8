@@ -6,8 +6,7 @@ namespace Parking;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ParkingLot extends Model
-{
+final class ParkingLot extends Model {
     use SoftDeletes;
 
     /** @var int */
@@ -18,9 +17,14 @@ class ParkingLot extends Model
 
     /**
      * The fare is expressed in euros.
+     *
      * @var float
      */
     public $hourlyFare;
 
-    protected $dates = ['deleted_at','created_at','updated_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
+
+    public function entries() {
+        return $this->hasMany(Entry::class);
+    }
 }

@@ -4,10 +4,8 @@ declare(strict_types=1);
 namespace Parking\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Parking\Repositories\ParkingLotRepository;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class ParkingLotController extends Controller {
@@ -42,18 +40,21 @@ class ParkingLotController extends Controller {
     public function item(string $id, ParkingLotRepository $parkingLotRepository): JsonResponse {
         try {
             $lot = $parkingLotRepository->getById((int) $id);
-        } catch (ResourceNotFoundException $e) {
+        }
+        catch (ResourceNotFoundException $e) {
             return new JsonResponse(
                 [
-                    'status' => Response::HTTP_NOT_FOUND,
+                    'status'  => Response::HTTP_NOT_FOUND,
                     'message' => $e->getMessage(),
                 ],
                 Response::HTTP_NOT_FOUND
             );
         }
 
-        return new JsonResponse([
-            'lot' => $lot
-        ]);
+        return new JsonResponse(
+            [
+                'lot' => $lot,
+            ]
+        );
     }
 }

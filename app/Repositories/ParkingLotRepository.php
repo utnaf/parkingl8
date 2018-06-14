@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Parking\Repositories;
 
@@ -14,15 +15,14 @@ final class ParkingLotRepository {
 
     /** @throws ResourceNotFoundException */
     public function getById(int $id): ParkingLot {
-        $lot = ParkingLot::find($id);
+        $lot = ParkingLot::withCount('entries')->find($id);
 
         if ($lot instanceof ParkingLot) {
             return $lot;
         }
 
         throw new ResourceNotFoundException(
-            sprintf("Can't find ParkingLot with id of %d", $id)
+            sprintf("Can't find a ParkingLot with id of %d", $id)
         );
     }
-
 }

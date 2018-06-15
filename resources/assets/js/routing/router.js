@@ -4,7 +4,7 @@ require('vue').use(VueRouter);
 
 // components
 import lotList from '../components/LotListComponent.vue';
-import entriesList from '../components/EntriesListComponent.vue';
+import entriesList from '../components/EntryListComponent.vue';
 
 const routes = [
     {

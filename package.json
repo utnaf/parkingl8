@@ -20,6 +20,7 @@
         "lodash": "^4.17.4",
         "moment": "^2.22.2",
         "numeral": "^2.0.6",
+        "open-iconic": "^1.1.1",
         "popper.js": "^1.12",
         "vue": "^2.5.7",
         "vue-router": "^3.0.1",

@@ -17,16 +17,24 @@ $factory->define(
         // is the car in the garage?
         if ($faker->boolean(20)) {
             $arrivedAt = $faker->dateTimeBetween('-1 days', 'now');
-            $payedAt   = null;
-            $exitedAt  = null;
-            $price     = null;
+            if ($faker->boolean(10)) {
+                $payedAt    = $faker->dateTimeInInterval($arrivedAt, '+12 hours');
+                $hoursSpent = Carbon::createFromTimestamp($payedAt->getTimestamp())->diffInHours($arrivedAt);
+                $price      = (float) ($hoursSpent * $currentLot->hourly_fare);
+            }
+            else {
+                $payedAt = null;
+                $price   = null;
+            }
+
+            $exitedAt = null;
         }
         else {
             $arrivedAt  = $faker->dateTimeBetween('-20 days', '-2 days');
             $payedAt    = $faker->dateTimeInInterval($arrivedAt, '+1 days');
             $exitedAt   = $faker->dateTimeInInterval($payedAt, '+8 minutes');
-            $hoursSpent = Carbon::createFromTimestamp($exitedAt->getTimestamp())->diffInHours();
-            $price      = $hoursSpent * $currentLot->hourlyFare;
+            $hoursSpent = Carbon::createFromTimestamp($payedAt->getTimestamp())->diffInHours($arrivedAt);
+            $price      = (float) ($hoursSpent * $currentLot->hourly_fare);
         }
 
         return [

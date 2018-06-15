@@ -42,7 +42,7 @@ class EntryRepository {
     public function getByParkingLotId(int $parkingLotId): Collection {
         return $this->parkingLotRepository->getById($parkingLotId)->entries()
             ->orderBy('exited_at', 'asc')
-            ->orderBy('payed_at', 'desc')
+            ->orderBy('payed_at', 'asc')
             ->orderBy('arrived_at', 'asc')
             ->get();
     }

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/utnaf/parkingl8.svg?branch=master)](https://travis-ci.org/utnaf/parkingl8)
+
 # ParkingL8
 
 Resources:

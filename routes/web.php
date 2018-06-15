@@ -18,5 +18,6 @@ Route::middleware('auth')->prefix('api')->group( function() {
     Route::post('lots/{id}/entries', 'ParkingLotController@addEntry');
 
     Route::get('entries/{id}', 'EntriesController@show');
+    Route::get('entries/{id}/price', 'EntriesController@price');
     Route::patch('entries/{id}', 'EntriesController@update');
 });

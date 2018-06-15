@@ -3,6 +3,7 @@
 use Faker\Generator as Faker;
 use Illuminate\Support\Carbon;
 use Parking\ParkingLot;
+use Parking\Service\PriceCalculatorService;
 
 $parkingLots = [];
 $factory->define(
@@ -18,9 +19,12 @@ $factory->define(
         if ($faker->boolean(20)) {
             $arrivedAt = $faker->dateTimeBetween('-1 days', 'now');
             if ($faker->boolean(10)) {
-                $payedAt    = $faker->dateTimeInInterval($arrivedAt, '+12 hours');
-                $hoursSpent = Carbon::createFromTimestamp($payedAt->getTimestamp())->diffInHours($arrivedAt);
-                $price      = (float) ($hoursSpent * $currentLot->hourly_fare);
+                $payedAt = $faker->dateTimeInInterval($arrivedAt, '+12 hours');
+                $price   =
+                    (new PriceCalculatorService)->calculate(
+                        Carbon::createFromTimestamp($arrivedAt->getTimestamp()),
+                        $currentLot->hourly_fare
+                    );
             }
             else {
                 $payedAt = null;
@@ -30,11 +34,14 @@ $factory->define(
             $exitedAt = null;
         }
         else {
-            $arrivedAt  = $faker->dateTimeBetween('-20 days', '-2 days');
-            $payedAt    = $faker->dateTimeInInterval($arrivedAt, '+1 days');
-            $exitedAt   = $faker->dateTimeInInterval($payedAt, '+8 minutes');
-            $hoursSpent = Carbon::createFromTimestamp($payedAt->getTimestamp())->diffInHours($arrivedAt);
-            $price      = (float) ($hoursSpent * $currentLot->hourly_fare);
+            $arrivedAt = $faker->dateTimeBetween('-20 days', '-2 days');
+            $payedAt   = $faker->dateTimeInInterval($arrivedAt, '+1 days');
+            $exitedAt  = $faker->dateTimeInInterval($payedAt, '+8 minutes');
+            $price     =
+                (new PriceCalculatorService)->calculate(
+                    Carbon::createFromTimestamp($arrivedAt->getTimestamp()),
+                    $currentLot->hourly_fare
+                );
         }
 
         return [

@@ -156,7 +156,7 @@ final class EntryRepositoryTest extends TestCase {
             'exited_at' => $exitedAt
         ]);
 
-        $this->assertEquals($exitedAt, $updatedEntry->exited_at);
+        $this->assertEquals($exitedAt->getTimestamp(), $updatedEntry->exited_at->getTimestamp());
     }
 
     /**

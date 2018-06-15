@@ -14,7 +14,8 @@
 
                     <form class="form-inline float-right">
                         <div class="form-check mb-2 mr-sm-2">
-                            <input class="form-check-input" type="checkbox" id="showOnlyCarsInLot" v-model="showOnlyCarsInLot">
+                            <input class="form-check-input" type="checkbox" id="showOnlyCarsInLot"
+                                   v-model="showOnlyCarsInLot">
                             <label class="form-check-label" for="showOnlyCarsInLot">
                                 Show only cars in the Lot
                             </label>
@@ -39,7 +40,7 @@
                     <td>{{ entry.arrived_at | formatDate('L') }} {{ entry.arrived_at | formatDate('LT') }}</td>
                     <td>{{ entry.payed_at ? entry.price : null | formatNumber }}</td>
                     <td><span class="oi oi-check" v-if="entry.exited_at !== null"></span></td>
-                    <td>
+                    <td align="right">
                         <entry-action :entry="entry"></entry-action>
                     </td>
                 </tr>
@@ -51,31 +52,31 @@
 </template>
 
 <script>
-import EntryAction from './EntryActionsComponent';
+    import EntryAction from './EntryActionsComponent';
 
-export default {
-    name: 'entry-list',
-    components: {
-        EntryAction
-    },
-    data: () => {
-        return {
-            showOnlyCarsInLot: true
-        }
-    },
-    created() {
-        window.axios.get(window.api.getEntries.replace(':id', this.$route.params.id))
-            .then(({data}) => {
-                this.$store.state.entries = data.entries;
-            });
-    },
-    computed: {
-        entries() {
-            return this.$store.state.entries;
+    export default {
+        name: 'entry-list',
+        components: {
+            EntryAction
         },
-        pageTitle() {
-            return 'Entries for ';
+        data: () => {
+            return {
+                showOnlyCarsInLot: true
+            }
+        },
+        created() {
+            window.axios.get(window.api.getEntries.replace(':id', this.$route.params.id))
+                .then(({data}) => {
+                    this.$store.state.entries = data.entries;
+                });
+        },
+        computed: {
+            entries() {
+                return this.$store.state.entries;
+            },
+            pageTitle() {
+                return 'Entries for ';
+            }
         }
     }
-}
 </script>

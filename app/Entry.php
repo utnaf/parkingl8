@@ -10,9 +10,9 @@ class Entry extends Model {
     /** @inheritdoc */
     public $timestamps = false;
 
-    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
+    protected $dates = ['arrived_at', 'exited_at', 'payed_at'];
 
-    public function post() {
+    public function parkingLot() {
         return $this->belongsTo(ParkingLot::class);
     }
 }

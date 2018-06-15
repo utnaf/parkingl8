@@ -5,7 +5,9 @@ namespace Parking\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Parking\Entry;
 use Parking\Repositories\EntryRepository;
+use Parking\Service\PriceCalculatorService;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class EntriesController extends Controller {
@@ -55,10 +57,40 @@ final class EntriesController extends Controller {
      */
     public function update(Request $request, string $id, EntryRepository $entryRepository): JsonResponse {
         try {
-            $entryRepository->updateFields((int) $id, $request->all());
+            $entry = $entryRepository->updateFields((int) $id, $request->all());
         }
         catch (HttpException $e) {
-
+            return $this->handleException($e);
         }
+
+        return new JsonResponse([
+            'entry' => $entry
+        ]);
+    }
+
+    /**
+     * @api {patch} /api/entries/:id/price Calculate the price for the requested entry
+     * @apiName GetEntryPrice
+     * @apiGroup Entries
+     * @apiVersion 1.0.0
+     * @apiParam (Query) {Int} id The entry id
+     *
+     * @apiSuccess (200) {Float} price The entry price
+     * @apiSuccess (304) {None} empty The response body is empty
+     * @apiError (404) {Int} status Status of the request
+     * @apiError (404) {String} message String containing the error
+     */
+    public function price(string $id, EntryRepository $entryRepository): JsonResponse {
+        try {
+            $entry = $entryRepository->getById((int) $id);
+            $price = (new PriceCalculatorService)->calculateForEntry($entry);
+        }
+        catch (HttpException $e) {
+            return $this->handleException($e);
+        }
+
+        return new JsonResponse([
+            'price' => $price
+        ]);
     }
 }

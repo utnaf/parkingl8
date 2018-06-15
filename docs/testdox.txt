@@ -23,6 +23,12 @@ Unit\Services\FreeSpotService
  [x] Given free spots it should return true
  [x] Given no free spots it should return false
 
+Unit\Services\PriceCalculatorService
+ [x] Given a starting date an a fare when I ask for the price then it returns the correct one 
+ [x] Given a starting date an a fare when I ask for the price then it returns the correct one 
+ [x] Given a starting date an a fare when I ask for the price then it returns the correct one 
+ [x] Given an entry with a price when I calculate then it throws the correct exception
+
 Unit\Services\Validators\PriceValidator
  [x] Given a price it should return if it's correct or wrong in the right way correct price 1
  [x] Given a price it should return if it's correct or wrong in the right way correct price 2

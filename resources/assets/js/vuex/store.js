@@ -11,6 +11,11 @@ export default new Vuex.Store({
         ]
     },
     mutations: {
+        updateEntryPrice(state, index, price) {
+            if(state.entries[index]) {
+                state.entries[index].price = price;
+            }
+        }
     }
 });
 

@@ -64966,7 +64966,13 @@ __webpack_require__(3).use(Vuex);
         lots: [],
         entries: []
     },
-    mutations: {}
+    mutations: {
+        updateEntryPrice: function updateEntryPrice(state, index, price) {
+            if (state.entries[index]) {
+                state.entries[index].price = price;
+            }
+        }
+    }
 }));
 
 /***/ }),
@@ -68837,11 +68843,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'entry-actions',
     props: ['entry'],
+    created: function created() {
+        this.tooltip('');
+    },
+
     computed: {
+        tooltipId: function tooltipId() {
+            return 'ttEntry' + this.entry.id;
+        },
         data: function data() {
             var result = {
                 isDisabled: true,
@@ -68850,10 +68864,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 buttonClass: 'btn-info'
             };
 
-            if (this.entry.payed_at === null) {
+            if (this.entry.price === null) {
                 result = {
                     isDisabled: false,
                     text: 'Pay',
+                    action: 'requestPrice',
+                    buttonClass: 'btn-success'
+                };
+            } else if (this.entry.payed_at === null) {
+                result = {
+                    isDisabled: false,
+                    text: 'Confirm',
                     action: 'pay',
                     buttonClass: 'btn-success'
                 };
@@ -68870,11 +68891,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        getStateEntryId: function getStateEntryId() {
+            return this.$store.state.entries.indexOf(this.entry);
+        },
+        tooltip: function tooltip(text) {
+            var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            var element = $('#' + this.tooltipId);
+            element.tooltip({
+                title: text,
+                placement: 'left'
+            });
+
+            if (action !== null) {
+                element.tooltip(action);
+            }
+        },
         requestPrice: function requestPrice() {
+            var _this = this;
+
             window.axios.get(window.api.getPrice.replace(':id', this.entry.id)).then(function (_ref) {
                 var data = _ref.data;
 
-                console.log(data.price);
+                _this.$store.commit('updateEntryPrice', _this.getStateEntryId(), data.price);
+                _this.tooltip('Price is ' + _this.$options.filters.formatNumber(data.price) + '. Click again to complete the payment', 'show');
             });
         },
         pay: function pay() {
@@ -68884,7 +68924,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log('Exit!');
         },
         doAction: function doAction(action) {
-            return action === 'exit' ? this.exit() : this.requestPrice();
+            switch (action) {
+                case 'exit':
+                    return this.exit();
+                case 'pay':
+                    return this.pay();
+                case 'requestPrice':
+                    return this.requestPrice();
+            }
         }
     }
 });
@@ -68902,7 +68949,11 @@ var render = function() {
     {
       staticClass: "btn btn-sm",
       class: _vm.data.buttonClass,
-      attrs: { type: "button", disabled: _vm.data.isDisabled },
+      attrs: {
+        type: "button",
+        id: _vm.tooltipId,
+        disabled: _vm.data.isDisabled
+      },
       on: {
         "~click": function($event) {
           _vm.doAction(_vm.data.action)
@@ -68977,6 +69028,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__);
+//
 //
 //
 //
@@ -69186,7 +69238,12 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("td", [_c("entry-action", { attrs: { entry: entry } })], 1)
+                  _c(
+                    "td",
+                    { attrs: { align: "right" } },
+                    [_c("entry-action", { attrs: { entry: entry } })],
+                    1
+                  )
                 ])
               : _vm._e()
           })

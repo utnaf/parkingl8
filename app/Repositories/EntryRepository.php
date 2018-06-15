@@ -40,7 +40,11 @@ class EntryRepository {
      * @throws NotFoundHttpException
      */
     public function getByParkingLotId(int $parkingLotId): Collection {
-        return $this->parkingLotRepository->getById($parkingLotId)->entries()->get();
+        return $this->parkingLotRepository->getById($parkingLotId)->entries()
+            ->orderBy('exited_at', 'asc')
+            ->orderBy('payed_at', 'desc')
+            ->orderBy('arrived_at', 'asc')
+            ->get();
     }
 
     /** @throws NotFoundHttpException */

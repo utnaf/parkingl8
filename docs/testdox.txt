@@ -9,6 +9,10 @@ Unit\Repositories\EntryRepository
  [x] When I ask ask for a non-existing item then it throws the correct exception
  [x] Given free space in the lot when I try to insert a new entry then it returns the new entry
  [x] Given no free space in the lot when I try to insert a new entry then it throws the correct exception
+ [x] Given a valid price it should update the entry with the price and payed_at timestamp
+ [x] Given a valid price and an entry with a price it should not update the entity
+ [x] Given a valid exit time it should update the entry with the exited_t timestamp
+ [x] Given a valid exit time and an entry without payed_tim it should not update the entry
 
 Unit\Repositories\ParkingLotRepository
  [x] Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot

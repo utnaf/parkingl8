@@ -22,12 +22,17 @@ class EntryRepository {
     /** @var FreeSpotsService */
     private $freeSpotsService;
 
+    /** @var ValidatorFactory */
+    private $validatorFactory;
+
     public function __construct(
         ParkingLotRepository $parkingLotRepository,
-        FreeSpotsService $freeSpotsService
+        FreeSpotsService $freeSpotsService,
+        ValidatorFactory $validatorFactory
     ) {
         $this->parkingLotRepository = $parkingLotRepository;
         $this->freeSpotsService     = $freeSpotsService;
+        $this->validatorFactory     = $validatorFactory;
     }
 
     /**
@@ -83,20 +88,21 @@ class EntryRepository {
             );
         }
 
-        $field = key($data);
-        $validator = ValidatorFactory::getValidatorFromFieldName($field);
-        if(!$validator->pass($data)) {
-            throw new $validator->getException();
+        $field     = key($data);
+        $validator = $this->validatorFactory->getValidatorFromFieldName($field);
+        if (!$validator->forEntry($entry)->pass($data)) {
+            throw $validator->getException();
         }
 
         $value = current($data);
         $entry->setAttribute($field, $value);
+
         return $this->save($entry);
     }
 
     /** @throws HttpException */
     private function save(Entry $entry): Entry {
-        if(!$entry->save()) {
+        if (!$entry->save()) {
             throw new HttpException(
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 'Something bad Happened'

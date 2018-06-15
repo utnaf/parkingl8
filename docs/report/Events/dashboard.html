@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /var/www/app/Providers</title>
+  <title>Dashboard for /var/www/app/Events</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -20,7 +20,7 @@
      <div class="col-md-12">
       <ol class="breadcrumb">
         <li><a href="../index.html">/var/www/app</a></li>
-        <li><a href="index.html">Providers</a></li>
+        <li><a href="index.html">Events</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -60,7 +60,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="BroadcastServiceProvider.php.html#8">Parking\Providers\BroadcastServiceProvider</a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -114,7 +113,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="BroadcastServiceProvider.php.html#15"><abbr title="Parking\Providers\BroadcastServiceProvider::boot">boot</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -161,7 +159,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,4], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -179,7 +177,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,8], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -229,7 +227,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"AppServiceProvider.php.html#10\">Parking\\Providers\\AppServiceProvider<\/a>"],[100,1,"<a href=\"AuthServiceProvider.php.html#8\">Parking\\Providers\\AuthServiceProvider<\/a>"],[0,1,"<a href=\"BroadcastServiceProvider.php.html#8\">Parking\\Providers\\BroadcastServiceProvider<\/a>"],[100,1,"<a href=\"EventServiceProvider.php.html#8\">Parking\\Providers\\EventServiceProvider<\/a>"],[100,4,"<a href=\"RouteServiceProvider.php.html#8\">Parking\\Providers\\RouteServiceProvider<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,3,"<a href=\"Models\/EntryObserver.php.html#9\">Parking\\Events\\Models\\EntryObserver<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -253,7 +251,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"AppServiceProvider.php.html#17\">Parking\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"AppServiceProvider.php.html#28\">Parking\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"AuthServiceProvider.php.html#24\">Parking\\Providers\\AuthServiceProvider::boot<\/a>"],[0,1,"<a href=\"BroadcastServiceProvider.php.html#15\">Parking\\Providers\\BroadcastServiceProvider::boot<\/a>"],[100,1,"<a href=\"EventServiceProvider.php.html#26\">Parking\\Providers\\EventServiceProvider::boot<\/a>"],[100,1,"<a href=\"RouteServiceProvider.php.html#24\">Parking\\Providers\\RouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"RouteServiceProvider.php.html#36\">Parking\\Providers\\RouteServiceProvider::map<\/a>"],[100,1,"<a href=\"RouteServiceProvider.php.html#52\">Parking\\Providers\\RouteServiceProvider::mapWebRoutes<\/a>"],[100,1,"<a href=\"RouteServiceProvider.php.html#66\">Parking\\Providers\\RouteServiceProvider::mapApiRoutes<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,3,"<a href=\"Models\/EntryObserver.php.html#11\">Parking\\Events\\Models\\EntryObserver::updating<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);

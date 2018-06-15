@@ -16,7 +16,7 @@ final class ValidatorFactoryTest extends TestCase {
      * @dataProvider provideFieldsAndClasses
      */
     public function testReturnsCorrectClass(string $field, string $expectedClass) {
-        $class = ValidatorFactory::getValidatorFromFieldName($field);
+        $class = (new ValidatorFactory)->getValidatorFromFieldName($field);
 
         $this->assertInstanceOf($expectedClass, $class);
     }
@@ -33,6 +33,6 @@ final class ValidatorFactoryTest extends TestCase {
      *@expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testThrowsException() {
-        ValidatorFactory::getValidatorFromFieldName('wrong field');
+        (new ValidatorFactory)->getValidatorFromFieldName('wrong field');
     }
 }

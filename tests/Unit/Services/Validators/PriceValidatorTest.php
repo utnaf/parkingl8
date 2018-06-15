@@ -3,19 +3,33 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services\Validators;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Parking\Entry;
+use Parking\ParkingLot;
 use Parking\Service\Validators\PriceValidator;
 use Tests\TestCase;
 
 /** @coversDefaultClass \Parking\Service\Validators\PriceValidator */
 final class PriceValidatorTest extends TestCase {
 
+    use RefreshDatabase;
+
     /**
      * @testdox Given a price it should return if it's correct or wrong in the right way
      * @dataProvider providePriceAndResult
      */
     public function testPriceValidation($price, bool $expectedBeahaviour) {
+        factory(ParkingLot::class, 1)->create([
+            'capacity' => 10
+        ]);
+        $entry = factory(Entry::class)->create([
+            'exited_at' => null,
+            'price' => null,
+            'payed_at' => null,
+        ]);
+
         $validator = new PriceValidator;
-        $this->assertEquals($expectedBeahaviour, $validator->pass(['price' => $price]));
+        $this->assertEquals($expectedBeahaviour, $validator->forEntry($entry)->pass(['price' => $price]));
     }
 
     public function providePriceAndResult() {

@@ -41,6 +41,10 @@
             <li style="color: #555753;">✓ When I ask ask for a non-existing item then it throws the correct exception</li>
             <li style="color: #555753;">✓ Given free space in the lot when I try to insert a new entry then it returns the new entry</li>
             <li style="color: #555753;">✓ Given no free space in the lot when I try to insert a new entry then it throws the correct exception</li>
+            <li style="color: #555753;">✓ Given a valid price it should update the entry with the price and payed_at timestamp</li>
+            <li style="color: #555753;">✓ Given a valid price and an entry with a price it should not update the entity</li>
+            <li style="color: #555753;">✓ Given a valid exit time it should update the entry with the exited_t timestamp</li>
+            <li style="color: #555753;">✓ Given a valid exit time and an entry without payed_tim it should not update the entry</li>
         </ul>
         <h2 id="Tests\Unit\Repositories\ParkingLotRepositoryTest">Unit\Repositories\ParkingLotRepository</h2>
         <ul>

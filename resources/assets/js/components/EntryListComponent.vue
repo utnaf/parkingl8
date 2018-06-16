@@ -5,6 +5,8 @@
 
         <div class="card-body">
 
+            <message-alert></message-alert>
+
             <div class="row py-2">
                 <div class="col-sm">
                     <router-link :to="{name: 'dashboard'}" class="btn btn-primary">
@@ -53,11 +55,13 @@
 
 <script>
     import EntryAction from './EntryActionsComponent';
+    import MessageAlert from './MessageAlertComponent';
 
     export default {
         name: 'entry-list',
         components: {
-            EntryAction
+            EntryAction,
+            MessageAlert
         },
         data: () => {
             return {

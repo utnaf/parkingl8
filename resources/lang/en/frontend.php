@@ -17,4 +17,5 @@ return [
     'hourly_fare' => 'Hourly Fare',
     'capacity' => 'Capacity',
     'parking_lots_title' => 'Parking Lots',
+    'entry_is_archived' => 'Car exit was completed succesfully'
 ];

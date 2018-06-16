@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import moment from 'moment';
+    import moment from 'moment-timezone';
 
     export default {
         name: 'entry-actions',
@@ -120,6 +120,10 @@
                         exited_at: moment().format('YYYY-MM-DD HH:mm:ss')
                     }
                 ).then(({data}) => {
+                    this.$eventHub.$emit('show-dialog', {
+                        className: 'alert-success',
+                        text: this.$options.filters.translate('entry_is_archived')
+                    });
                     this.isSubmitting = false;
                     this.$store.commit('updateEntry', {
                         index: this.getStateEntryIndex(),

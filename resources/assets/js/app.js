@@ -14,6 +14,7 @@ window.Vue = require('vue');
 import store from './vuex/store';
 import router from './routing/router';
 
+Vue.prototype.$eventHub = new Vue();
 const app = new Vue({
     el: '#app',
     store,

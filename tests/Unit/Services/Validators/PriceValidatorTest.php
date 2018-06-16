@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 /** @coversClass \Parking\Service\Validators\PriceValidator */
 final class PriceValidatorTest extends TestCase {
-
     use RefreshDatabase;
 
     /**

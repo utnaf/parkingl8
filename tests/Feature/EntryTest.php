@@ -79,7 +79,9 @@ final class EntryTest extends TestCase {
 
     /** @testdox Given a correct entry when I request to exit it should return 200 */
     public function testEntryExitOk() {
-        factory(ParkingLot::class)->create();
+        factory(ParkingLot::class)->create([
+            'threshold_minutes' => 10
+        ]);
         factory(Entry::class)->create([
             'exited_at' => null,
             'payed_at' => Carbon::now()->subMinutes('3'),
@@ -91,5 +93,23 @@ final class EntryTest extends TestCase {
         ]);
 
         $response->assertStatus(200);
+    }
+
+    /** @testdox Given a late exit_at when I request to exit it should return 406 */
+    public function testEntryExitNotOk() {
+        factory(ParkingLot::class)->create([
+            'threshold_minutes' => 10
+        ]);
+        factory(Entry::class)->create([
+            'exited_at' => null,
+            'payed_at' => Carbon::now()->subMinutes(11),
+            'price' => 3.44,
+        ]);
+
+        $response = $this->patch('/api/entries/1', [
+            'exited_at' => Carbon::now()
+        ]);
+
+        $response->assertStatus(406);
     }
 }

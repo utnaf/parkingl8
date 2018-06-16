@@ -21,7 +21,7 @@
                     <td>{{ lot.hourly_fare | formatNumber }}</td>
                     <td>{{ lot.taken_spots }}/{{ lot.capacity }}</td>
                     <td align="right">
-                        <a :href="'/lots/'+lot.id+'/edit'" class="btn btn-light btn-sm">
+                        <a :href="'/lots/'+lot.id" class="btn btn-light btn-sm">
                             <span class="oi oi-pencil"></span>
                         </a>
                     </td>

@@ -63370,6 +63370,20 @@ __webpack_require__(169);
 
 var numeral = __webpack_require__(164);
 
+numeral.register('locale', 'it', {
+    delimiters: {
+        thousands: '.',
+        decimal: ','
+    },
+    ordinal: function ordinal(number) {
+        return '°';
+    },
+    currency: {
+        symbol: '€'
+    }
+});
+
+numeral.locale(window.config.locale.current);
 __webpack_require__(2).filter("formatNumber", function (value) {
     var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '$0.00';
 
@@ -64668,7 +64682,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 var moment = __webpack_require__(0);
 
-moment.locale('it');
+moment.locale(window.config.locale.current);
 __webpack_require__(2).filter("formatDate", function (value) {
     var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'LLL';
 

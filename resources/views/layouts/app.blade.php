@@ -10,8 +10,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @if (isset($loadApp) && $loadApp)
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @if (isset($config))
+    <script>
+        window.config = @json($config);
+    </script>
+    @endif
+    @endif
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,12 +26,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    @if (isset($config))
-    <script>
-        window.config = @json($config);
-    </script>
-    @endif
 </head>
 <body>
     <div>

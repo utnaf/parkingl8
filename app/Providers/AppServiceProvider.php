@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Entry::observe(EntryObserver::class);
+        date_default_timezone_set(config('app.timezone'));
     }
 
     /**

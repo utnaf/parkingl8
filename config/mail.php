@@ -30,6 +30,7 @@ return [
     */
 
     'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'secret' => env('MAIL_SECRET'),
 
     /*
     |--------------------------------------------------------------------------

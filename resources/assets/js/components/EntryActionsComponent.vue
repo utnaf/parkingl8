@@ -94,6 +94,9 @@
                             ),
                             'show'
                         );
+                    })
+                    .catch(() => {
+                        this.isSubmitting = false;
                     });
             },
             pay() {
@@ -110,6 +113,9 @@
                         index: this.getStateEntryIndex(),
                         entry: data.entry
                     });
+                })
+                .catch(() => {
+                    this.isSubmitting = false;
                 });
             },
             exit() {
@@ -129,6 +135,9 @@
                         index: this.getStateEntryIndex(),
                         entry: data.entry
                     });
+                })
+                .catch(() => {
+                    this.isSubmitting = false;
                 });
             },
             doAction(action) {

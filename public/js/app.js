@@ -41355,11 +41355,22 @@ window.Vue = __webpack_require__(2);
 
 
 
+// global event handler
 Vue.prototype.$eventHub = new Vue();
+
+// axios handler
+axios.interceptors.response.use(null, function (error) {
+    Vue.prototype.$eventHub.$emit('show-dialog', {
+        className: 'alert-danger',
+        text: error.response.data.message
+    });
+    return Promise.reject(error);
+});
+
 var app = new Vue({
-  el: '#app',
-  store: __WEBPACK_IMPORTED_MODULE_0__vuex_store__["a" /* default */],
-  router: __WEBPACK_IMPORTED_MODULE_1__routing_router__["a" /* default */]
+    el: '#app',
+    store: __WEBPACK_IMPORTED_MODULE_0__vuex_store__["a" /* default */],
+    router: __WEBPACK_IMPORTED_MODULE_1__routing_router__["a" /* default */]
 });
 
 /***/ }),
@@ -69102,6 +69113,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     price: price
                 });
                 _this.tooltip(_this.$options.filters.translate('price_tooltip', _this.$options.filters.formatNumber(price)), 'show');
+            }).catch(function () {
+                _this.isSubmitting = false;
             });
         },
         pay: function pay() {
@@ -69119,6 +69132,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     index: _this2.getStateEntryIndex(),
                     entry: data.entry
                 });
+            }).catch(function () {
+                _this2.isSubmitting = false;
             });
         },
         exit: function exit() {
@@ -69139,6 +69154,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     index: _this3.getStateEntryIndex(),
                     entry: data.entry
                 });
+            }).catch(function () {
+                _this3.isSubmitting = false;
             });
         },
         doAction: function doAction(action) {
@@ -69465,9 +69482,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.text = data.text;
             this.className = data.className;
             this.isVisible = true;
+            window.scrollTo(0, 0);
             setTimeout(function () {
                 _this.isVisible = false;
-            }, 2000);
+            }, 4000);
         }
     }
 });

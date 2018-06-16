@@ -14,7 +14,18 @@ window.Vue = require('vue');
 import store from './vuex/store';
 import router from './routing/router';
 
+// global event handler
 Vue.prototype.$eventHub = new Vue();
+
+// axios handler
+axios.interceptors.response.use(null, (error) => {
+    Vue.prototype.$eventHub.$emit('show-dialog', {
+        className: 'alert-danger',
+        text: error.response.data.message
+    });
+    return Promise.reject(error);
+});
+
 const app = new Vue({
     el: '#app',
     store,

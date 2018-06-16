@@ -13,8 +13,8 @@ final class PayedValidator extends ValidatorAbstract {
     }
 
     public function getException(): HttpException {
-        throw new NotAcceptableHttpException(
-            __('error.e_not_payed')
+        return new NotAcceptableHttpException(
+            __('errors.e_not_payed')
         );
     }
 }

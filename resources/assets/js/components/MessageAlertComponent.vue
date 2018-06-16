@@ -25,9 +25,10 @@
                 this.text = data.text;
                 this.className = data.className;
                 this.isVisible = true;
+                window.scrollTo(0, 0);
                 setTimeout(() => {
                     this.isVisible = false;
-                }, 2000);
+                }, 4000);
             }
         }
     }

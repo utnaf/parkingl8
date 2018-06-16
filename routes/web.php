@@ -12,6 +12,11 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 Route::get('/locale/{locale}', 'HomeController@locale')->name('locale');
 
+// lots
+Route::get('/lots/{id}/edit', 'ParkingLotController@edit')->name('lot.edit');
+Route::post('/lots/{id}', 'ParkingLotController@save')->name('lot.update');
+
+// api
 Route::middleware('auth')->prefix('api')->group( function() {
     Route::get('lots', 'ParkingLotController@index');
     Route::get('lots/{id}', 'ParkingLotController@show');

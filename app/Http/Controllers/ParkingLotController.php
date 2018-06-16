@@ -4,12 +4,18 @@ declare(strict_types=1);
 namespace Parking\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Parking\Repositories\ParkingLotRepository;
+use Parking\Service\Validators\ValidationTrait;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ParkingLotController extends Controller {
+    use ValidationTrait;
+
     /**
      * @api {get} /api/lots Request parking lots list
      * @apiName GetParkingLots
@@ -155,5 +161,33 @@ class ParkingLotController extends Controller {
             ]
             , Response::HTTP_CREATED
         );
+    }
+
+    public function edit(string $parkingLotId, ParkingLotRepository $parkingLotRepository) {
+        try {
+            $lot = $parkingLotRepository->getById((int) $parkingLotId);
+        } catch (NotFoundHttpException $e) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
+        return view('lots.edit', [
+            'lot' => $lot
+        ]);
+    }
+
+    public function save(Request $request, string $parkingLotId, ParkingLotRepository $parkingLotRepository) {
+        try {
+            $lot = $parkingLotRepository->getById((int) $parkingLotId);
+
+            $validatedData = $request->validate(ParkingLot::VALIDATION_RULES);
+
+            $parkingLotRepository->update($lot, $validatedData);
+        } catch (NotFoundHttpException $e) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
+
+        return view('lots.edit', [
+            'lot' => $lot,
+            'success' => true
+        ]);
     }
 }

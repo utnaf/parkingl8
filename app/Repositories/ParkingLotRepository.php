@@ -35,4 +35,16 @@ final class ParkingLotRepository {
             sprintf('Can\'t find a ParkingLot with id %d', $id)
         );
     }
+
+    /** @throws NotFoundHttpException */
+    public function update(ParkingLot $lot, array $newData) {
+        $lot->name = $newData['name'];
+        $lot->hourly_fare = (float) $newData['hourly_fare'];
+        $lot->capacity = (int) $newData['capacity'];
+        $lot->threshold_minutes = (int) $newData['threshold_minutes'];
+
+        $lot->save();
+
+        return $lot;
+    }
 }

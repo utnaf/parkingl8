@@ -19,5 +19,6 @@ return [
     'hourly_fare' => 'Tariffa oraria',
     'capacity' => 'Capacità',
     'parking_lots_title' => 'Garage',
-    'entry_is_archived' => 'L\'auto è uscita con successo'
+    'entry_is_archived' => 'L\'auto è uscita con successo',
+    'threshold_minutes' => 'Limite per uscita (in minuti)'
 ];

@@ -68744,6 +68744,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'lot-list',
@@ -68785,7 +68791,9 @@ var render = function() {
             _vm._v(" "),
             _c("th", [_vm._v(_vm._s(_vm._f("translate")("hourly_fare")))]),
             _vm._v(" "),
-            _c("th", [_vm._v(_vm._s(_vm._f("translate")("capacity")))])
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("capacity")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(" ")])
           ])
         ]),
         _vm._v(" "),
@@ -68813,6 +68821,17 @@ var render = function() {
               _vm._v(" "),
               _c("td", [
                 _vm._v(_vm._s(lot.taken_spots) + "/" + _vm._s(lot.capacity))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { align: "right" } }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-light btn-sm",
+                    attrs: { href: "/lots/" + lot.id + "/edit" }
+                  },
+                  [_c("span", { staticClass: "oi oi-pencil" })]
+                )
               ])
             ])
           })

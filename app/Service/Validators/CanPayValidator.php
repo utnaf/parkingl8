@@ -6,7 +6,7 @@ namespace Parking\Service\Validators;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class PayingValidator extends ValidatorAbstract {
+class CanPayValidator extends ValidatorAbstract {
 
     public function pass(array $data): bool {
         return $this->entry->payed_at === null

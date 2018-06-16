@@ -7,11 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Parking\Entry;
 use Parking\ParkingLot;
-use Parking\Service\Validators\PayingValidator;
+use Parking\Service\Validators\CanPayValidator;
 use Tests\TestCase;
 
-/** @coversDefaultClass \Parking\Service\Validators\PayingValidator */
-final class PayingValidatorTest extends TestCase {
+/** @coversDefaultClass \Parking\Service\Validators\CanPayValidator */
+final class CanPayValidatorTest extends TestCase {
     use RefreshDatabase;
 
     /**
@@ -28,7 +28,7 @@ final class PayingValidatorTest extends TestCase {
             ]
         );
 
-        $validator = new PayingValidator;
+        $validator = new CanPayValidator;
         $this->assertFalse(
             $validator
                 ->forEntry($entry)

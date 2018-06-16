@@ -34,7 +34,7 @@ final class ExitedAtValidatorTest extends TestCase {
             $validator
                 ->forEntry($entry)
                 ->pass([
-                    'exited_at' => new Carbon($dateString, config('app.timezone'))
+                    'exited_at' => (new Carbon($dateString, config('app.timezone')))->format('Y-m-d H:i:s')
                 ])
         );
     }

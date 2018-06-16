@@ -17,7 +17,7 @@ class ValidatorFactory {
             case 'price':
                 return new Collection([
                     new PriceValidator,
-                    new PayingValidator
+                    new CanPayValidator
                 ]);
             case 'exited_at':
                 return new Collection([

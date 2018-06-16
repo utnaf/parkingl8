@@ -10,10 +10,17 @@ use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 final class ExitedAtValidator extends ValidatorAbstract {
 
     public function pass(array $data): bool {
-        return $data['exited_at'] instanceof \DateTime
+        try {
+            $carbonData = Carbon::createFromTimeString($data['exited_at']);
+        }
+        catch (\InvalidArgumentException $e) {
+            return false;
+        }
+
+        return $carbonData instanceof Carbon
             && Carbon::now()
                 ->addMinutes($this->entry->parkingLot()->first()->threshold_minutes)
-                ->diffInMinutes($data['exited_at'], false) <= 0;
+                ->diffInMinutes($carbonData, false) <= 0;
     }
 
     public function getException(): HttpException {

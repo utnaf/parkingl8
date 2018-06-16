@@ -65019,12 +65019,23 @@ __webpack_require__(2).use(Vuex);
         entries: []
     },
     getters: {
+        // this is bad I know sorry sorry
         lot: function lot(state) {
             return function (id) {
                 return state.lots.filter(function (lot) {
                     return lot.id === id;
                 });
             };
+        },
+        notPayed: function notPayed(state) {
+            return state.entries.filter(function (entry) {
+                return entry.payed_at === null;
+            });
+        },
+        payedNotExit: function payedNotExit(state) {
+            return state.entries.filter(function (entry) {
+                return entry.payed_at !== null && entry.exited_at === null;
+            });
         }
     },
     mutations: {
@@ -68932,6 +68943,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -68944,7 +68969,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            showOnlyCarsInLot: true
+            listFilter: 'inside'
         };
     },
     created: function created() {
@@ -68959,7 +68984,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         entries: function entries() {
-            return this.$store.state.entries;
+            var entriesToShow = this.$store.state.entries;
+
+            if (this.listFilter === 'payed') {
+                entriesToShow = this.$store.getters.payedNotExit;
+            }
+            if (this.listFilter === 'inside') {
+                entriesToShow = this.$store.getters.notPayed;
+            }
+
+            return entriesToShow;
         }
     }
 });
@@ -69249,43 +69283,25 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("form", { staticClass: "form-inline float-right" }, [
-                _c("div", { staticClass: "form-check mb-2 mr-sm-2" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.showOnlyCarsInLot,
-                        expression: "showOnlyCarsInLot"
+                        value: _vm.listFilter,
+                        expression: "listFilter"
                       }
                     ],
                     staticClass: "form-check-input",
-                    attrs: { type: "checkbox", id: "showOnlyCarsInLot" },
+                    attrs: { type: "radio", id: "entryListFilterAll" },
                     domProps: {
-                      checked: Array.isArray(_vm.showOnlyCarsInLot)
-                        ? _vm._i(_vm.showOnlyCarsInLot, null) > -1
-                        : _vm.showOnlyCarsInLot
+                      value: "all",
+                      checked: _vm._q(_vm.listFilter, "all")
                     },
                     on: {
                       change: function($event) {
-                        var $$a = _vm.showOnlyCarsInLot,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              (_vm.showOnlyCarsInLot = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.showOnlyCarsInLot = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.showOnlyCarsInLot = $$c
-                        }
+                        _vm.listFilter = "all"
                       }
                     }
                   }),
@@ -69294,12 +69310,90 @@ var render = function() {
                     "label",
                     {
                       staticClass: "form-check-label",
-                      attrs: { for: "showOnlyCarsInLot" }
+                      attrs: { for: "entryListFilterAll" }
                     },
                     [
                       _vm._v(
                         "\n                            " +
-                          _vm._s(_vm._f("translate")("show_cars_in_lot")) +
+                          _vm._s(_vm._f("translate")("show_all")) +
+                          "\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.listFilter,
+                        expression: "listFilter"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "entryListFilterPayed" },
+                    domProps: {
+                      value: "payed",
+                      checked: _vm._q(_vm.listFilter, "payed")
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.listFilter = "payed"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "entryListFilterPayed" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm._f("translate")("show_only_payed")) +
+                          "\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.listFilter,
+                        expression: "listFilter"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "entryListFilterIn" },
+                    domProps: {
+                      value: "inside",
+                      checked: _vm._q(_vm.listFilter, "inside")
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.listFilter = "inside"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "entryListFilterIn" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm._f("translate")("show_only_inside")) +
                           "\n                        "
                       )
                     ]
@@ -69329,43 +69423,40 @@ var render = function() {
           _c(
             "tbody",
             _vm._l(_vm.entries, function(entry) {
-              return !_vm.showOnlyCarsInLot ||
-                (_vm.showOnlyCarsInLot && entry.exited_at === null)
-                ? _c("tr", [
-                    _c("td", [_vm._v(_vm._s(entry.id))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(_vm._f("formatDate")(entry.arrived_at, "L")) +
-                          " " +
-                          _vm._s(_vm._f("formatDate")(entry.arrived_at, "LT"))
+              return _c("tr", [
+                _c("td", [_vm._v(_vm._s(entry.id))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(_vm._f("formatDate")(entry.arrived_at, "L")) +
+                      " " +
+                      _vm._s(_vm._f("formatDate")(entry.arrived_at, "LT"))
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(
+                      _vm._f("formatNumber")(
+                        entry.payed_at ? entry.price : null
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(
-                          _vm._f("formatNumber")(
-                            entry.payed_at ? entry.price : null
-                          )
-                        )
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      entry.exited_at !== null
-                        ? _c("span", { staticClass: "oi oi-check" })
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { attrs: { align: "right" } },
-                      [_c("entry-action", { attrs: { entry: entry } })],
-                      1
                     )
-                  ])
-                : _vm._e()
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  entry.exited_at !== null
+                    ? _c("span", { staticClass: "oi oi-check" })
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { attrs: { align: "right" } },
+                  [_c("entry-action", { attrs: { entry: entry } })],
+                  1
+                )
+              ])
             })
           )
         ])

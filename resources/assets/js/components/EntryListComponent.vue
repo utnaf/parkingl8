@@ -15,11 +15,25 @@
                     </router-link>
 
                     <form class="form-inline float-right">
-                        <div class="form-check mb-2 mr-sm-2">
-                            <input class="form-check-input" type="checkbox" id="showOnlyCarsInLot"
-                                   v-model="showOnlyCarsInLot">
-                            <label class="form-check-label" for="showOnlyCarsInLot">
-                                {{ 'show_cars_in_lot' | translate }}
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="listFilter" id="entryListFilterAll"
+                                   :value="'all'">
+                            <label class="form-check-label" for="entryListFilterAll">
+                                {{ 'show_all' | translate }}
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="listFilter" id="entryListFilterPayed"
+                                   :value="'payed'">
+                            <label class="form-check-label" for="entryListFilterPayed">
+                                {{ 'show_only_payed' | translate }}
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="listFilter" id="entryListFilterIn"
+                                   :value="'inside'">
+                            <label class="form-check-label" for="entryListFilterIn">
+                                {{ 'show_only_inside' | translate }}
                             </label>
                         </div>
                     </form>
@@ -37,7 +51,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="entry in entries" v-if="!showOnlyCarsInLot || showOnlyCarsInLot && entry.exited_at === null">
+                <tr v-for="entry in entries">
                     <td>{{ entry.id }}</td>
                     <td>{{ entry.arrived_at | formatDate('L') }} {{ entry.arrived_at | formatDate('LT') }}</td>
                     <td>{{ entry.payed_at ? entry.price : null | formatNumber }}</td>
@@ -65,7 +79,7 @@
         },
         data: () => {
             return {
-                showOnlyCarsInLot: true
+                listFilter: 'inside'
             }
         },
         created() {
@@ -76,7 +90,16 @@
         },
         computed: {
             entries() {
-                return this.$store.state.entries;
+                let entriesToShow = this.$store.state.entries;
+
+                if(this.listFilter === 'payed') {
+                    entriesToShow = this.$store.getters.payedNotExit
+                }
+                if(this.listFilter === 'inside') {
+                    entriesToShow = this.$store.getters.notPayed
+                }
+
+                return entriesToShow;
             }
         }
     }

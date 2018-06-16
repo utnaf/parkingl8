@@ -9,7 +9,7 @@ use Parking\ParkingLot;
 use Parking\Service\Validators\PriceValidator;
 use Tests\TestCase;
 
-/** @coversDefaultClass \Parking\Service\Validators\PriceValidator */
+/** @coversClass \Parking\Service\Validators\PriceValidator */
 final class PriceValidatorTest extends TestCase {
 
     use RefreshDatabase;

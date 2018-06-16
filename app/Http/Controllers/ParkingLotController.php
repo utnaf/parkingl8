@@ -18,6 +18,18 @@ class ParkingLotController extends Controller {
      * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (200) {ParkingLot[]} lots List of parking lots
+     * @apiSuccessExample {json} Success Response
+     *      {
+     *        "lots": [
+     *          {
+     *            "id": 1,
+     *            "name": "Paucek Inc",
+     *            "hourly_fare": 0.85,
+     *            "capacity": 626,
+     *            "taken_spots": 46
+     *          }
+     *        ]
+     *      }
      */
     public function index(ParkingLotRepository $parkingLotRepository): JsonResponse {
         $lots = $parkingLotRepository->getAll();
@@ -37,6 +49,16 @@ class ParkingLotController extends Controller {
      * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (200) {ParkingLot} lot The requested parking lot
+     * @apiSuccessExample {json} Success Response
+     *      {
+     *        "lot": {
+     *          "id": 1,
+     *          "name": "Paucek Inc",
+     *          "hourly_fare": 0.85,
+     *          "capacity": 626,
+     *          "taken_spots": 46
+     *        }
+     *      }
      * @apiError (404) {Int} status Status of the request
      * @apiError (404) {String} message String containing the error
      */
@@ -63,6 +85,19 @@ class ParkingLotController extends Controller {
      * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (200) {Entries[]} entries The list of the entries for a parking log
+     * @apiSuccessExample {json} Success Response
+     *      {
+     *        "entries": [
+     *          {
+     *            "id": 578,
+     *            "parking_lot_id": 1,
+     *            "arrived_at": "2018-06-02 03:05:47",
+     *            "payed_at": "2018-06-02 09:57:37",
+     *            "exited_at": "2018-06-02 10:03:49",
+     *            "price": 280.43
+     *          }
+     *        ]
+     *      }
      * @apiError (404) {Int} status Status of the request
      * @apiError (404) {String} message String containing the error
      */
@@ -89,6 +124,17 @@ class ParkingLotController extends Controller {
      * @apiParam (Query) {Int} id The ParkingLot id
      *
      * @apiSuccess (201) {Entry} entry The created entry
+     * @apiSuccessExample {json} Success Response
+     *      {
+     *        "entry": {
+     *          "id": 578,
+     *          "parking_lot_id": 1,
+     *          "arrived_at": "2018-06-02 03:05:47",
+     *          "payed_at": "2018-06-02 09:57:37",
+     *          "exited_at": "2018-06-02 10:03:49",
+     *          "price": 280.43
+     *        }
+     *      }
      * @apiError (404) {Int} status Status of the request
      * @apiError (404) {String} message String containing the error
      * @apiError (406) {Int} status Status of the request
@@ -97,6 +143,7 @@ class ParkingLotController extends Controller {
     public function addEntry(string $parkingLotId, EntryRepository $entryRepository): JsonResponse {
         try {
             $entry = $entryRepository->addToParkingLot((int) $parkingLotId);
+            $entry->refresh();
         }
         catch (HttpException $e) {
             return $this->handleException($e);

@@ -11,6 +11,8 @@ final class ParkingLot extends Model {
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
+
     public function entries() {
         return $this->hasMany(Entry::class);
     }

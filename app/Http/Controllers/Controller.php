@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Parking\Http\Controllers;
 
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/** @codeCoverageIgnore */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

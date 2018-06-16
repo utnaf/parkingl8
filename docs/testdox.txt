@@ -1,7 +1,22 @@
+Feature\Auth
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET lots
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET single lot
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET lot entries
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login POST entry
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET entry
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET entry price
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login PATH entry
+
+Feature\Entry
+ [x] Given a logged in user when I request GET /api/entries/:id then it gives me the entry with the expected structure
+ [x] Given a logged in user when I request PATCH /api/entries/:id then it gives me the updated entry with the expected structure
+ [x] Given a logged in user when I request GET /api/entries/:id/price then it gives me the price for the entry
+
 Feature\ParkingLot
- [x] Given an anonymous user when I visit the api paths then I get redirected to the login 
- [x] Given an anonymous user when I visit the api paths then I get redirected to the login 
- [x] Ok if logged in
+ [x] Given a logged in user when I request GET /api/lots then it gives me the lots with the expected structure
+ [x] Given a logged in user when I request GET /api/lots/1 then it gives me the requested lot with the expected structure
+ [x] Given a logged in user when I request GET /api/lots/1/entries then it gives me the requested lot's entries with the expected structure
+ [x] Given a logged in user when I request GET /api/lots/1/entries then it gives me the requested lot's entries with the expected structure
 
 Unit\Repositories\EntryRepository
  [x] Given a DB with 10 items when I ask for all the items then it give a collection of 10 Entry
@@ -27,7 +42,12 @@ Unit\Services\PriceCalculatorService
  [x] Given a starting date an a fare when I ask for the price then it returns the correct one 
  [x] Given a starting date an a fare when I ask for the price then it returns the correct one 
  [x] Given a starting date an a fare when I ask for the price then it returns the correct one 
+ [x] Given a valid entry when I ask for the price then it returns the correct one
  [x] Given an entry with a price when I calculate then it throws the correct exception
+ [x] Given an invalida arrival date when I calculate the price then it thows the correct exception null
+ [x] Given an invalida arrival date when I calculate the price then it thows the correct exception future date
+ [x] Given an invalida arrival date when I calculate the price then it thows the correct exception null
+ [x] Given an invalida arrival date when I calculate the price then it thows the correct exception future date
 
 Unit\Services\Validators\PriceValidator
  [x] Given a price it should return if it's correct or wrong in the right way correct price 1

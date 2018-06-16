@@ -28,11 +28,28 @@
         </style>
     </head>
     <body>
+        <h2 id="Tests\Feature\AuthTest">Feature\Auth</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET lots</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET single lot</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET lot entries</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login POST entry</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET entry</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET entry price</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login PATH entry</li>
+        </ul>
+        <h2 id="Tests\Feature\EntryTest">Feature\Entry</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given a logged in user when I request GET /api/entries/:id then it gives me the entry with the expected structure</li>
+            <li style="color: #555753;">✓ Given a logged in user when I request PATCH /api/entries/:id then it gives me the updated entry with the expected structure</li>
+            <li style="color: #555753;">✓ Given a logged in user when I request GET /api/entries/:id/price then it gives me the price for the entry</li>
+        </ul>
         <h2 id="Tests\Feature\ParkingLotTest">Feature\ParkingLot</h2>
         <ul>
-            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login </li>
-            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login </li>
-            <li style="color: #555753;">✓ Ok if logged in</li>
+            <li style="color: #555753;">✓ Given a logged in user when I request GET /api/lots then it gives me the lots with the expected structure</li>
+            <li style="color: #555753;">✓ Given a logged in user when I request GET /api/lots/1 then it gives me the requested lot with the expected structure</li>
+            <li style="color: #555753;">✓ Given a logged in user when I request GET /api/lots/1/entries then it gives me the requested lot's entries with the expected structure</li>
+            <li style="color: #555753;">✓ Given a logged in user when I request GET /api/lots/1/entries then it gives me the requested lot's entries with the expected structure</li>
         </ul>
         <h2 id="Tests\Unit\Repositories\EntryRepositoryTest">Unit\Repositories\EntryRepository</h2>
         <ul>
@@ -62,7 +79,12 @@
             <li style="color: #555753;">✓ Given a starting date an a fare when I ask for the price then it returns the correct one </li>
             <li style="color: #555753;">✓ Given a starting date an a fare when I ask for the price then it returns the correct one </li>
             <li style="color: #555753;">✓ Given a starting date an a fare when I ask for the price then it returns the correct one </li>
+            <li style="color: #555753;">✓ Given a valid entry when I ask for the price then it returns the correct one</li>
             <li style="color: #555753;">✓ Given an entry with a price when I calculate then it throws the correct exception</li>
+            <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception null</li>
+            <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception future date</li>
+            <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception null</li>
+            <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception future date</li>
         </ul>
         <h2 id="Tests\Unit\Services\Validators\PriceValidatorTest">Unit\Services\Validators\PriceValidator</h2>
         <ul>

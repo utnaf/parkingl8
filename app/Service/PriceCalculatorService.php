@@ -17,10 +17,13 @@ final class PriceCalculatorService {
             throw new HttpException(Response::HTTP_NOT_MODIFIED, '');
         }
 
-        if (!$entry->arrived_at instanceof Carbon) {
+        if (
+            !$entry->arrived_at instanceof Carbon
+            || $entry->arrived_at > Carbon::now()
+        ) {
             throw new HttpException(
                 Response::HTTP_INTERNAL_SERVER_ERROR,
-                'Arrived date is null'
+                'Arrive time is not valid'
             );
         }
 
@@ -31,7 +34,7 @@ final class PriceCalculatorService {
             );
         }
 
-        return $this->calculate($entry->arrived_at, $lot->hourly_fare);
+        return $this->calculate($entry->arrived_at, (float) $lot->hourly_fare);
     }
 
     public function calculate(Carbon $arrivedAt, float $hourlyFare): float {

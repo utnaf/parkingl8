@@ -8,6 +8,10 @@ final class LocaleConfigurationProvider implements ConfigurationProvider {
 
     const NAME = 'locale';
 
+    const AVAILABLE_LOCALES = [
+        'it', 'en'
+    ];
+
     public function getConfigurationKey(): string {
         return static::NAME;
     }
@@ -15,9 +19,7 @@ final class LocaleConfigurationProvider implements ConfigurationProvider {
     public function getConfigurationValue(): array {
         return [
             'current' => App::getLocale(),
-            'available' => [
-                'it', 'en'
-            ],
+            'available' => static::AVAILABLE_LOCALES,
             'timezone' => config('app.timezone')
         ];
     }

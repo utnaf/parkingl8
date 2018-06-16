@@ -10,6 +10,7 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+Route::get('/locale/{locale}', 'HomeController@locale')->name('locale');
 
 Route::middleware('auth')->prefix('api')->group( function() {
     Route::get('lots', 'ParkingLotController@index');

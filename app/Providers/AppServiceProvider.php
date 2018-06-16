@@ -7,15 +7,14 @@ use Illuminate\Support\ServiceProvider;
 use Parking\Entry;
 use Parking\Events\Models\EntryObserver;
 
-class AppServiceProvider extends ServiceProvider
-{
+/** @codeCoverageIgnore */
+class AppServiceProvider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         Schema::defaultStringLength(191);
         Entry::observe(EntryObserver::class);
         date_default_timezone_set(config('app.timezone'));
@@ -26,8 +25,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         //
     }
 }

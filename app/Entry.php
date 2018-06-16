@@ -5,6 +5,7 @@ namespace Parking;
 
 use Illuminate\Database\Eloquent\Model;
 
+/** @codeCoverageIgnore */
 class Entry extends Model {
 
     /** @inheritdoc */

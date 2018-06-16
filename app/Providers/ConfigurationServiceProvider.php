@@ -8,13 +8,14 @@ use Parking\Service\Configuration\LanguageConfigurationProvider;
 use Parking\Service\Configuration\LocaleConfigurationProvider;
 use Parking\Service\ConfigurationService;
 
+/** @codeCoverageIgnore */
 final class ConfigurationServiceProvider extends ServiceProvider {
 
     public function register() {
         $this->app->singleton(
             ConfigurationService::class,
             function ($app) {
-                $configurationService = new ConfigurationService();
+                $configurationService = new ConfigurationService;
                 $configurationService->addProvider(new LanguageConfigurationProvider);
                 $configurationService->addProvider(new LocaleConfigurationProvider);
 

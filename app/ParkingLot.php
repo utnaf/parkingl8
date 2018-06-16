@@ -6,6 +6,7 @@ namespace Parking;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/** @codeCoverageIgnore */
 final class ParkingLot extends Model {
     use SoftDeletes;
 

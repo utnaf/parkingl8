@@ -4,6 +4,7 @@ namespace Parking\Service\Configuration;
 
 use Illuminate\Support\Facades\App;
 
+/** @codeCoverageIgnore */
 final class LocaleConfigurationProvider implements ConfigurationProvider {
 
     const NAME = 'locale';

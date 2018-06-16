@@ -6,6 +6,7 @@ namespace Parking\Service\Configuration;
 use Illuminate\Support\Facades\Lang;
 use Parking\Service\Configuration\ConfigurationProvider;
 
+/** @codeCoverageIgnore */
 final class LanguageConfigurationProvider implements ConfigurationProvider {
 
     const NAME = 'translations';

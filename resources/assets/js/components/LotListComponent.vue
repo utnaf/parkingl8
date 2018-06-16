@@ -1,15 +1,15 @@
 <template>
     <div class="card">
-        <div class="card-header">{{ pageTitle }}</div>
+        <div class="card-header">{{ 'parking_lots_title' | translate }}</div>
 
         <div class="card-body">
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Hourly Fare</th>
-                    <th>Capacity</th>
+                    <th>{{ 'name' | translate }}</th>
+                    <th>{{ 'hourly_fare' | translate }}</th>
+                    <th>{{ 'capacity' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,11 +30,6 @@
 <script>
     export default {
         name: 'lot-list',
-        data: () => {
-            return {
-                'pageTitle': 'My ParkingLots'
-            }
-        },
         created() {
             window.axios.get(window.api.getLots)
                 .then(({data}) => {

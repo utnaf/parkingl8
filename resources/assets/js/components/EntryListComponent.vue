@@ -1,7 +1,7 @@
 <template>
     <div class="card">
 
-        <div class="card-header">{{ pageTitle }}</div>
+        <div class="card-header">{{ 'entries_title' | translate }}</div>
 
         <div class="card-body">
 
@@ -9,7 +9,7 @@
                 <div class="col-sm">
                     <router-link :to="{name: 'dashboard'}" class="btn btn-primary">
                         <span class="oi oi-chevron-left"></span>
-                        Go back
+                        {{ 'go_back' | translate }}
                     </router-link>
 
                     <form class="form-inline float-right">
@@ -17,7 +17,7 @@
                             <input class="form-check-input" type="checkbox" id="showOnlyCarsInLot"
                                    v-model="showOnlyCarsInLot">
                             <label class="form-check-label" for="showOnlyCarsInLot">
-                                Show only cars in the Lot
+                                {{ 'show_cars_in_lot' | translate }}
                             </label>
                         </div>
                     </form>
@@ -27,10 +27,10 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Arrived at</th>
-                    <th>Has payed?</th>
-                    <th>Has gone?</th>
+                    <th>{{ 'id' | translate}}</th>
+                    <th>{{ 'arrived_at' | translate}}</th>
+                    <th>{{ 'has_payed_q' | translate}}</th>
+                    <th>{{ 'has_gone_q' | translate}}</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -73,9 +73,6 @@
         computed: {
             entries() {
                 return this.$store.state.entries;
-            },
-            pageTitle() {
-                return 'Entries for ';
             }
         }
     }

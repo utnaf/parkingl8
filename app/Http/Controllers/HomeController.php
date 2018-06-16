@@ -2,6 +2,8 @@
 
 namespace Parking\Http\Controllers;
 
+use Parking\Service\ConfigurationService;
+
 /** @codeCoverageIgnore */
 class HomeController extends Controller {
     /**
@@ -18,7 +20,12 @@ class HomeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        return view('dashboard');
+    public function index(ConfigurationService $configurationService) {
+        return view(
+            'dashboard',
+            [
+                'config' => $configurationService->get(),
+            ]
+        );
     }
 }

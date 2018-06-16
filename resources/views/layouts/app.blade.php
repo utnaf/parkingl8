@@ -19,6 +19,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @if (isset($config))
+    <script>
+        window.config = @json($config);
+    </script>
+    @endif
 </head>
 <body>
     <div>

@@ -4888,33 +4888,6 @@ module.exports = {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15877,7 +15850,34 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(165).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(165).setImmediate))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 4 */
@@ -18647,7 +18647,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
 /* 8 */
@@ -41328,7 +41328,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(139);
-module.exports = __webpack_require__(183);
+module.exports = __webpack_require__(184);
 
 
 /***/ }),
@@ -41337,8 +41337,8 @@ module.exports = __webpack_require__(183);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vuex_store__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routing_router__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vuex_store__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routing_router__ = __webpack_require__(173);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -41348,8 +41348,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(140);
 __webpack_require__(162);
-__webpack_require__(169);
-window.Vue = __webpack_require__(3);
+__webpack_require__(170);
+window.Vue = __webpack_require__(2);
 
 // plugins
 
@@ -58533,7 +58533,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(6)(module)))
 
 /***/ }),
 /* 142 */
@@ -63362,6 +63362,7 @@ module.exports = function spread(callback) {
 
 __webpack_require__(163);
 __webpack_require__(167);
+__webpack_require__(169);
 
 /***/ }),
 /* 163 */
@@ -63369,7 +63370,7 @@ __webpack_require__(167);
 
 var numeral = __webpack_require__(164);
 
-__webpack_require__(3).filter("formatNumber", function (value) {
+__webpack_require__(2).filter("formatNumber", function (value) {
     var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '$0.00';
 
     return value === null ? '' : numeral(value).format(format);
@@ -64466,7 +64467,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 166 */
@@ -64659,7 +64660,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(10)))
 
 /***/ }),
 /* 167 */
@@ -64668,7 +64669,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 var moment = __webpack_require__(0);
 
 moment.locale('it');
-__webpack_require__(3).filter("formatDate", function (value) {
+__webpack_require__(2).filter("formatDate", function (value) {
     var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'LLL';
 
     return moment(value).format(format);
@@ -64944,6 +64945,30 @@ webpackContext.id = 168;
 
 /***/ }),
 /* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+function replace(str, keys) {
+    for (var i = 0; i < keys.length; i++) {
+        str = str.replace('%', keys[i]);
+    }
+
+    return str;
+}
+
+__webpack_require__(2).filter("translate", function (str) {
+    if (window.config.hasOwnProperty('translations') && window.config.translations.hasOwnProperty(str)) {
+        for (var _len = arguments.length, keys = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            keys[_key - 1] = arguments[_key];
+        }
+
+        return replace(window.config.translations[str], keys);
+    }
+
+    return str;
+});
+
+/***/ }),
+/* 170 */
 /***/ (function(module, exports) {
 
 window.api = {
@@ -64954,17 +64979,26 @@ window.api = {
 };
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var Vuex = __webpack_require__(171);
-__webpack_require__(3).use(Vuex);
+var Vuex = __webpack_require__(172);
+__webpack_require__(2).use(Vuex);
 
 /* harmony default export */ __webpack_exports__["a"] = (new Vuex.Store({
     state: {
         lots: [],
         entries: []
+    },
+    getters: {
+        lot: function lot(state) {
+            return function (id) {
+                return state.lots.filter(function (lot) {
+                    return lot.id === id;
+                });
+            };
+        }
     },
     mutations: {
         updateEntryPrice: function updateEntryPrice(state, payload) {
@@ -64983,7 +65017,7 @@ __webpack_require__(3).use(Vuex);
 }));
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65929,18 +65963,18 @@ var index_esm = {
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_LotListComponent_vue__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_LotListComponent_vue__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_LotListComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_LotListComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue__);
 
 
-__webpack_require__(3).use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
+__webpack_require__(2).use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 // components
 
@@ -65961,7 +65995,7 @@ var routes = [{
 }));
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68591,15 +68625,15 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(5)
 /* script */
-var __vue_script__ = __webpack_require__(175)
+var __vue_script__ = __webpack_require__(176)
 /* template */
-var __vue_template__ = __webpack_require__(176)
+var __vue_template__ = __webpack_require__(177)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68638,7 +68672,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68675,11 +68709,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'lot-list',
-    data: function data() {
-        return {
-            'pageTitle': 'My ParkingLots'
-        };
-    },
     created: function created() {
         var _this = this;
 
@@ -68698,7 +68727,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -68706,11 +68735,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v(_vm._s(_vm.pageTitle))]),
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v(_vm._s(_vm._f("translate")("parking_lots_title")))
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("table", { staticClass: "table" }, [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("name")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("hourly_fare")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("capacity")))])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -68744,22 +68783,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Hourly Fare")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Capacity")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -68770,15 +68794,15 @@ if (false) {
 }
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(5)
 /* script */
-var __vue_script__ = __webpack_require__(178)
+var __vue_script__ = __webpack_require__(179)
 /* template */
-var __vue_template__ = __webpack_require__(182)
+var __vue_template__ = __webpack_require__(183)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68817,12 +68841,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__);
 //
 //
@@ -68903,23 +68927,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         entries: function entries() {
             return this.$store.state.entries;
-        },
-        pageTitle: function pageTitle() {
-            return 'Entries for ';
         }
     }
 });
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(5)
 /* script */
-var __vue_script__ = __webpack_require__(180)
+var __vue_script__ = __webpack_require__(181)
 /* template */
-var __vue_template__ = __webpack_require__(181)
+var __vue_template__ = __webpack_require__(182)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68958,7 +68979,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68997,7 +69018,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         data: function data() {
             var result = {
                 isDisabled: true,
-                text: 'No action',
+                text: this.$options.filters.translate('no_action'),
                 action: false,
                 buttonClass: 'btn-info'
             };
@@ -69005,21 +69026,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.entry.price === null) {
                 result = {
                     isDisabled: false,
-                    text: 'Pay',
+                    text: this.$options.filters.translate('pay'),
                     action: 'requestPrice',
                     buttonClass: 'btn-success'
                 };
             } else if (this.entry.payed_at === null) {
                 result = {
                     isDisabled: false,
-                    text: 'Confirm',
+                    text: this.$options.filters.translate('confirm'),
                     action: 'pay',
                     buttonClass: 'btn-success'
                 };
             } else if (this.entry.exited_at === null) {
                 result = {
                     isDisabled: false,
-                    text: 'Exit',
+                    text: this.$options.filters.translate('exit'),
                     action: 'exit',
                     buttonClass: 'btn-info'
                 };
@@ -69058,7 +69079,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     index: _this.getStateEntryIndex(),
                     price: price
                 });
-                _this.tooltip('Price is ' + _this.$options.filters.formatNumber(price) + '. Click again to complete the payment', 'show');
+                _this.tooltip(_this.$options.filters.translate('price_tooltip', _this.$options.filters.formatNumber(price)), 'show');
             });
         },
         pay: function pay() {
@@ -69108,7 +69129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69145,7 +69166,7 @@ if (false) {
 }
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69153,7 +69174,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v(_vm._s(_vm.pageTitle))]),
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v(_vm._s(_vm._f("translate")("entries_title")))
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row py-2" }, [
@@ -69169,7 +69192,11 @@ var render = function() {
               },
               [
                 _c("span", { staticClass: "oi oi-chevron-left" }),
-                _vm._v("\n                    Go back\n                ")
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm._f("translate")("go_back")) +
+                    "\n                "
+                )
               ]
             ),
             _vm._v(" "),
@@ -69222,7 +69249,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Show only cars in the Lot\n                        "
+                      "\n                            " +
+                        _vm._s(_vm._f("translate")("show_cars_in_lot")) +
+                        "\n                        "
                     )
                   ]
                 )
@@ -69234,7 +69263,19 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("table", { staticClass: "table" }, [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("id")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("arrived_at")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("has_payed_q")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm._f("translate")("has_gone_q")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(" ")])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -69282,26 +69323,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Arrived at")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Has payed?")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Has gone?")]),
-        _vm._v(" "),
-        _c("th", [_vm._v(" ")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -69312,7 +69334,7 @@ if (false) {
 }
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

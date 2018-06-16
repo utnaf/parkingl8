@@ -29,7 +29,7 @@
             data() {
                 let result = {
                     isDisabled: true,
-                    text: 'No action',
+                    text: this.$options.filters.translate('no_action'),
                     action: false,
                     buttonClass: 'btn-info',
                 };
@@ -37,7 +37,7 @@
                 if (this.entry.price === null) {
                     result = {
                         isDisabled: false,
-                        text: 'Pay',
+                        text: this.$options.filters.translate('pay'),
                         action: 'requestPrice',
                         buttonClass: 'btn-success',
                     };
@@ -45,7 +45,7 @@
                 else if (this.entry.payed_at === null) {
                     result = {
                         isDisabled: false,
-                        text: 'Confirm',
+                        text: this.$options.filters.translate('confirm'),
                         action: 'pay',
                         buttonClass: 'btn-success',
                     };
@@ -53,7 +53,7 @@
                 else if (this.entry.exited_at === null) {
                     result = {
                         isDisabled: false,
-                        text: 'Exit',
+                        text: this.$options.filters.translate('exit'),
                         action: 'exit',
                         buttonClass: 'btn-info',
                     };
@@ -88,7 +88,10 @@
                             price: price
                         });
                         this.tooltip(
-                            'Price is ' + this.$options.filters.formatNumber(price) + '. Click again to complete the payment',
+                            this.$options.filters.translate(
+                                'price_tooltip',
+                                this.$options.filters.formatNumber(price)
+                            ),
                             'show'
                         );
                     });

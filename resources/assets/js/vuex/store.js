@@ -10,6 +10,11 @@ export default new Vuex.Store({
 
         ]
     },
+    getters: {
+        lot: (state) => (id) => {
+            return state.lots.filter(lot => lot.id === id)
+        }
+    },
     mutations: {
         updateEntryPrice(state, payload) {
             if(state.entries[payload.index]) {

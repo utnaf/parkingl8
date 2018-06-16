@@ -138,7 +138,7 @@ final class EntryRepositoryTest extends TestCase {
         ]);
     }
 
-    /** @testdox Given a valid exit time it should update the entry with the exited_t timestamp */
+    /** @testdox Given a valid exit time it should update the entry with the exited_at timestamp */
     public function testUpdateFieldForExitedAt() {
         factory(ParkingLot::class, 1)->create([
             'capacity' => 10

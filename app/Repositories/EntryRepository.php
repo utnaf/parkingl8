@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Parking\Entry;
 use Parking\Service\FreeSpotsService;
+use Parking\Service\Validators\Validator;
 use Parking\Service\Validators\ValidatorFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -93,9 +94,12 @@ class EntryRepository {
         }
 
         $field     = key($data);
-        $validator = $this->validatorFactory->getValidatorFromFieldName($field);
-        if (!$validator->forEntry($entry)->pass($data)) {
-            throw $validator->getException();
+        $validators = $this->validatorFactory->getValidatorFromFieldName($field);
+
+        foreach ($validators as $validator) {
+            if(!$validator->forEntry($entry)->pass($data)) {
+               throw $validator->getException();
+            }
         }
 
         $value = current($data);

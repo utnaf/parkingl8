@@ -9,7 +9,7 @@ use Parking\ParkingLot;
 use Parking\Service\Validators\PriceValidator;
 use Tests\TestCase;
 
-/** @coversClass \Parking\Service\Validators\PriceValidator */
+/** @coversDefaultClass  \Parking\Service\Validators\PriceValidator */
 final class PriceValidatorTest extends TestCase {
     use RefreshDatabase;
 
@@ -18,9 +18,7 @@ final class PriceValidatorTest extends TestCase {
      * @dataProvider providePriceAndResult
      */
     public function testPriceValidation($price, bool $expectedBeahaviour) {
-        factory(ParkingLot::class, 1)->create([
-            'capacity' => 10
-        ]);
+        factory(ParkingLot::class, 1)->create();
         $entry = factory(Entry::class)->create([
             'exited_at' => null,
             'price' => null,

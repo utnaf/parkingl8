@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services\Validators;
 
-use Parking\Service\Validators\ExitedAtValidator;
-use Parking\Service\Validators\PriceValidator;
+use Illuminate\Support\Collection;
 use Parking\Service\Validators\ValidatorFactory;
 use Tests\TestCase;
 
@@ -15,16 +14,16 @@ final class ValidatorFactoryTest extends TestCase {
      * @testdox Given a field it returns the correct class
      * @dataProvider provideFieldsAndClasses
      */
-    public function testReturnsCorrectClass(string $field, string $expectedClass) {
+    public function testReturnsCorrectClass(string $field) {
         $class = (new ValidatorFactory)->getValidatorFromFieldName($field);
 
-        $this->assertInstanceOf($expectedClass, $class);
+        $this->assertInstanceOf(Collection::class, $class);
     }
 
     public function provideFieldsAndClasses(): array {
         return [
-            ['exited_at', ExitedAtValidator::class],
-            ['price', PriceValidator::class],
+            ['exited_at'],
+            ['price'],
         ];
     }
 

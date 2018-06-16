@@ -60,7 +60,7 @@
             <li style="color: #555753;">✓ Given no free space in the lot when I try to insert a new entry then it throws the correct exception</li>
             <li style="color: #555753;">✓ Given a valid price it should update the entry with the price and payed_at timestamp</li>
             <li style="color: #555753;">✓ Given a valid price and an entry with a price it should not update the entity</li>
-            <li style="color: #555753;">✓ Given a valid exit time it should update the entry with the exited_t timestamp</li>
+            <li style="color: #555753;">✓ Given a valid exit time it should update the entry with the exited_at timestamp</li>
             <li style="color: #555753;">✓ Given a valid exit time and an entry without payed_tim it should not update the entry</li>
         </ul>
         <h2 id="Tests\Unit\Repositories\ParkingLotRepositoryTest">Unit\Repositories\ParkingLotRepository</h2>
@@ -85,6 +85,26 @@
             <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception future date</li>
             <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception null</li>
             <li style="color: #555753;">✓ Given an invalida arrival date when I calculate the price then it thows the correct exception future date</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Validators\ExitedAtValidatorTest">Unit\Services\Validators\ExitedAtValidator</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given a date it should return if it's correct or wrong in the right way -2 minutes</li>
+            <li style="color: #555753;">✓ Given a date it should return if it's correct or wrong in the right way now</li>
+            <li style="color: #555753;">✓ Given a date it should return if it's correct or wrong in the right way +2 minutes</li>
+            <li style="color: #555753;">✓ Given a date it should return if it's correct or wrong in the right way +10 minutes (same as thershold)</li>
+            <li style="color: #555753;">✓ Given a date it should return if it's correct or wrong in the right way +11 minutes (over the threshold)</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Validators\PayedValidatorTest">Unit\Services\Validators\PayedValidator</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given payed_at null it should return false payed is not null</li>
+            <li style="color: #555753;">✓ Given payed_at null it should return false exited is not null</li>
+            <li style="color: #555753;">✓ Given payed_at null it should return false both are not null</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Validators\PayingValidatorTest">Unit\Services\Validators\PayingValidator</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given payed_at or exited_at not null it should thow and exception payed is not null</li>
+            <li style="color: #555753;">✓ Given payed_at or exited_at not null it should thow and exception exited is not null</li>
+            <li style="color: #555753;">✓ Given payed_at or exited_at not null it should thow and exception both are not null</li>
         </ul>
         <h2 id="Tests\Unit\Services\Validators\PriceValidatorTest">Unit\Services\Validators\PriceValidator</h2>
         <ul>

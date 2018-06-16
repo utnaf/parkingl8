@@ -13,13 +13,12 @@ final class ExitedAtValidator extends ValidatorAbstract {
         return $data['exited_at'] instanceof \DateTime
             && Carbon::now()
                 ->addMinutes($this->entry->parkingLot()->first()->threshold_minutes)
-                ->diffInMinutes($data['exited_at'], false) <= 0
-            && $this->entry->payed_at !== null;
+                ->diffInMinutes($data['exited_at'], false) <= 0;
     }
 
     public function getException(): HttpException {
         return new NotAcceptableHttpException(
-            'You can\t exit'
+            __('errors.e_exit_at_too_late')
         );
     }
 }

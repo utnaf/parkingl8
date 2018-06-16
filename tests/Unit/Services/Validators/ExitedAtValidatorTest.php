@@ -45,7 +45,7 @@ final class ExitedAtValidatorTest extends TestCase {
             'now' => ['', true],
             '+2 minutes' => ['+2 minutes', true],
             '+10 minutes (same as thershold)' => ['+10 minutes', true],
-            '+11 minutes' => ['+11 minutes', false],
+            '+11 minutes (over the threshold)' => ['+11 minutes', false],
         ];
     }
 }

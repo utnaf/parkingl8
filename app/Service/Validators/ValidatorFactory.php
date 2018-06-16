@@ -3,17 +3,27 @@ declare(strict_types=1);
 
 namespace Parking\Service\Validators;
 
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ValidatorFactory {
 
-    /** @throws BadRequestHttpException */
-    public function getValidatorFromFieldName(string $field): Validator {
+    /**
+     * @throws BadRequestHttpException
+     * @return Validator[]
+     */
+    public function getValidatorFromFieldName(string $field): Collection {
         switch ($field) {
             case 'price':
-                return new PriceValidator;
+                return new Collection([
+                    new PriceValidator,
+                    new PayingValidator
+                ]);
             case 'exited_at':
-                return new ExitedAtValidator;
+                return new Collection([
+                    new ExitedAtValidator,
+                    new PayedValidator
+                ]);
             default:
                 throw new BadRequestHttpException(
                     sprintf('You can\'t update %s field', $field)

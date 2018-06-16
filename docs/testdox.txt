@@ -26,7 +26,7 @@ Unit\Repositories\EntryRepository
  [x] Given no free space in the lot when I try to insert a new entry then it throws the correct exception
  [x] Given a valid price it should update the entry with the price and payed_at timestamp
  [x] Given a valid price and an entry with a price it should not update the entity
- [x] Given a valid exit time it should update the entry with the exited_t timestamp
+ [x] Given a valid exit time it should update the entry with the exited_at timestamp
  [x] Given a valid exit time and an entry without payed_tim it should not update the entry
 
 Unit\Repositories\ParkingLotRepository
@@ -48,6 +48,23 @@ Unit\Services\PriceCalculatorService
  [x] Given an invalida arrival date when I calculate the price then it thows the correct exception future date
  [x] Given an invalida arrival date when I calculate the price then it thows the correct exception null
  [x] Given an invalida arrival date when I calculate the price then it thows the correct exception future date
+
+Unit\Services\Validators\ExitedAtValidator
+ [x] Given a date it should return if it's correct or wrong in the right way -2 minutes
+ [x] Given a date it should return if it's correct or wrong in the right way now
+ [x] Given a date it should return if it's correct or wrong in the right way +2 minutes
+ [x] Given a date it should return if it's correct or wrong in the right way +10 minutes (same as thershold)
+ [x] Given a date it should return if it's correct or wrong in the right way +11 minutes (over the threshold)
+
+Unit\Services\Validators\PayedValidator
+ [x] Given payed_at null it should return false payed is not null
+ [x] Given payed_at null it should return false exited is not null
+ [x] Given payed_at null it should return false both are not null
+
+Unit\Services\Validators\PayingValidator
+ [x] Given payed_at or exited_at not null it should thow and exception payed is not null
+ [x] Given payed_at or exited_at not null it should thow and exception exited is not null
+ [x] Given payed_at or exited_at not null it should thow and exception both are not null
 
 Unit\Services\Validators\PriceValidator
  [x] Given a price it should return if it's correct or wrong in the right way correct price 1

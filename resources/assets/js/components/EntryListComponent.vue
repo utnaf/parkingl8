@@ -31,7 +31,7 @@
                     <th>Arrived at</th>
                     <th>Has payed?</th>
                     <th>Has gone?</th>
-                    <th>Action</th>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>

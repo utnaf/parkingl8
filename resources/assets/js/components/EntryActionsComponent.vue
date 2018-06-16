@@ -2,18 +2,25 @@
     <button type="button" class="btn btn-sm"
             v-bind:id="tooltipId"
             :class="data.buttonClass"
-            :disabled="data.isDisabled"
-            @click.once="doAction(data.action)">
+            :disabled="data.isDisabled || isSubmitting"
+            @click="doAction(data.action)">
         {{ data.text }}
     </button>
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         name: 'entry-actions',
         props: ['entry'],
         created() {
             this.tooltip('');
+        },
+        data: () => {
+            return {
+                isSubmitting: false
+            }
         },
         computed: {
             tooltipId() {
@@ -56,7 +63,7 @@
             }
         },
         methods: {
-            getStateEntryId() {
+            getStateEntryIndex() {
                 return this.$store.state.entries.indexOf(this.entry);
             },
             tooltip(text, action = null) {
@@ -71,20 +78,51 @@
                 }
             },
             requestPrice() {
+                this.isSubmitting = true;
                 window.axios.get(window.api.getPrice.replace(':id', this.entry.id))
                     .then(({data}) => {
-                        this.$store.commit('updateEntryPrice', this.getStateEntryId(), data.price);
+                        const price = data.price;
+                        this.isSubmitting = false;
+                        this.$store.commit('updateEntryPrice', {
+                            index: this.getStateEntryIndex(),
+                            price: price
+                        });
                         this.tooltip(
-                            'Price is ' + this.$options.filters.formatNumber(data.price) + '. Click again to complete the payment',
+                            'Price is ' + this.$options.filters.formatNumber(price) + '. Click again to complete the payment',
                             'show'
                         );
                     });
             },
             pay() {
-                console.log('Pay!');
+                this.isSubmitting = true;
+                window.axios.patch(
+                    window.api.updateEntry.replace(':id', this.entry.id),
+                    {
+                        price: this.entry.price
+                    }
+                ).then(({data}) => {
+                    this.isSubmitting = false;
+                    this.tooltip('', 'disable');
+                    this.$store.commit('updateEntry', {
+                        index: this.getStateEntryIndex(),
+                        entry: data.entry
+                    });
+                });
             },
             exit() {
-                console.log('Exit!');
+                this.isSubmitting = true;
+                window.axios.patch(
+                    window.api.updateEntry.replace(':id', this.entry.id),
+                    {
+                        exited_at: moment().format('YYYY-MM-DD HH:mm:ss')
+                    }
+                ).then(({data}) => {
+                    this.isSubmitting = false;
+                    this.$store.commit('updateEntry', {
+                        index: this.getStateEntryIndex(),
+                        entry: data.entry
+                    });
+                });
             },
             doAction(action) {
                 switch (action) {

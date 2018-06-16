@@ -18,7 +18,8 @@ final class ExitedAtValidator extends ValidatorAbstract {
         }
 
         return $carbonData instanceof Carbon
-            && Carbon::now()
+            && $this->entry->payed_at instanceof Carbon
+            && $this->entry->payed_at
                 ->addMinutes($this->entry->parkingLot()->first()->threshold_minutes)
                 ->diffInMinutes($carbonData, false) <= 0;
     }

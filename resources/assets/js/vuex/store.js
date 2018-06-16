@@ -15,8 +15,8 @@ export default new Vuex.Store({
         lot: (state) => (id) => {
             return state.lots.filter(lot => lot.id === id)
         },
-        notPayed: (state) => {
-            return state.entries.filter(entry => entry.payed_at === null)
+        inTheLot: (state) => {
+            return state.entries.filter(entry => entry.exited_at === null)
         },
         payedNotExit: (state) => {
             return state.entries.filter(entry => entry.payed_at !== null && entry.exited_at === null)

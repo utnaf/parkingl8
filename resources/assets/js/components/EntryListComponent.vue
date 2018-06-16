@@ -96,7 +96,7 @@
                     entriesToShow = this.$store.getters.payedNotExit
                 }
                 if(this.listFilter === 'inside') {
-                    entriesToShow = this.$store.getters.notPayed
+                    entriesToShow = this.$store.getters.inTheLot
                 }
 
                 return entriesToShow;

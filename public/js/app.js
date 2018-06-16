@@ -65027,9 +65027,9 @@ __webpack_require__(2).use(Vuex);
                 });
             };
         },
-        notPayed: function notPayed(state) {
+        inTheLot: function inTheLot(state) {
             return state.entries.filter(function (entry) {
-                return entry.payed_at === null;
+                return entry.exited_at === null;
             });
         },
         payedNotExit: function payedNotExit(state) {
@@ -68990,7 +68990,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 entriesToShow = this.$store.getters.payedNotExit;
             }
             if (this.listFilter === 'inside') {
-                entriesToShow = this.$store.getters.notPayed;
+                entriesToShow = this.$store.getters.inTheLot;
             }
 
             return entriesToShow;

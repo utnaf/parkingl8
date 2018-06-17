@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable {
     use Notifiable;
 
+    const ROLE_USER = 'user';
+    const ROLE_BOT = 'bot';
+    const ROLE_ADMIN = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,4 +33,8 @@ class User extends Authenticatable {
         'password',
         'remember_token',
     ];
+
+    public function isRole(string $role): bool {
+        return strtolower(trim($role)) === $this->role;
+    }
 }

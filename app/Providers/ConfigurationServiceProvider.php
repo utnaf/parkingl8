@@ -6,6 +6,7 @@ namespace Parking\Providers;
 use Illuminate\Support\ServiceProvider;
 use Parking\Service\Configuration\LanguageConfigurationProvider;
 use Parking\Service\Configuration\LocaleConfigurationProvider;
+use Parking\Service\Configuration\UserConfigrationProvider;
 use Parking\Service\ConfigurationService;
 
 /** @codeCoverageIgnore */
@@ -18,6 +19,7 @@ final class ConfigurationServiceProvider extends ServiceProvider {
                 $configurationService = new ConfigurationService;
                 $configurationService->addProvider(new LanguageConfigurationProvider);
                 $configurationService->addProvider(new LocaleConfigurationProvider);
+                $configurationService->addProvider(new UserConfigrationProvider);
 
                 return $configurationService;
             }

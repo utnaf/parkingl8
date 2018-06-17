@@ -8,7 +8,8 @@ export default new Vuex.Store({
         ],
         entries: [
 
-        ]
+        ],
+        user: window.config.user
     },
     getters: {
         // this is bad I know sorry sorry

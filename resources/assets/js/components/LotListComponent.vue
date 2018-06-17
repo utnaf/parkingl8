@@ -26,7 +26,7 @@
                     <td>{{ lot.hourly_fare | formatNumber }}</td>
                     <td>{{ lot.taken_spots }}/{{ lot.capacity }}</td>
                     <td align="right">
-                        <a :href="'/lots/'+lot.id" class="btn btn-light btn-sm">
+                        <a :href="'/lots/'+lot.id" class="btn btn-light btn-sm" v-if="$store.state.user.isAdmin">
                             <span class="oi oi-pencil"></span>
                         </a>
                     </td>
@@ -47,6 +47,7 @@
             }
         },
         created() {
+            console.log(this.$store.state.user.isAdmin);
             this.isLoading = true;
             window.axios.get(window.api.getLots)
                 .then(({data}) => {

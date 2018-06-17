@@ -24,4 +24,8 @@ final class LocaleConfigurationProvider implements ConfigurationProvider {
             'timezone' => config('app.timezone')
         ];
     }
+
+    public function hasConfiguration(): bool {
+        return true;
+    }
 }

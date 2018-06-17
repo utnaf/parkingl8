@@ -65644,7 +65644,8 @@ __webpack_require__(2).use(Vuex);
 /* harmony default export */ __webpack_exports__["a"] = (new Vuex.Store({
     state: {
         lots: [],
-        entries: []
+        entries: [],
+        user: window.config.user
     },
     getters: {
         // this is bad I know sorry sorry
@@ -69394,6 +69395,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
+        console.log(this.$store.state.user.isAdmin);
         this.isLoading = true;
         window.axios.get(window.api.getLots).then(function (_ref) {
             var data = _ref.data;
@@ -69506,14 +69508,16 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { attrs: { align: "right" } }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-light btn-sm",
-                        attrs: { href: "/lots/" + lot.id }
-                      },
-                      [_c("span", { staticClass: "oi oi-pencil" })]
-                    )
+                    _vm.$store.state.user.isAdmin
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-light btn-sm",
+                            attrs: { href: "/lots/" + lot.id }
+                          },
+                          [_c("span", { staticClass: "oi oi-pencil" })]
+                        )
+                      : _vm._e()
                   ])
                 ]
               )

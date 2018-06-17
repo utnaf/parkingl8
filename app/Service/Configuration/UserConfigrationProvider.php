@@ -3,23 +3,25 @@ declare(strict_types=1);
 
 namespace Parking\Service\Configuration;
 
-use Illuminate\Support\Facades\Lang;
-use Parking\Service\Configuration\ConfigurationProvider;
+use Illuminate\Support\Facades\Auth;
+use Parking\User;
 
 /** @codeCoverageIgnore */
-final class LanguageConfigurationProvider implements ConfigurationProvider {
+final class UserConfigrationProvider implements ConfigurationProvider {
 
-    const NAME = 'translations';
+    const NAME = 'user';
 
     public function getConfigurationKey(): string {
         return static::NAME;
     }
 
     public function getConfigurationValue(): array {
-        return Lang::get('frontend');
+        return [
+            'isAdmin' => Auth::user()->role === User::ROLE_ADMIN
+        ];
     }
 
     public function hasConfiguration(): bool {
-        return true;
+        return Auth::check();
     }
 }

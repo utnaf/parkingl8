@@ -33,6 +33,11 @@ Unit\Repositories\EntryRepository
  [x] Given a price to update when updateFields is called then the entry is updated
  [x] Given a non existing ID when updateFields is called then the correct exception is thrown
 
+Unit\Repositories\IssueRepository
+ [x] Given a parking lot in the db when createForLot is called an issue is added to the lot
+ [x] Given an entry in the db when createForEntry is called an issue is added to the entry
+ [x] Given a non solved issue when markSolvedById is called then the issue is solved
+
 Unit\Repositories\ParkingLotRepository
  [x] Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot
  [x] Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item

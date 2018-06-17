@@ -67,6 +67,12 @@
             <li style="color: #555753;">✓ Given a price to update when updateFields is called then the entry is updated</li>
             <li style="color: #555753;">✓ Given a non existing ID when updateFields is called then the correct exception is thrown</li>
         </ul>
+        <h2 id="Tests\Unit\Repositories\IssueRepositoryTest">Unit\Repositories\IssueRepository</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given a parking lot in the db when createForLot is called an issue is added to the lot</li>
+            <li style="color: #555753;">✓ Given an entry in the db when createForEntry is called an issue is added to the entry</li>
+            <li style="color: #555753;">✓ Given a non solved issue when markSolvedById is called then the issue is solved</li>
+        </ul>
         <h2 id="Tests\Unit\Repositories\ParkingLotRepositoryTest">Unit\Repositories\ParkingLotRepository</h2>
         <ul>
             <li style="color: #555753;">✓ Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot</li>

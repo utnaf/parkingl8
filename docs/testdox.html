@@ -71,6 +71,14 @@
             <li style="color: #555753;">✓ Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item</li>
             <li style="color: #555753;">✓ When I ask ask for a non-existing item then it throws the correct exception</li>
         </ul>
+        <h2 id="Tests\Unit\Repositories\UserRepositoryTest">Unit\Repositories\UserRepository</h2>
+        <ul>
+            <li style="color: #555753;">✓ Given 4 non-deleted users in the db when getAll is called then 4 users are returned</li>
+            <li style="color: #555753;">✓ Give a non deleted user in the db when getById is called the user is returned</li>
+            <li style="color: #555753;">✓ When getById is called for a non existing id then it should throw the correct exception</li>
+            <li style="color: #555753;">✓ Given a user with USER role when I upgrade it then it has ADMIN role</li>
+            <li style="color: #555753;">✓ Give a user with ADMIN role when I upgrade the it thorws the correct exception</li>
+        </ul>
         <h2 id="Tests\Unit\Services\FreeSpotServiceTest">Unit\Services\FreeSpotService</h2>
         <ul>
             <li style="color: #555753;">✓ Given free spots it should return true</li>

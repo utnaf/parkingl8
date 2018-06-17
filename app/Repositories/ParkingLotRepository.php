@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Parking\ParkingLot;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class ParkingLotRepository {
+class ParkingLotRepository {
 
     /** @return ParkingLot[] */
     public function getAll(): Collection {

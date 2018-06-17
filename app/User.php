@@ -37,4 +37,8 @@ class User extends Authenticatable {
     public function isRole(string $role): bool {
         return strtolower(trim($role)) === $this->role;
     }
+
+    public function isAdmin(): bool {
+        return $this->role === static::ROLE_ADMIN;
+    }
 }

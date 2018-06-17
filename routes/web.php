@@ -16,6 +16,8 @@ Route::get('/locale/{locale}', 'HomeController@locale')->name('locale');
 Route::middleware(['auth', 'role:admin'])->group( function() {
     Route::get('/lots/{id}', 'ParkingLotController@edit')->name('lot.edit');
     Route::post('/lots/{id}', 'ParkingLotController@save')->name('lot.update');
+    Route::get('/users', 'UserController@index')->name('user.list');
+    Route::patch('/users/{id}', 'UserController@update')->name('user.update');
 });
 
 // api

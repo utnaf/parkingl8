@@ -36,6 +36,13 @@ Unit\Repositories\ParkingLotRepository
  [x] Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item
  [x] When I ask ask for a non-existing item then it throws the correct exception
 
+Unit\Repositories\UserRepository
+ [x] Given 4 non-deleted users in the db when getAll is called then 4 users are returned
+ [x] Give a non deleted user in the db when getById is called the user is returned
+ [x] When getById is called for a non existing id then it should throw the correct exception
+ [x] Given a user with USER role when I upgrade it then it has ADMIN role
+ [x] Give a user with ADMIN role when I upgrade the it thorws the correct exception
+
 Unit\Services\FreeSpotService
  [x] Given free spots it should return true
  [x] Given no free spots it should return false

@@ -8,7 +8,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Parking\Entry;
 use Parking\Service\FreeSpotsService;
-use Parking\Service\Validators\Validator;
 use Parking\Service\Validators\ValidatorFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -57,7 +56,7 @@ class EntryRepository {
         }
 
         throw new NotFoundHttpException(
-            sprintf('Can\'t find a ParkingLot with id of %d', $id)
+            sprintf('Can\'t find a Entry with id of %d', $id)
         );
     }
 

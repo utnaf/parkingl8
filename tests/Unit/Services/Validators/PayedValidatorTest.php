@@ -7,10 +7,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Parking\Entry;
 use Parking\ParkingLot;
-use Parking\Service\Validators\PayedValidator;
+use Parking\Repositories\IssueRepository;
+use Parking\Service\Validators\IsPayedValidator;
 use Tests\TestCase;
 
-/** @coversDefaultClass \Parking\Service\Validators\PayedValidator */
+/** @coversDefaultClass \Parking\Service\Validators\IsPayedValidator */
 final class PayedValidatorTest extends TestCase {
     use RefreshDatabase;
 
@@ -26,7 +27,7 @@ final class PayedValidatorTest extends TestCase {
             ]
         );
 
-        $validator = new PayedValidator;
+        $validator = new IsPayedValidator(new IssueRepository);
         $this->assertFalse(
             $validator
                 ->forEntry($entry)

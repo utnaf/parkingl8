@@ -16,13 +16,13 @@ class ValidatorFactory {
         switch ($field) {
             case 'price':
                 return new Collection([
-                    new PriceValidator,
-                    new CanPayValidator
+                    app()->get(PriceValidator::class),
+                    app()->get(CanPayValidator::class)
                 ]);
             case 'exited_at':
                 return new Collection([
-                    new ExitedAtValidator,
-                    new PayedValidator
+                    app()->get(ExitedAtValidator::class),
+                    app()->get(IsPayedValidator::class)
                 ]);
             default:
                 throw new BadRequestHttpException(

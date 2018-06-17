@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Parking\Entry;
 use Parking\ParkingLot;
+use Parking\Repositories\IssueRepository;
 use Parking\Service\Validators\ExitedAtValidator;
 use Tests\TestCase;
 
@@ -28,7 +29,7 @@ final class ExitedAtValidatorTest extends TestCase {
             'payed_at' => new Carbon('-10 minutes', config('app.timezone')),
         ]);
 
-        $validator = new ExitedAtValidator;
+        $validator = new ExitedAtValidator(new IssueRepository);
         $this->assertEquals(
             $expectedBeahaviour,
             $validator

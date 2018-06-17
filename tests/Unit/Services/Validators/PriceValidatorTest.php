@@ -6,6 +6,7 @@ namespace Tests\Unit\Services\Validators;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Parking\Entry;
 use Parking\ParkingLot;
+use Parking\Repositories\IssueRepository;
 use Parking\Service\Validators\PriceValidator;
 use Tests\TestCase;
 
@@ -25,7 +26,7 @@ final class PriceValidatorTest extends TestCase {
             'payed_at' => null,
         ]);
 
-        $validator = new PriceValidator;
+        $validator = new PriceValidator(new IssueRepository);
         $this->assertEquals($expectedBeahaviour, $validator->forEntry($entry)->pass(['price' => $price]));
     }
 

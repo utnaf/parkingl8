@@ -16,4 +16,8 @@ class Entry extends Model {
     public function parkingLot() {
         return $this->belongsTo(ParkingLot::class);
     }
+
+    public function issues() {
+        return $this->hasMany(Issue::class);
+    }
 }

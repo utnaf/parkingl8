@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Parking\Service\Validators;
 
 use Illuminate\Support\Carbon;
+use Parking\Issue;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
@@ -25,6 +26,7 @@ final class ExitedAtValidator extends ValidatorAbstract {
     }
 
     public function getException(): HttpException {
+        $this->issueRepository->addForEntry($this->entry, Issue::TYPE_LATE);
         return new NotAcceptableHttpException(
             __('errors.e_exit_at_too_late')
         );

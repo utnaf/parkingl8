@@ -24,4 +24,8 @@ final class ParkingLot extends Model {
     public function entries() {
         return $this->hasMany(Entry::class);
     }
+
+    public function issues() {
+        return $this->hasMany(Issue::class);
+    }
 }

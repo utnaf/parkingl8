@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Parking\Entry;
+use Parking\Issue;
 use Parking\Service\FreeSpotsService;
 use Parking\Service\Validators\ValidatorFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -25,14 +26,19 @@ class EntryRepository {
     /** @var ValidatorFactory */
     private $validatorFactory;
 
+    /** @var IssueRepository */
+    private $issueRepository;
+
     public function __construct(
         ParkingLotRepository $parkingLotRepository,
         FreeSpotsService $freeSpotsService,
-        ValidatorFactory $validatorFactory
+        ValidatorFactory $validatorFactory,
+        IssueRepository $issueRepository
     ) {
         $this->parkingLotRepository = $parkingLotRepository;
         $this->freeSpotsService     = $freeSpotsService;
         $this->validatorFactory     = $validatorFactory;
+        $this->issueRepository      = $issueRepository;
     }
 
     /**
@@ -68,8 +74,9 @@ class EntryRepository {
     public function addToParkingLot(int $parkingLotId): Model {
         $parkingLot = $this->parkingLotRepository->getById($parkingLotId);
 
-        //notice: we can probably go into some race condition here, consider locking tables
+        // notice: we can probably go into some race condition here, consider locking tables
         if (!$this->freeSpotsService->areThereFreeSpots($parkingLot)) {
+            $this->issueRepository->addForLot($parkingLot, Issue::TYPE_FULL);
             throw new NotAcceptableHttpException(
                 sprintf('ParkingLot %d does not have any free spot', $parkingLotId)
             );
@@ -92,13 +99,12 @@ class EntryRepository {
             );
         }
 
-
-        $field     = key($data);
+        $field      = key($data);
         $validators = $this->validatorFactory->getValidatorFromFieldName($field);
 
         foreach ($validators as $validator) {
-            if(!$validator->forEntry($entry)->pass($data)) {
-               throw $validator->getException();
+            if (!$validator->forEntry($entry)->pass($data)) {
+                throw $validator->getException();
             }
         }
 

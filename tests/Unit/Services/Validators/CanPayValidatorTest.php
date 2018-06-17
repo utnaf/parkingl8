@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Parking\Entry;
 use Parking\ParkingLot;
+use Parking\Repositories\IssueRepository;
 use Parking\Service\Validators\CanPayValidator;
 use Tests\TestCase;
 
@@ -28,7 +29,7 @@ final class CanPayValidatorTest extends TestCase {
             ]
         );
 
-        $validator = new CanPayValidator;
+        $validator = new CanPayValidator(new IssueRepository);
         $this->assertFalse(
             $validator
                 ->forEntry($entry)

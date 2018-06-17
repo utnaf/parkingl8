@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Parking\Entry;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
+use Parking\Repositories\IssueRepository;
 use Parking\Repositories\ParkingLotRepository;
 use Parking\Service\FreeSpotsService;
 use Parking\Service\Validators\ValidatorFactory;
@@ -183,14 +184,6 @@ final class EntryRepositoryTest extends TestCase {
         $this->assertNull($exitedAt, $updatedEntry->exited_at);
     }
 
-    private function getRepository(): EntryRepository {
-        return new EntryRepository(
-            new ParkingLotRepository,
-            new FreeSpotsService,
-            new ValidatorFactory
-        );
-    }
-
     /** @testdox Given a price to update when updateFields is called then the entry is updated */
     public function testUpdateFieldsPay() {
         factory(ParkingLot::class)->create([
@@ -225,5 +218,14 @@ final class EntryRepositoryTest extends TestCase {
         $repository = $this->getRepository();
 
         $repository->updateFields(1, []);
+    }
+
+    private function getRepository(): EntryRepository {
+        return new EntryRepository(
+            new ParkingLotRepository,
+            new FreeSpotsService,
+            new ValidatorFactory,
+            new IssueRepository
+        );
     }
 }

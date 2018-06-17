@@ -164,7 +164,7 @@ final class EntryRepositoryTest extends TestCase {
      * @expectedException \Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException
      */
     public function testNotUpdateFieldForExitedAtIfNotPayed() {
-        factory(ParkingLot::class, 1)->create([
+        factory(ParkingLot::class)->create([
             'capacity' => 10
         ]);
         factory(Entry::class)->create([
@@ -189,5 +189,41 @@ final class EntryRepositoryTest extends TestCase {
             new FreeSpotsService,
             new ValidatorFactory
         );
+    }
+
+    /** @testdox Given a price to update when updateFields is called then the entry is updated */
+    public function testUpdateFieldsPay() {
+        factory(ParkingLot::class)->create([
+            'capacity' => 10
+        ]);
+        factory(Entry::class)->create([
+            'exited_at' => null,
+            'price' => null,
+            'payed_at' => null,
+        ]);
+
+        $data = [
+            'price' => 3.22
+        ];
+
+        $repository = $this->getRepository();
+
+        $entry = $repository->updateFields(1, $data);
+
+        $this->assertEquals($data['price'], $entry->getAttribute('price'));
+        $this->assertInstanceOf(Carbon::class, $entry->getAttribute('payed_at'));
+    }
+
+    /**
+     * @testdox Given a non existing ID when updateFields is called then the correct exception is thrown
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function testNotFound() {
+        factory(ParkingLot::class)->create([
+            'capacity' => 10
+        ]);
+        $repository = $this->getRepository();
+
+        $repository->updateFields(1, []);
     }
 }

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 use Parking\Repositories\UserRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-/** @codeCoverageIgnore */
 final class UserController extends Controller {
 
     public function index(UserRepository $userRepository) {

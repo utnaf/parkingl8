@@ -10,6 +10,7 @@ use Parking\ParkingLot;
 use Parking\User;
 use Tests\TestCase;
 
+/** @coversDefaultClass \Parking\Http\Controllers\EntriesController */
 final class EntryTest extends TestCase {
     use RefreshDatabase;
 

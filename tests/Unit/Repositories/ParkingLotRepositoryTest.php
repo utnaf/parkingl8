@@ -13,17 +13,15 @@ use Tests\TestCase;
 final class ParkingLotRepositoryTest extends TestCase {
     use RefreshDatabase;
 
-    const LOTS_COUNT = 3;
-
     /** @testdox Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot */
     public function testAll() {
-        factory(ParkingLot::class, static::LOTS_COUNT)->create();
+        factory(ParkingLot::class, 3)->create();
 
         $repository = new ParkingLotRepository;
 
         $lots = $repository->getAll();
 
-        $this->assertCount(static::LOTS_COUNT, $lots);
+        $this->assertCount(3, $lots);
 
         $lots->each(function($lot) {
             $this->assertInstanceOf(ParkingLot::class, $lot);
@@ -33,7 +31,7 @@ final class ParkingLotRepositoryTest extends TestCase {
     /** @testdox Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item */
     public function testGetById() {
         /** @var Collection $lots */
-        $lots = factory(ParkingLot::class, static::LOTS_COUNT)->create();
+        $lots = factory(ParkingLot::class, 3)->create();
 
         $repository = new ParkingLotRepository;
 
@@ -50,5 +48,29 @@ final class ParkingLotRepositoryTest extends TestCase {
         $repository = new ParkingLotRepository;
 
         $repository->getById(1);
+    }
+
+    /** @testdox Given a lot and new data array when update is called then the lot is updated */
+    public function testUpdate() {
+        $parkingLot = factory(ParkingLot::class)->create([
+            'name' => 'Name 1',
+            'hourly_fare' => 3,
+            'capacity' => 100,
+            'threshold_minutes' => 10
+        ]);
+
+        $data = [
+            'name' => 'Name 2',
+            'hourly_fare' => 5,
+            'capacity' => 50,
+            'threshold_minutes' => 15
+        ];
+
+        $repository = new ParkingLotRepository;
+        $updatedParkingLot = $repository->update($parkingLot, $data);
+
+        foreach($data as $key => $value) {
+            $this->assertEquals($value, $updatedParkingLot->getAttribute($key));
+        }
     }
 }

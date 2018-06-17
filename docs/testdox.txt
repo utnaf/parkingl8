@@ -30,11 +30,14 @@ Unit\Repositories\EntryRepository
  [x] Given a valid price and an entry with a price it should not update the entity
  [x] Given a valid exit time it should update the entry with the exited_at timestamp
  [x] Given a valid exit time and an entry without payed_tim it should not update the entry
+ [x] Given a price to update when updateFields is called then the entry is updated
+ [x] Given a non existing ID when updateFields is called then the correct exception is thrown
 
 Unit\Repositories\ParkingLotRepository
  [x] Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot
  [x] Given a DB with 3 items when I ask for the item with id 1 then it gives me the correct item
  [x] When I ask ask for a non-existing item then it throws the correct exception
+ [x] Given a lot and new data array when update is called then the lot is updated
 
 Unit\Repositories\UserRepository
  [x] Given 4 non-deleted users in the db when getAll is called then 4 users are returned

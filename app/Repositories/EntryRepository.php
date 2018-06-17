@@ -92,6 +92,7 @@ class EntryRepository {
             );
         }
 
+
         $field     = key($data);
         $validators = $this->validatorFactory->getValidatorFromFieldName($field);
 

@@ -69378,15 +69378,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'lot-list',
+    data: function data() {
+        return {
+            isLoading: true
+        };
+    },
     created: function created() {
         var _this = this;
 
+        this.isLoading = true;
         window.axios.get(window.api.getLots).then(function (_ref) {
             var data = _ref.data;
 
+            _this.isLoading = false;
             _this.$store.state.lots = data.lots;
         });
     },
@@ -69427,42 +69439,87 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.lots, function(lot) {
-            return _c("tr", [
-              _c(
-                "td",
+          [
+            _c(
+              "tr",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isLoading,
+                    expression: "isLoading"
+                  }
+                ]
+              },
+              [
+                _c(
+                  "td",
+                  { staticClass: "text-center", attrs: { colspan: "4" } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm._f("translate")("loading")) +
+                        "\n                "
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.lots, function(lot) {
+              return _c(
+                "tr",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.isLoading,
+                      expression: "!isLoading"
+                    }
+                  ]
+                },
                 [
                   _c(
-                    "router-link",
-                    {
-                      attrs: { to: { name: "showLot", params: { id: lot.id } } }
-                    },
-                    [_vm._v(_vm._s(lot.name))]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm._f("formatNumber")(lot.hourly_fare)))
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(lot.taken_spots) + "/" + _vm._s(lot.capacity))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { align: "right" } }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-light btn-sm",
-                    attrs: { href: "/lots/" + lot.id }
-                  },
-                  [_c("span", { staticClass: "oi oi-pencil" })]
-                )
-              ])
-            ])
-          })
+                    "td",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: { name: "showLot", params: { id: lot.id } }
+                          }
+                        },
+                        [_vm._v(_vm._s(lot.name))]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(_vm._f("formatNumber")(lot.hourly_fare)))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(lot.taken_spots) + "/" + _vm._s(lot.capacity))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { align: "right" } }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-light btn-sm",
+                        attrs: { href: "/lots/" + lot.id }
+                      },
+                      [_c("span", { staticClass: "oi oi-pencil" })]
+                    )
+                  ])
+                ]
+              )
+            })
+          ],
+          2
         )
       ])
     ])
@@ -69604,6 +69661,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -69616,15 +69678,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            listFilter: 'inside'
+            listFilter: 'inside',
+            isLoading: true
         };
     },
     created: function created() {
         var _this = this;
 
+        this.isLoading = true;
         window.axios.get(window.api.getEntries.replace(':id', this.$route.params.id)).then(function (_ref) {
             var data = _ref.data;
 
+            _this.isLoading = false;
             _this.$store.state.entries = data.entries;
         });
     },
@@ -70196,42 +70261,85 @@ var render = function() {
           _vm._v(" "),
           _c(
             "tbody",
-            _vm._l(_vm.entries, function(entry) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(entry.id))]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    _vm._s(_vm._f("formatDate")(entry.arrived_at, "L")) +
-                      " " +
-                      _vm._s(_vm._f("formatDate")(entry.arrived_at, "LT"))
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    _vm._s(
-                      _vm._f("formatNumber")(
-                        entry.payed_at ? entry.price : null
+            [
+              _c(
+                "tr",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLoading,
+                      expression: "isLoading"
+                    }
+                  ]
+                },
+                [
+                  _c(
+                    "td",
+                    { staticClass: "text-center", attrs: { colspan: "5" } },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm._f("translate")("loading")) +
+                          "\n                "
                       )
-                    )
+                    ]
                   )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  entry.exited_at !== null
-                    ? _c("span", { staticClass: "oi oi-check" })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  { attrs: { align: "right" } },
-                  [_c("entry-action", { attrs: { entry: entry } })],
-                  1
+                ]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.entries, function(entry) {
+                return _c(
+                  "tr",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isLoading,
+                        expression: "!isLoading"
+                      }
+                    ]
+                  },
+                  [
+                    _c("td", [_vm._v(_vm._s(entry.id))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(_vm._f("formatDate")(entry.arrived_at, "L")) +
+                          " " +
+                          _vm._s(_vm._f("formatDate")(entry.arrived_at, "LT"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("formatNumber")(
+                            entry.payed_at ? entry.price : null
+                          )
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      entry.exited_at !== null
+                        ? _c("span", { staticClass: "oi oi-check" })
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { attrs: { align: "right" } },
+                      [_c("entry-action", { attrs: { entry: entry } })],
+                      1
+                    )
+                  ]
                 )
-              ])
-            })
+              })
+            ],
+            2
           )
         ])
       ],

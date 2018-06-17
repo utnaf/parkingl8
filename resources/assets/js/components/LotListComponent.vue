@@ -14,7 +14,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="lot in lots">
+                <tr v-show="isLoading">
+                    <td colspan="4" class="text-center">
+                        {{ 'loading' | translate }}
+                    </td>
+                </tr>
+                <tr v-for="lot in lots" v-show="!isLoading">
                     <td>
                         <router-link :to="{name: 'showLot', params: { id: lot.id }}">{{ lot.name }}</router-link>
                     </td>
@@ -36,9 +41,16 @@
 <script>
     export default {
         name: 'lot-list',
+        data: () => {
+            return {
+                isLoading: true
+            }
+        },
         created() {
+            this.isLoading = true;
             window.axios.get(window.api.getLots)
                 .then(({data}) => {
+                    this.isLoading = false;
                     this.$store.state.lots = data.lots;
                 });
         },

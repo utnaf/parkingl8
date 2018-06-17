@@ -51,7 +51,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="entry in entries">
+                <tr v-show="isLoading">
+                    <td colspan="5" class="text-center">
+                        {{ 'loading' | translate }}
+                    </td>
+                </tr>
+                <tr v-for="entry in entries" v-show="!isLoading">
                     <td>{{ entry.id }}</td>
                     <td>{{ entry.arrived_at | formatDate('L') }} {{ entry.arrived_at | formatDate('LT') }}</td>
                     <td>{{ entry.payed_at ? entry.price : null | formatNumber }}</td>
@@ -79,12 +84,15 @@
         },
         data: () => {
             return {
-                listFilter: 'inside'
+                listFilter: 'inside',
+                isLoading: true
             }
         },
         created() {
+            this.isLoading = true;
             window.axios.get(window.api.getEntries.replace(':id', this.$route.params.id))
                 .then(({data}) => {
+                    this.isLoading = false;
                     this.$store.state.entries = data.entries;
                 });
         },

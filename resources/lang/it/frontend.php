@@ -20,5 +20,6 @@ return [
     'capacity' => 'Capacità',
     'parking_lots_title' => 'Garage',
     'entry_is_archived' => 'L\'auto è uscita con successo',
-    'threshold_minutes' => 'Limite per uscita (in minuti)'
+    'threshold_minutes' => 'Limite per uscita (in minuti)',
+    'loading' => 'Sto caricando...'
 ];

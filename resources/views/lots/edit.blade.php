@@ -29,8 +29,11 @@
 
             <div class="form-group">
                 <label for="name">{{ __('frontend.hourly_fare') }}</label>
-                <input type="text" class="form-control" name="hourly_fare" id="hourly_fare" placeholder="{{ __('frontend.hourly_fare') }}"
+                <input type="text" class="form-control" name="hourly_fare" id="hourly_fare"
+                       aria-describedby="hourlyFareHelp"
+                       placeholder="{{ __('frontend.hourly_fare') }}"
                        value="{{ $lot->hourly_fare }}">
+                <small id="hourlyFareHelp" class="form-text text-muted">{{ __('general.hourly_fare_help') }}</small>
             </div>
 
             <div class="form-group">

@@ -4,6 +4,7 @@ namespace Parking\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
+use Parking\Repositories\IssueRepository;
 use Parking\Service\Configuration\LocaleConfigurationProvider;
 use Parking\Service\ConfigurationService;
 
@@ -23,12 +24,13 @@ class HomeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ConfigurationService $configurationService) {
+    public function index(ConfigurationService $configurationService, IssueRepository $issueRepository) {
         return view(
             'dashboard',
             [
                 'config' => $configurationService->get(),
-                'loadApp' => true
+                'loadApp' => true,
+                'issuesCount' => $issueRepository->openIssueCount()
             ]
         );
     }

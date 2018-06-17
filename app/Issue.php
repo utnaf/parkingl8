@@ -18,11 +18,17 @@ final class Issue extends Model {
 
     protected $fillable = ['type'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function lot() {
-        return $this->hasOne(ParkingLot::class);
+        return $this->belongsTo(ParkingLot::class);
     }
 
     public function entry() {
-        return $this->hasOne(Entry::class);
+        return $this->belongsTo(Entry::class);
+    }
+
+    public function completedBy() {
+        return $this->belongsTo(User::class, 'completed_by');
     }
 }

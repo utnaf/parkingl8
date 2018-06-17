@@ -1,9 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use Illuminate\Support\Carbon;
 use Parking\ParkingLot;
-use Parking\Service\PriceCalculatorService;
 
 $parkingLots = [];
 $factory->define(

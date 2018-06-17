@@ -43,7 +43,7 @@ class AttemptExit extends Command
     {
         $parkingLots = ParkingLot::all();
 
-        foreach(range(0, random_int(3, 6)) as $_times) {
+        foreach(range(0, random_int(5, 9)) as $_times) {
             /** @var ParkingLot $lot */
             $lot = $parkingLots->random();
 
@@ -52,7 +52,7 @@ class AttemptExit extends Command
                 ->whereNotNull('payed_at')
                 ->orderBy('payed_at')
                 ->orderBy('arrived_at')
-                ->limit(20)
+                ->limit(40)
                 ->get();
 
             if($entries->isEmpty()) {

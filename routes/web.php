@@ -8,9 +8,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::middleware('auth')->group(function() {
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::get('/issues', 'IssuesController@index')->name('issues');
+    Route::patch('/issues/{id}', 'IssuesController@update')->name('issues.update');
 
-Route::get('/locale/{locale}', 'HomeController@locale')->name('locale');
+    Route::get('/locale/{locale}', 'HomeController@locale')->name('locale');
+});
 
 // lots
 Route::middleware(['auth', 'role:admin'])->group( function() {

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
+use Parking\Repositories\IssueRepository;
 use Parking\Repositories\ParkingLotRepository;
 use Parking\Service\Validators\ValidationTrait;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -163,31 +164,51 @@ class ParkingLotController extends Controller {
         );
     }
 
-    public function edit(string $parkingLotId, ParkingLotRepository $parkingLotRepository) {
+    public function edit(
+        string $parkingLotId,
+        ParkingLotRepository $parkingLotRepository,
+        IssueRepository $issueRepository
+    ) {
         try {
             $lot = $parkingLotRepository->getById((int) $parkingLotId);
-        } catch (NotFoundHttpException $e) {
+        }
+        catch (NotFoundHttpException $e) {
             abort(Response::HTTP_NOT_FOUND);
         }
-        return view('lots.edit', [
-            'lot' => $lot
-        ]);
+
+        return view(
+            'lots.edit',
+            [
+                'lot'         => $lot,
+                'issuesCount' => $issueRepository->openIssueCount(),
+            ]
+        );
     }
 
-    public function save(Request $request, string $parkingLotId, ParkingLotRepository $parkingLotRepository) {
+    public function save(
+        Request $request,
+        string $parkingLotId,
+        ParkingLotRepository $parkingLotRepository,
+        IssueRepository $issueRepository
+    ) {
         try {
             $lot = $parkingLotRepository->getById((int) $parkingLotId);
 
             $validatedData = $request->validate(ParkingLot::VALIDATION_RULES);
 
             $parkingLotRepository->update($lot, $validatedData);
-        } catch (NotFoundHttpException $e) {
+        }
+        catch (NotFoundHttpException $e) {
             abort(Response::HTTP_NOT_FOUND);
         }
 
-        return view('lots.edit', [
-            'lot' => $lot,
-            'success' => true
-        ]);
+        return view(
+            'lots.edit',
+            [
+                'lot'         => $lot,
+                'success'     => true,
+                'issuesCount' => $issueRepository->openIssueCount(),
+            ]
+        );
     }
 }

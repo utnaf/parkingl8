@@ -52,10 +52,12 @@
                             <input type="hidden" name="action" value="solve">
                             {{ method_field('patch') }}
 
+                            @if (!$issue->solved)
                             <button type="submit" class="btn btn-primary btn-sm">
                                 <span class="oi oi-circle-check"></span>
                                 {{ __('general.issue_mark_solved') }}
                             </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

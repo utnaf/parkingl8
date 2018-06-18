@@ -206,8 +206,7 @@ class ParkingLotController extends Controller {
             'lots.edit',
             [
                 'lot'         => $lot,
-                'success'     => true,
-                'issuesCount' => $issueRepository->openIssueCount(),
+                'success'     => true
             ]
         );
     }

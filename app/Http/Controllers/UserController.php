@@ -13,8 +13,7 @@ final class UserController extends Controller {
 
     public function index(UserRepository $userRepository, IssueRepository $issueRepository) {
         return view('users.list', [
-            'users' => $userRepository->getAll(),
-            'issuesCount' => $issueRepository->openIssueCount()
+            'users' => $userRepository->getAll()
         ]);
     }
 

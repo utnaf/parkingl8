@@ -29,8 +29,7 @@ class HomeController extends Controller {
             'dashboard',
             [
                 'config' => $configurationService->get(),
-                'loadApp' => true,
-                'issuesCount' => $issueRepository->openIssueCount()
+                'loadApp' => true
             ]
         );
     }

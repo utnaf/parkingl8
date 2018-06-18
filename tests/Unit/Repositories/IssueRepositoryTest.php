@@ -44,18 +44,6 @@ class IssueRepositoryTest extends TestCase {
         $this->assertCount(1, $entry->issues()->get());
     }
 
-    /** @testdox Given a non solved issue when markSolvedById is called then the issue is solved */
-    public function testMakeAsSolved() {
-        $lot = factory(ParkingLot::class)->create();
-        $repository = new IssueRepository;
-
-        $issue = $repository->addForLot($lot, Issue::TYPE_FULL);
-
-        $solvedIssue = $repository->markSolvedByid($issue->id);
-
-        $this->assertTrue($solvedIssue->solved);
-    }
-
     /** @testdox Given 3 elements in the db when I call getAll then it gives me all the 3 issues */
     public function testGetAll() {
         factory(ParkingLot::class)->create();
@@ -82,31 +70,18 @@ class IssueRepositoryTest extends TestCase {
     }
 
     /** @testdox Given an issue when update is called it sets the user and the solved state to 1 */
-    public function testUpdate() {
+    public function testSolve() {
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
         factory(ParkingLot::class)->create();
         $issue = factory(Issue::class)->create();
-        $issue->refresh();
 
         $repository = new IssueRepository;
-        $newIssue = $repository->solveIssue(1);
+        $newIssue = $repository->markIssueAsSolved($issue);
         $newIssue->refresh();
 
         $this->assertEquals(1, $newIssue->solved);
         $this->assertInstanceOf(User::class, $newIssue->completedBy()->first());
-    }
-
-    /**
-     * @testdox When update is called on a non existing issue it throws the correct exception
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
-    public function testUpdateFails() {
-        factory(ParkingLot::class)->create();
-        factory(Issue::class)->create();
-
-        $repository = new IssueRepository;
-        $newIssue = $repository->solveIssue(2);
     }
 }

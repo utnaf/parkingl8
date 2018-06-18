@@ -25,7 +25,7 @@ final class IssueRepository {
     }
 
     /** @throws NotFoundHttpException */
-    public function markSolvedByid(int $id) {
+    public function getById(int $id) {
         $issue = Issue::find($id);
 
         if(!$issue instanceof Issue) {
@@ -33,11 +33,6 @@ final class IssueRepository {
                 sprintf('Can\'t find an issue with ID %d', $id)
             );
         }
-
-        // we can avoid to throw a Not Modified exception since is an admin tool :angel:
-        $issue->solved = true;
-
-        $issue->save();
 
         return $issue;
     }
@@ -51,16 +46,7 @@ final class IssueRepository {
         return Issue::where('solved', '=', '0')->count();
     }
 
-    /** @throws NotFoundHttpException */
-    public function solveIssue(int $id): Issue {
-        $issue = Issue::find($id);
-
-        if(!$issue instanceof Issue) {
-            throw new NotFoundHttpException(
-                sprintf('Can\'t find an Issue with id of %d', $id)
-            );
-        }
-
+    public function markIssueAsSolved(Issue $issue): Issue {
         $issue->solved = true;
 
         Auth::user()->solvedIssues()->save($issue);

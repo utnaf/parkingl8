@@ -6,6 +6,7 @@ namespace Parking\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Parking\Repositories\IssueRepository;
+use Parking\Service\Solver\SolverService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class IssuesController extends Controller {
@@ -14,18 +15,17 @@ final class IssuesController extends Controller {
         $issues = $issueRepository->getAll();
 
         return view('issues.list', [
-            'issues' => $issues,
-            'issuesCount' => $issueRepository->openIssueCount()
+            'issues' => $issues
         ]);
     }
 
-    public function update(Request $request, string $id, IssueRepository $issueRepository) {
+    public function update(Request $request, string $id, SolverService $solverService) {
         if($request->get('action') !== 'solve') {
             return redirect()->back();
         }
 
         try {
-            $issueRepository->solveIssue((int) $id);
+            $solverService->solveById((int) $id);
         } catch (NotFoundHttpException $e) {
             abort($e->getStatusCode(), $e->getMessage());
         }

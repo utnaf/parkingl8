@@ -52,7 +52,7 @@ class AttemptExit extends Command
                     ->whereNotNull('payed_at')
                     ->orderBy('payed_at')
                     ->orderBy('arrived_at')
-                    ->limit(10)
+                    ->limit(20)
                     ->get();
 
                 if($entries->isEmpty()) {

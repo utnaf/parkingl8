@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
+use Parking\Repositories\IssueRepository;
 use Parking\Repositories\ParkingLotRepository;
 use Parking\Service\Validators\ValidationTrait;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ParkingLotController extends Controller {
+class ParkingLotController extends Controller
+{
     use ValidationTrait;
 
     /**
@@ -37,7 +39,8 @@ class ParkingLotController extends Controller {
      *        ]
      *      }
      */
-    public function index(ParkingLotRepository $parkingLotRepository): JsonResponse {
+    public function index(ParkingLotRepository $parkingLotRepository): JsonResponse
+    {
         $lots = $parkingLotRepository->getAll();
 
         return new JsonResponse(
@@ -68,11 +71,11 @@ class ParkingLotController extends Controller {
      * @apiError (404) {Int} status Status of the request
      * @apiError (404) {String} message String containing the error
      */
-    public function show(string $id, ParkingLotRepository $parkingLotRepository): JsonResponse {
+    public function show(string $id, ParkingLotRepository $parkingLotRepository): JsonResponse
+    {
         try {
-            $lot = $parkingLotRepository->getById((int) $id);
-        }
-        catch (HttpException $e) {
+            $lot = $parkingLotRepository->getById((int)$id);
+        } catch (HttpException $e) {
             return $this->handleException($e);
         }
 
@@ -107,11 +110,11 @@ class ParkingLotController extends Controller {
      * @apiError (404) {Int} status Status of the request
      * @apiError (404) {String} message String containing the error
      */
-    public function entries(string $parkingLotId, EntryRepository $entryRepository): JsonResponse {
+    public function entries(string $parkingLotId, EntryRepository $entryRepository): JsonResponse
+    {
         try {
-            $entries = $entryRepository->getByParkingLotId((int) $parkingLotId);
-        }
-        catch (HttpException $e) {
+            $entries = $entryRepository->getByParkingLotId((int)$parkingLotId);
+        } catch (HttpException $e) {
             return $this->handleException($e);
         }
 
@@ -146,12 +149,12 @@ class ParkingLotController extends Controller {
      * @apiError (406) {Int} status Status of the request
      * @apiError (406) {String} message String containing the error
      */
-    public function addEntry(string $parkingLotId, EntryRepository $entryRepository): JsonResponse {
+    public function addEntry(string $parkingLotId, EntryRepository $entryRepository): JsonResponse
+    {
         try {
-            $entry = $entryRepository->addToParkingLot((int) $parkingLotId);
+            $entry = $entryRepository->addToParkingLot((int)$parkingLotId);
             $entry->refresh();
-        }
-        catch (HttpException $e) {
+        } catch (HttpException $e) {
             return $this->handleException($e);
         }
 
@@ -163,20 +166,33 @@ class ParkingLotController extends Controller {
         );
     }
 
-    public function edit(string $parkingLotId, ParkingLotRepository $parkingLotRepository) {
+    public function edit(
+        string $parkingLotId,
+        ParkingLotRepository $parkingLotRepository,
+        IssueRepository $issueRepository
+    ) {
         try {
-            $lot = $parkingLotRepository->getById((int) $parkingLotId);
+            $lot = $parkingLotRepository->getById((int)$parkingLotId);
         } catch (NotFoundHttpException $e) {
             abort(Response::HTTP_NOT_FOUND);
         }
-        return view('lots.edit', [
-            'lot' => $lot
-        ]);
+
+        return view(
+            'lots.edit',
+            [
+                'lot' => $lot
+            ]
+        );
     }
 
-    public function save(Request $request, string $parkingLotId, ParkingLotRepository $parkingLotRepository) {
+    public function save(
+        Request $request,
+        string $parkingLotId,
+        ParkingLotRepository $parkingLotRepository,
+        IssueRepository $issueRepository
+    ) {
         try {
-            $lot = $parkingLotRepository->getById((int) $parkingLotId);
+            $lot = $parkingLotRepository->getById((int)$parkingLotId);
 
             $validatedData = $request->validate(ParkingLot::VALIDATION_RULES);
 
@@ -185,9 +201,12 @@ class ParkingLotController extends Controller {
             abort(Response::HTTP_NOT_FOUND);
         }
 
-        return view('lots.edit', [
-            'lot' => $lot,
-            'success' => true
-        ]);
+        return view(
+            'lots.edit',
+            [
+                'lot' => $lot,
+                'success' => true
+            ]
+        );
     }
 }

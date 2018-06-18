@@ -151,6 +151,7 @@ return [
          * Package Service Providers...
          */
         Parking\Providers\ConfigurationServiceProvider::class,
+        Parking\Providers\ComposerServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -5,12 +5,13 @@ namespace Parking\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Parking\Repositories\IssueRepository;
 use Parking\Repositories\UserRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class UserController extends Controller {
 
-    public function index(UserRepository $userRepository) {
+    public function index(UserRepository $userRepository, IssueRepository $issueRepository) {
         return view('users.list', [
             'users' => $userRepository->getAll()
         ]);

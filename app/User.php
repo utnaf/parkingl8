@@ -41,4 +41,8 @@ class User extends Authenticatable {
     public function isAdmin(): bool {
         return $this->role === static::ROLE_ADMIN;
     }
+
+    public function solvedIssues() {
+        return $this->hasMany(Issue::class, 'completed_by');
+    }
 }

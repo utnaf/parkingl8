@@ -10,6 +10,11 @@ use Parking\Repositories\EntryRepository;
 use Parking\Repositories\IssueRepository;
 use Parking\Repositories\ParkingLotRepository;
 use Parking\Service\FreeSpotsService;
+use Parking\Service\PriceCalculatorService;
+use Parking\Service\Solver\EntryLateSolver;
+use Parking\Service\Solver\LotFullSolver;
+use Parking\Service\Solver\NotPayedSolver;
+use Parking\Service\Solver\SolverService;
 use Parking\Service\Validators\CanPayValidator;
 use Parking\Service\Validators\ExitedAtValidator;
 use Parking\Service\Validators\IsPayedValidator;
@@ -58,6 +63,32 @@ class AppServiceProvider extends ServiceProvider {
         });
         $this->app->bind(PriceValidator::class, function() {
             return new PriceValidator(new IssueRepository);
+        });
+
+        $this->app->bind(SolverService::class, function($app) {
+            return new SolverService(
+                $app->get(NotPayedSolver::class),
+                new IssueRepository
+            );
+        });
+        $this->app->bind(LotFullSolver::class, function($app) {
+            return new LotFullSolver(
+                null
+            );
+        });
+        $this->app->bind(EntryLateSolver::class, function($app) {
+            return new EntryLateSolver(
+                $app->get(LotFullSolver::class),
+                $app->get(EntryRepository::class)
+            );
+        });
+
+        $this->app->bind(NotPayedSolver::class, function($app) {
+            return new NotPayedSolver(
+                $app->get(EntryLateSolver::class),
+                $app->get(EntryRepository::class),
+                new PriceCalculatorService
+            );
         });
     }
 }

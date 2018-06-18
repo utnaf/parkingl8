@@ -26,6 +26,14 @@ final class AuthTest extends TestCase {
             'GET entry' => ['get', '/api/entries/1'],
             'GET entry price' => ['get', '/api/entries/1/price'],
             'PATH entry' => ['patch', '/api/entries/1'],
+            'GET dashboard' => ['get', '/dashboard'],
+            'GET issues' => ['get', '/issues'],
+            'PATH issues' => ['patch', '/issues/1'],
+            'GET locale' => ['get', '/locale/it'],
+            'GET lot' => ['get', '/lots/1'],
+            'POST lots' => ['post', '/lots/1'],
+            'GET users' => ['get', '/users'],
+            'PATH users' => ['patch', '/users/1'],
         ];
     }
 

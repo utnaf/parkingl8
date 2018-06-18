@@ -6,6 +6,14 @@ Feature\Auth
  [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET entry
  [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET entry price
  [x] Given an anonymous user when I visit the api paths then I get redirected to the login PATH entry
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET dashboard
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET issues
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login PATH issues
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET locale
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET lot
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login POST lots
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login GET users
+ [x] Given an anonymous user when I visit the api paths then I get redirected to the login PATH users
 
 Feature\Entry
  [x] Given a logged in user when I request GET /api/entries/:id then it gives me the entry with the expected structure
@@ -13,6 +21,10 @@ Feature\Entry
  [x] Given a logged in user when I request GET /api/entries/:id/price then it gives me the price for the entry
  [x] Given a correct entry when I request to exit it should return 200
  [x] Given a late exit_at when I request to exit it should return 406
+
+Feature\Issue
+ [x] Give a non solved issue of type TYPE_NOT_PAYED when I resolve it then the connected entry results payed
+ [x] Give a non solved issue of type TYPE_LATE when I resolve it then the connected entry results exited
 
 Feature\ParkingLot
  [x] Given a logged in user when I request GET /api/lots then it gives me the lots with the expected structure
@@ -36,7 +48,9 @@ Unit\Repositories\EntryRepository
 Unit\Repositories\IssueRepository
  [x] Given a parking lot in the db when createForLot is called an issue is added to the lot
  [x] Given an entry in the db when createForEntry is called an issue is added to the entry
- [x] Given a non solved issue when markSolvedById is called then the issue is solved
+ [x] Given 3 elements in the db when I call getAll then it gives me all the 3 issues
+ [x] Given 5 elements in the db when I count them then it gives me only the open issues
+ [x] Given an issue when update is called it sets the user and the solved state to 1
 
 Unit\Repositories\ParkingLotRepository
  [x] Given a DB with 3 items when I ask for all the items then it give a collection of 3 ParkingLot

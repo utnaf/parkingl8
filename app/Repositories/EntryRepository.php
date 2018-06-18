@@ -90,21 +90,25 @@ class EntryRepository {
      * @throws NotFoundHttpException
      * @throws HttpException
      */
-    public function updateFields(int $id, array $data): Entry {
-        $entry = Entry::find($id);
+    public function updateFields($id, array $data): Entry {
+        $entry = $this->getById($id);
 
-        if (!$entry instanceof Entry) {
-            throw new NotFoundHttpException(
-                sprintf('Can\'t find an entry with id %d', $id)
-            );
-        }
+        return $this->updateFieldsForEntry($entry, $data);
+    }
 
+    /**
+     * @throws BadRequestHttpException
+     * @throws HttpException
+     */
+    public function updateFieldsForEntry(Entry $entry, array $data, $force = false) {
         $field      = key($data);
         $validators = $this->validatorFactory->getValidatorFromFieldName($field);
 
-        foreach ($validators as $validator) {
-            if (!$validator->forEntry($entry)->pass($data)) {
-                throw $validator->getException();
+        if(!$force) {
+            foreach ($validators as $validator) {
+                if (!$validator->forEntry($entry)->pass($data)) {
+                    throw $validator->getException();
+                }
             }
         }
 

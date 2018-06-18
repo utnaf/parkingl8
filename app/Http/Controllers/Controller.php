@@ -17,12 +17,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class Controller extends BaseController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct(IssueRepository $issueRepository) {
-        if (Auth::check()) {
-            View::share('issuesCount', $issueRepository->openIssueCount());
-        }
-    }
-
     /**
      * @todo i should find a better way to handle it, pretty sure we can do it just with the exception handler
      */

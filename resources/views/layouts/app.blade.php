@@ -45,7 +45,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('issues') }}">
                                 {{ __('general.issues_list') }}
-                                @if (isset($issuesCount))
+                                @if (isset($issuesCount) && $issuesCount > 0)
                                     <span class="badge badge-danger">{{ $issuesCount }}</span>
                                 @endif
                             </a>

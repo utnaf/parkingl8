@@ -26,7 +26,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($issues as $issue)
+            @forelse($issues as $issue)
                 <tr>
                     <td>{{ $issue->id }}</td>
                     <td>
@@ -61,7 +61,13 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">
+                        {{ __('general.no_results') }}
+                    </td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>

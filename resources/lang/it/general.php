@@ -19,5 +19,6 @@ return [
     'issue_entry_late' => 'Ha superato il limite di tempo d\'uscita',
     'issue_entry_not_payed' => 'Ha provato ad uscire senza pagare',
     'issue_mark_solved' => 'Risolvi',
-    'by' => 'da'
+    'by' => 'da',
+    'no_results' => 'Nessun risultato'
 ];

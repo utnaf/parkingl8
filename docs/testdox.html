@@ -37,6 +37,14 @@
             <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET entry</li>
             <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET entry price</li>
             <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login PATH entry</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET dashboard</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET issues</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login PATH issues</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET locale</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET lot</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login POST lots</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login GET users</li>
+            <li style="color: #555753;">✓ Given an anonymous user when I visit the api paths then I get redirected to the login PATH users</li>
         </ul>
         <h2 id="Tests\Feature\EntryTest">Feature\Entry</h2>
         <ul>
@@ -45,6 +53,11 @@
             <li style="color: #555753;">✓ Given a logged in user when I request GET /api/entries/:id/price then it gives me the price for the entry</li>
             <li style="color: #555753;">✓ Given a correct entry when I request to exit it should return 200</li>
             <li style="color: #555753;">✓ Given a late exit_at when I request to exit it should return 406</li>
+        </ul>
+        <h2 id="Tests\Feature\IssueTest">Feature\Issue</h2>
+        <ul>
+            <li style="color: #555753;">✓ Give a non solved issue of type TYPE_NOT_PAYED when I resolve it then the connected entry results payed</li>
+            <li style="color: #555753;">✓ Give a non solved issue of type TYPE_LATE when I resolve it then the connected entry results exited</li>
         </ul>
         <h2 id="Tests\Feature\ParkingLotTest">Feature\ParkingLot</h2>
         <ul>
@@ -71,7 +84,9 @@
         <ul>
             <li style="color: #555753;">✓ Given a parking lot in the db when createForLot is called an issue is added to the lot</li>
             <li style="color: #555753;">✓ Given an entry in the db when createForEntry is called an issue is added to the entry</li>
-            <li style="color: #555753;">✓ Given a non solved issue when markSolvedById is called then the issue is solved</li>
+            <li style="color: #555753;">✓ Given 3 elements in the db when I call getAll then it gives me all the 3 issues</li>
+            <li style="color: #555753;">✓ Given 5 elements in the db when I count them then it gives me only the open issues</li>
+            <li style="color: #555753;">✓ Given an issue when update is called it sets the user and the solved state to 1</li>
         </ul>
         <h2 id="Tests\Unit\Repositories\ParkingLotRepositoryTest">Unit\Repositories\ParkingLotRepository</h2>
         <ul>

@@ -13,7 +13,7 @@ $factory->define(
         /** @var ParkingLot $currentLot */
         $currentLot = $parkingLots->random();
 
-        $arrivedAt = $faker->dateTimeBetween('-24 hours', '-10 minutes');
+        $arrivedAt = $faker->dateTimeBetween('-12 hours', '-10 minutes');
 
         return [
             'parking_lot_id' => $currentLot->id,

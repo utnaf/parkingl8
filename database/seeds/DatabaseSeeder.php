@@ -7,6 +7,7 @@ class DatabaseSeeder extends Seeder {
     protected $toTruncate = [
         'entries',
         'parking_lots',
+        'issues'
     ];
 
     /**

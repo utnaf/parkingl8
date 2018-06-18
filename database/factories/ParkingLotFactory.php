@@ -7,8 +7,8 @@ $factory->define(
     function (Faker $faker) {
         return [
             'name'        => $faker->company,
-            'hourly_fare' => $faker->randomFloat(2, 0.1, 3.5),
-            'capacity'    => $faker->numberBetween(70, 700),
+            'hourly_fare' => $faker->randomFloat(1, 0.1, 3.5),
+            'capacity'    => $faker->numberBetween(100, 350),
         ];
     }
 );

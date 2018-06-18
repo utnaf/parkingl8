@@ -42,36 +42,35 @@ class PayEntry extends Command
     {
         $parkingLots = ParkingLot::all();
 
-        foreach(range(0, random_int(3, 7)) as $_times) {
-            /** @var ParkingLot $lot */
-            $lot = $parkingLots->random();
+        $parkingLots->each(function(ParkingLot $lot) {
+            foreach(range(0, random_int(4, 7)) as $_times) {
+                $entries = $lot->entries()
+                    ->whereNull('payed_at')
+                    ->orderBy('arrived_at')
+                    ->limit(10)
+                    ->get();
 
-            $entries = $lot->entries()
-                ->whereNull('payed_at')
-                ->orderBy('arrived_at')
-                ->limit(10)
-                ->get();
+                if($entries->isEmpty()) {
+                    continue;
+                }
 
-            if($entries->isEmpty()) {
-                continue;
+                $entry = $entries->random();
+                $price = (new PriceCalculatorService)->calculateForEntry($entry);
+
+                /** @var EntryRepository $entryRepository */
+                $entryRepository = app()->get(EntryRepository::class);
+
+                $entryRepository->updateFields(
+                    $entry->id,
+                    [
+                        'price' => $price
+                    ]
+                );
+
+                $this->info(
+                    sprintf('#%d The car just payed %.2f in the %s lot', $entry->id, $price, $lot->name)
+                );
             }
-
-            $entry = $entries->random();
-            $price = (new PriceCalculatorService)->calculateForEntry($entry);
-
-            /** @var EntryRepository $entryRepository */
-            $entryRepository = app()->get(EntryRepository::class);
-
-            $entryRepository->updateFields(
-                $entry->id,
-                [
-                    'price' => $price
-                ]
-            );
-
-            $this->info(
-                sprintf('#%d The car just payed %.2f in the %s lot', $entry->id, $price, $lot->name)
-            );
-        }
+        });
     }
 }

@@ -43,57 +43,58 @@ class AttemptExit extends Command
     {
         $parkingLots = ParkingLot::all();
 
-        foreach(range(0, random_int(5, 7)) as $_times) {
-            /** @var ParkingLot $lot */
-            $lot = $parkingLots->random();
+        $parkingLots->each(function(ParkingLot $lot) {
+            foreach(range(0, random_int(4, 7)) as $_times) {
+                /** @var ParkingLot $lot */
 
-            $entries = $lot->entries()
-                ->whereNull('exited_at')
-                ->whereNotNull('payed_at')
-                ->orderBy('payed_at')
-                ->orderBy('arrived_at')
-                ->limit(10)
-                ->get();
+                $entries = $lot->entries()
+                    ->whereNull('exited_at')
+                    ->whereNotNull('payed_at')
+                    ->orderBy('payed_at')
+                    ->orderBy('arrived_at')
+                    ->limit(10)
+                    ->get();
 
-            if($entries->isEmpty()) {
-                continue;
-            }
+                if($entries->isEmpty()) {
+                    continue;
+                }
 
-            $entry = $entries->random();
+                $entry = $entries->random();
 
-            /** @var EntryRepository $entryRepository */
-            $entryRepository = app()->get(EntryRepository::class);
+                /** @var EntryRepository $entryRepository */
+                $entryRepository = app()->get(EntryRepository::class);
 
-            $now = Carbon::now();
+                $now = Carbon::now();
 
-            $this->info(
-                sprintf(
-                    '#%d That entered at %s and payed at %s is trying to exit from %s at %s',
-                    $entry->id,
-                    $entry->arrived_at->format('d/m/Y H:i'),
-                    $entry->payed_at->format('d/m/Y H:i'),
-                    $lot->name,
-                    $now->format('d/m/Y H:i')
-                )
-            );
-
-            try {
-                $entryRepository->updateFields(
-                    $entry->id,
-                    [
-                        'exited_at' => $now
-                    ]
+                $this->info(
+                    sprintf(
+                        '#%d That entered at %s and payed at %s is trying to exit from %s at %s',
+                        $entry->id,
+                        $entry->arrived_at->format('d/m/Y H:i'),
+                        $entry->payed_at->format('d/m/Y H:i'),
+                        $lot->name,
+                        $now->format('d/m/Y H:i')
+                    )
                 );
-            } catch (HttpException $e) {
-                $this->warn(
-                    sprintf('#%d Can\'t exit from %s.', $entry->id, $lot->name)
-                );
-                continue;
-            }
 
-            $this->info(
-                sprintf('#%d Exited from %s', $entry->id, $lot->name)
-            );
-        }
+                try {
+                    $entryRepository->updateFields(
+                        $entry->id,
+                        [
+                            'exited_at' => $now
+                        ]
+                    );
+                } catch (HttpException $e) {
+                    $this->warn(
+                        sprintf('#%d Can\'t exit from %s.', $entry->id, $lot->name)
+                    );
+                    continue;
+                }
+
+                $this->info(
+                    sprintf('#%d Exited from %s', $entry->id, $lot->name)
+                );
+            }
+        });
     }
 }

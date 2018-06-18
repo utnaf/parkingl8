@@ -43,7 +43,7 @@ class AttemptExit extends Command
     {
         $parkingLots = ParkingLot::all();
 
-        foreach(range(0, random_int(2, 3)) as $_times) {
+        foreach(range(0, random_int(5, 7)) as $_times) {
             /** @var ParkingLot $lot */
             $lot = $parkingLots->random();
 

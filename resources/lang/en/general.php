@@ -13,7 +13,7 @@ return [
     'issue_solved' => 'Solved',
     'issue_related_to' => 'Related to',
     'issue_entry' => 'Entry #:id',
-    'issue_lot' => 'Parking Lot :name',
+    'issue_lot' => 'Parking Lot #:id',
     'issue_lot_full' => 'Tried to enter a full Parkin Lot',
     'issue_entry_late' => 'Exceeded the exit time threshold',
     'issue_entry_not_payed' => 'Tried to exit without paying',

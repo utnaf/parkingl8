@@ -14,7 +14,7 @@ return [
     'issue_solved' => 'Risolto',
     'issue_related_to' => 'Relativo a',
     'issue_entry' => 'Auto #:id',
-    'issue_lot' => 'Garage :name',
+    'issue_lot' => 'Garage #:id',
     'issue_lot_full' => 'Ha provato ad entrare in un parcheggio pieno',
     'issue_entry_late' => 'Ha superato il limite di tempo d\'uscita',
     'issue_entry_not_payed' => 'Ha provato ad uscire senza pagare',

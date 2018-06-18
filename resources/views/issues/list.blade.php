@@ -33,7 +33,7 @@
                         @if ($issue->entry instanceof \Parking\Entry)
                             {{ __('general.issue_entry', ['id' => $issue->entry->id]) }}
                         @else
-                            {{ __('general.issue_lot', ['name' => $issue->lot->name]) }}
+                            {{ __('general.issue_lot', ['id' => $issue->parking_lot_id]) }}
                         @endif
                     </td>
 

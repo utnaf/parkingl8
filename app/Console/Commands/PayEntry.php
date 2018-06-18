@@ -7,6 +7,7 @@ use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Parking\Service\PriceCalculatorService;
 
+/** @codeCoverageIgnore */
 class PayEntry extends Command
 {
     /**

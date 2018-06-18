@@ -8,6 +8,7 @@ use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/** @codeCoverageIgnore */
 class AttemptExit extends Command
 {
     /**

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Parking\Repositories\IssueRepository;
 
+/** @codeCoverageIgnore */
 class ComposerServiceProvider extends ServiceProvider
 {
     /**

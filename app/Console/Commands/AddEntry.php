@@ -7,6 +7,7 @@ use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
+/** @codeCoverageIgnore */
 class AddEntry extends Command {
     /**
      * The name and signature of the console command.

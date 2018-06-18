@@ -5,6 +5,7 @@ namespace Parking\Service\Validators;
 
 use Illuminate\Support\MessageBag;
 
+/** @codeCoverageIgnore */
 trait ValidationTrait {
 
     /** @var MessageBag|null */

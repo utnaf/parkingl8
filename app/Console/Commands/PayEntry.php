@@ -48,7 +48,7 @@ class PayEntry extends Command
                 $entries = $lot->entries()
                     ->whereNull('payed_at')
                     ->orderBy('arrived_at')
-                    ->limit(100)
+                    ->limit(30)
                     ->get();
 
                 if($entries->isEmpty()) {

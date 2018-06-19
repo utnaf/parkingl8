@@ -24,6 +24,7 @@ Feature\Entry
 
 Feature\Issue
  [x] Give a non solved issue of type TYPE_NOT_PAYED when I resolve it then the connected entry results payed
+ [x] Give a non solved issue of type TYPE_LATE when I resolve it then the connected entry results exited
 
 Feature\ParkingLot
  [x] Given a logged in user when I request GET /api/lots then it gives me the lots with the expected structure

@@ -76,9 +76,16 @@ class AppServiceProvider extends ServiceProvider {
                 null
             );
         });
+        $this->app->bind(EntryLateSolver::class, function($app) {
+            return new EntryLateSolver(
+                $app->get(LotFullSolver::class),
+                $app->get(EntryRepository::class)
+            );
+        });
+
         $this->app->bind(NotPayedSolver::class, function($app) {
             return new NotPayedSolver(
-                $app->get(LotFullSolver::class),
+                $app->get(EntryLateSolver::class),
                 $app->get(EntryRepository::class),
                 new PriceCalculatorService
             );

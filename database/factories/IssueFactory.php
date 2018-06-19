@@ -22,6 +22,7 @@ $factory->define(
         }
 
         $data['type'] = $faker->randomElement([
+            Issue::TYPE_LATE,
             Issue::TYPE_NOT_PAYED,
             Issue::TYPE_FULL
         ]);

@@ -5,6 +5,7 @@ namespace Parking\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Parking\Repositories\IssueRepository;
+use Parking\Service\ConfigurationService;
 
 /** @codeCoverageIgnore */
 class ComposerServiceProvider extends ServiceProvider
@@ -19,6 +20,8 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('*', function($view)
         {
             $view->with('issuesCount', (new IssueRepository())->openIssueCount());
+
+            $view->with('config', app()->get(ConfigurationService::class)->get());
         });
     }
 

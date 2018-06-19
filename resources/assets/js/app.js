@@ -26,8 +26,10 @@ axios.interceptors.response.use(null, (error) => {
     return Promise.reject(error);
 });
 
-const app = new Vue({
-    el: '#app',
-    store,
-    router
-});
+if(document.getElementById('app')) {
+    const app = new Vue({
+        el: '#app',
+        store,
+        router
+    });
+}

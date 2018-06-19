@@ -20,7 +20,9 @@ final class ConfigurationService {
     public function get(): array {
         if (empty($this->config)) {
             foreach ($this->providers as $provider) {
-                $this->config[$provider->getConfigurationKey()] = $provider->getConfigurationValue();
+                if($provider->hasConfiguration()) {
+                    $this->config[$provider->getConfigurationKey()] = $provider->getConfigurationValue();
+                }
             }
         }
 

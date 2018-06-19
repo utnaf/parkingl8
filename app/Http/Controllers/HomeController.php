@@ -24,11 +24,10 @@ class HomeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ConfigurationService $configurationService, IssueRepository $issueRepository) {
+    public function index(IssueRepository $issueRepository) {
         return view(
             'dashboard',
             [
-                'config' => $configurationService->get(),
                 'loadApp' => true
             ]
         );

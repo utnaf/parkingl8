@@ -22,30 +22,30 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
-                <label for="name">{{ __('frontend.name') }}</label>
+                <label for="name">{{ __('frontend.name') }} *</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="{{ __('frontend.name') }}"
-                    value="{{ $lot->name }}">
+                    value="{{ $lot->name }}" required>
             </div>
 
             <div class="form-group">
-                <label for="name">{{ __('frontend.hourly_fare') }}</label>
+                <label for="name">{{ __('frontend.hourly_fare') }} *</label>
                 <input type="text" class="form-control" name="hourly_fare" id="hourly_fare"
                        aria-describedby="hourlyFareHelp"
                        placeholder="{{ __('frontend.hourly_fare') }}"
-                       value="{{ $lot->hourly_fare }}">
+                       value="{{ $lot->hourly_fare }}" required>
                 <small id="hourlyFareHelp" class="form-text text-muted">{{ __('general.hourly_fare_help') }}</small>
             </div>
 
             <div class="form-group">
-                <label for="name">{{ __('frontend.capacity') }}</label>
+                <label for="name">{{ __('frontend.capacity') }} *</label>
                 <input type="number" class="form-control" name="capacity" id="capacity" placeholder="{{ __('frontend.capacity') }}"
-                       value="{{ $lot->capacity }}">
+                       value="{{ $lot->capacity }}" required>
             </div>
 
             <div class="form-group">
-                <label for="name">{{ __('frontend.threshold_minutes') }}</label>
+                <label for="name">{{ __('frontend.threshold_minutes') }} *</label>
                 <input type="number" class="form-control" name="threshold_minutes" id="threshold_minutes" placeholder="{{ __('frontend.threshold_minutes') }}"
-                       value="{{ $lot->threshold_minutes }}">
+                       value="{{ $lot->threshold_minutes }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">{{ __('general.save') }}</button>

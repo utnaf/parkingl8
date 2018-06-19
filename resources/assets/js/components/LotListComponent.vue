@@ -47,7 +47,6 @@
             }
         },
         created() {
-            console.log(this.$store.state.user.isAdmin);
             this.isLoading = true;
             window.axios.get(window.api.getLots)
                 .then(({data}) => {

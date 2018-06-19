@@ -57,7 +57,7 @@ class EntryRepository {
 
     /** @throws NotFoundHttpException */
     public function getById(int $id): Entry {
-        $entry = Entry::find($id);
+        $entry = Entry::with('parkingLot')->find($id);
 
         if ($entry instanceof Entry) {
             return $entry;

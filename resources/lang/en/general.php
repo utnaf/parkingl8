@@ -19,5 +19,6 @@ return [
     'issue_entry_not_payed' => 'Tried to exit without paying',
     'issue_mark_solved' => 'Solve',
     'by' => 'by',
-    'no_results' => 'No results found'
+    'no_results' => 'No results found',
+    'search' => 'Search'
 ];

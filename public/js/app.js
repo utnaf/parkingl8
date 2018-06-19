@@ -65630,7 +65630,8 @@ window.api = {
     'getLots': '/api/lots',
     'getEntries': '/api/lots/:id/entries',
     'getPrice': '/api/entries/:id/price',
-    'updateEntry': '/api/entries/:id'
+    'updateEntry': '/api/entries/:id',
+    'getEntry': '/api/entries/:id'
 };
 
 /***/ }),
@@ -66639,11 +66640,14 @@ var index_esm = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_LotListComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_LotListComponent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SingleEntryComponent_vue__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SingleEntryComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_SingleEntryComponent_vue__);
 
 
 __webpack_require__(2).use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 // components
+
 
 
 
@@ -66655,6 +66659,10 @@ var routes = [{
     path: '/lots/:id',
     component: __WEBPACK_IMPORTED_MODULE_2__components_EntryListComponent_vue___default.a,
     name: 'showLot'
+}, {
+    path: '/entry/:id',
+    component: __WEBPACK_IMPORTED_MODULE_3__components_SingleEntryComponent_vue___default.a,
+    name: 'singleEntry'
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
@@ -69395,7 +69403,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        console.log(this.$store.state.user.isAdmin);
         this.isLoading = true;
         window.axios.get(window.api.getLots).then(function (_ref) {
             var data = _ref.data;
@@ -69702,7 +69709,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listFilter: 'inside',
             isLoading: true,
             highlightSearch: false,
-            idToSearchFor: ''
+            idToSearchFor: '',
+            previousListFilter: ''
         };
     },
     created: function created() {
@@ -69735,8 +69743,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return entry.id == _this2.idToSearchFor;
                 });
                 this.highlightSearch = true;
+                if (this.previousListFilter === '') {
+                    this.previousListFilter = this.listFilter;
+                }
+                this.listFilter = 'all';
             } else {
+                this.listFilter = this.previousListFilter !== '' ? this.previousListFilter : this.listFilter;
                 this.highlightSearch = false;
+                this.previousListFilter = '';
             }
 
             return entriesToShow;
@@ -69962,7 +69976,7 @@ var render = function() {
   return _c(
     "button",
     {
-      staticClass: "btn btn-sm",
+      staticClass: "btn",
       class: _vm.data.buttonClass,
       attrs: {
         type: "button",
@@ -70074,7 +70088,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.scrollTo(0, 0);
             setTimeout(function () {
                 _this.isVisible = false;
-            }, 4000);
+            }, 6000);
         }
     }
 });
@@ -70408,7 +70422,12 @@ var render = function() {
                     _c(
                       "td",
                       { attrs: { align: "right" } },
-                      [_c("entry-action", { attrs: { entry: entry } })],
+                      [
+                        _c("entry-action", {
+                          staticClass: "btn-sm",
+                          attrs: { entry: entry }
+                        })
+                      ],
                       1
                     )
                   ]
@@ -70438,6 +70457,370 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(201)
+/* template */
+var __vue_template__ = __webpack_require__(202)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/SingleEntryComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-403e884a", Component.options)
+  } else {
+    hotAPI.reload("data-v-403e884a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 201 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MessageAlertComponent__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MessageAlertComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__MessageAlertComponent__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'single-entry',
+    components: {
+        EntryAction: __WEBPACK_IMPORTED_MODULE_0__EntryActionsComponent___default.a,
+        MessageAlert: __WEBPACK_IMPORTED_MODULE_1__MessageAlertComponent___default.a
+    },
+    data: function data() {
+        return {
+            isLoading: true,
+            entry: null
+        };
+    },
+    created: function created() {
+        window.addEventListener('hashchange', this.searchEntry);
+    },
+    mounted: function mounted() {
+        this.searchEntry();
+    },
+
+    methods: {
+        searchEntry: function searchEntry() {
+            var _this = this;
+
+            window.axios.get(window.api.getEntry.replace(':id', this.$route.params.id)).then(function (_ref) {
+                var data = _ref.data;
+
+                _this.entry = data.entry;
+                _this.$store.state.entries.push(data.entry);
+                _this.isLoading = false;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v(_vm._s(_vm._f("translate")("entries_title")))
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c("message-alert"),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.isLoading,
+                expression: "isLoading"
+              }
+            ],
+            staticClass: "text-center py-4"
+          },
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm._f("translate")("loading")) +
+                "\n        "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        !_vm.isLoading && _vm.entry !== null
+          ? _c("div", [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-sm" },
+                  [
+                    _c("h2", { staticClass: "float-left" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("translate")("details_for", _vm.entry.id))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("entry-action", {
+                      staticClass: "float-right btn-lg",
+                      attrs: { entry: _vm.entry }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row my-4" }, [
+                _c("div", { staticClass: "col-sm" }, [
+                  _c("p", { staticClass: "p-1" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm._f("translate")("arrived_at")) +
+                        ": "
+                    ),
+                    _c("strong", [
+                      _vm._v(_vm._s(_vm._f("formatDate")(_vm.entry.arrived_at)))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "p-1" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm._f("translate")("parking_lot")) +
+                        ": "
+                    ),
+                    _c("strong", [_vm._v(_vm._s(_vm.entry.parking_lot.name))])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.entry.price,
+                          expression: "entry.price"
+                        }
+                      ],
+                      staticClass: "p-1"
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm._f("translate")("price")) +
+                          ": "
+                      ),
+                      _c("strong", [
+                        _vm._v(_vm._s(_vm._f("formatNumber")(_vm.entry.price)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.entry.payed_at,
+                          expression: "entry.payed_at"
+                        }
+                      ],
+                      staticClass: "p-1"
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm._f("translate")("payed_at")) +
+                          ": "
+                      ),
+                      _c("strong", [
+                        _vm._v(_vm._s(_vm._f("formatDate")(_vm.entry.payed_at)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.entry.exited_at,
+                          expression: "entry.exited_at"
+                        }
+                      ],
+                      staticClass: "p-1"
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm._f("translate")("exited_at")) +
+                          ": "
+                      ),
+                      _c("strong", [
+                        _vm._v(
+                          _vm._s(_vm._f("formatDate")(_vm.entry.exited_at))
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "p",
+                { staticClass: "p1" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary py-2",
+                      attrs: { to: { name: "dashboard" } }
+                    },
+                    [
+                      _c("span", { staticClass: "oi oi-chevron-left" }),
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm._f("translate")("go_back")) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
+          : _vm._e()
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-403e884a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

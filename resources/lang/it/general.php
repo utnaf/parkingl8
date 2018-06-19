@@ -20,5 +20,6 @@ return [
     'issue_entry_not_payed' => 'Ha provato ad uscire senza pagare',
     'issue_mark_solved' => 'Risolvi',
     'by' => 'da',
-    'no_results' => 'Nessun risultato'
+    'no_results' => 'Nessun risultato',
+    'search' => 'Search'
 ];

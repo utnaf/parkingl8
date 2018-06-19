@@ -79,7 +79,7 @@
                     <td>{{ entry.payed_at ? entry.price : null | formatNumber }}</td>
                     <td><span class="oi oi-check" v-if="entry.exited_at !== null"></span></td>
                     <td align="right">
-                        <entry-action :entry="entry"></entry-action>
+                        <entry-action :entry="entry" class="btn-sm"></entry-action>
                     </td>
                 </tr>
 
@@ -104,7 +104,8 @@
                 listFilter: 'inside',
                 isLoading: true,
                 highlightSearch: false,
-                idToSearchFor: ''
+                idToSearchFor: '',
+                previousListFilter: ''
             }
         },
         created() {
@@ -131,9 +132,15 @@
                         return entry.id == this.idToSearchFor;
                     });
                     this.highlightSearch = true;
+                    if(this.previousListFilter === '') {
+                        this.previousListFilter = this.listFilter;
+                    }
+                    this.listFilter = 'all';
                 } 
                 else {
+                    this.listFilter = this.previousListFilter !== '' ? this.previousListFilter : this.listFilter;
                     this.highlightSearch = false;
+                    this.previousListFilter = '';
                 }
 
                 return entriesToShow;

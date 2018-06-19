@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="btn btn-sm"
+    <button type="button" class="btn"
             v-bind:id="tooltipId"
             :class="data.buttonClass"
             :disabled="data.isDisabled || isSubmitting"

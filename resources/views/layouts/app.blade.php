@@ -60,8 +60,14 @@
                         @endif
                     </ul>
 
+                    <form class="form-inline my-2 my-lg-0"
+                        onsubmit="event.preventDefault(); window.location.href='/dashboard#/entry/' + event.target.searchId.value">
+                        <input class="form-control mr-sm-2" type="search" name="searchId" placeholder="{{ __('frontend.ticketId') }}" aria-label="{{ __('frontend.ticketId') }}">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">{{ __('general.search') }}</button>
+                    </form>
+
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-2">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

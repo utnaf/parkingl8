@@ -45,7 +45,7 @@ class AttemptExit extends Command
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
-            foreach(range(0, random_int(1, 4)) as $_times) {
+            foreach(range(0, random_int(5, 10)) as $_times) {
                 /** @var ParkingLot $lot */
 
                 $entries = $lot->entries()

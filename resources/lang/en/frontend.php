@@ -24,4 +24,5 @@ return [
     'loading' => 'Content is loading...',
     'ticketId' => 'Entry Code',
     'ticketPlaceholder' => '(eg: 432)',
+    'details_for' => 'Details for Entry #%'
 ];

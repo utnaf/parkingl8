@@ -24,4 +24,9 @@ return [
     'loading' => 'Sto caricando...',
     'ticketId' => 'Numero Biglietto',
     'ticketPlaceholder' => '(es: 432)',
+    'details_for' => 'Dettagli per auto #%',
+    'price' => 'Prezzo',
+    'parking_lot' => 'Garage',
+    'payed_at' => 'Pagato alle',
+    'exited_at' => 'Uscito alle'
 ];

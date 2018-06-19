@@ -28,7 +28,7 @@
                 window.scrollTo(0, 0);
                 setTimeout(() => {
                     this.isVisible = false;
-                }, 4000);
+                }, 6000);
             }
         }
     }

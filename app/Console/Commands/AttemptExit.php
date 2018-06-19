@@ -71,7 +71,7 @@ class AttemptExit extends Command
                         '#%d That entered at %s and payed at %s is trying to exit from %s at %s',
                         $entry->id,
                         $entry->arrived_at->format('d/m/Y H:i'),
-                        $entry->payed_at->format('d/m/Y H:i'),
+                        ($entry->payed_at ? $entry->payed_at->format('d/m/Y H:i') : 'NEVER'),
                         $lot->name,
                         $now->format('d/m/Y H:i')
                     )

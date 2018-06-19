@@ -44,17 +44,17 @@ class PayEntry extends Command
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
+            $entries = $lot->entries()
+                ->whereNull('payed_at')
+                ->orderBy('arrived_at')
+                ->limit(30)
+                ->get();
+
+            if($entries->isEmpty()) {
+                return;
+            }
+
             foreach(range(0, random_int(5, 10)) as $_times) {
-                $entries = $lot->entries()
-                    ->whereNull('payed_at')
-                    ->orderBy('arrived_at')
-                    ->limit(30)
-                    ->get();
-
-                if($entries->isEmpty()) {
-                    continue;
-                }
-
                 $entry = $entries->random();
                 $price = (new PriceCalculatorService)->calculateForEntry($entry);
 

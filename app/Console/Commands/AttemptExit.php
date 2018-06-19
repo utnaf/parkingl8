@@ -45,20 +45,18 @@ class AttemptExit extends Command
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
+            $entries = $lot->entries()
+                ->whereNull('exited_at')
+                ->orderBy('payed_at', 'desc')
+                ->orderBy('arrived_at')
+                ->limit(20)
+                ->get();
+
+            if($entries->isEmpty()) {
+                return;
+            }
+
             foreach(range(0, random_int(3, 6)) as $_times) {
-                /** @var ParkingLot $lot */
-
-                $entries = $lot->entries()
-                    ->whereNull('exited_at')
-                    ->orderBy('payed_at', 'desc')
-                    ->orderBy('arrived_at')
-                    ->limit(20)
-                    ->get();
-
-                if($entries->isEmpty()) {
-                    continue;
-                }
-
                 $entry = $entries->random();
 
                 /** @var EntryRepository $entryRepository */

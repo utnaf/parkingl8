@@ -41,21 +41,25 @@ class AddEntry extends Command {
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
-            /** @var EntryRepository $repository */
-            $repository = app()->get(EntryRepository::class);
+            foreach(range(0, random_int(1, 4)) as $_times) {
+                /** @var EntryRepository $repository */
+                $repository = app()->get(EntryRepository::class);
 
-            try {
-                $entry = $repository->addToParkingLot($lot->id);
-            } catch (NotAcceptableHttpException $e) {
-                $this->warn(
-                    sprintf('A car attempted to enter a full Parking Lot named %s', $lot->name)
+                try {
+                    $entry = $repository->addToParkingLot($lot->id);
+                }
+                catch (NotAcceptableHttpException $e) {
+                    $this->warn(
+                        sprintf('A car attempted to enter a full Parking Lot named %s', $lot->name)
+                    );
+
+                    return;
+                }
+
+                $this->info(
+                    sprintf('#%d A car just entered in the %s lot', $entry->id, $lot->name)
                 );
-                return;
             }
-
-            $this->info(
-                sprintf('#%d A car just entered in the %s lot', $entry->id, $lot->name)
-            );
         });
     }
 }

@@ -44,11 +44,11 @@ class PayEntry extends Command
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
-            foreach(range(0, random_int(4, 7)) as $_times) {
+            foreach(range(0, random_int(1, 4)) as $_times) {
                 $entries = $lot->entries()
                     ->whereNull('payed_at')
                     ->orderBy('arrived_at')
-                    ->limit(20)
+                    ->limit(100)
                     ->get();
 
                 if($entries->isEmpty()) {

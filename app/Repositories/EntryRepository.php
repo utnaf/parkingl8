@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Parking\Repositories;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Carbon;
 use Parking\Entry;
-use Parking\Issue;
 use Parking\Service\FreeSpotsService;
 use Parking\Service\Validators\ValidatorFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -86,7 +84,7 @@ class EntryRepository {
         }
 
         return $parkingLot->entries()->create([
-            'created_at' => Carbon::now()
+            'arrived_at' => Carbon::now()
         ]);
     }
 

@@ -2,8 +2,8 @@
 
 namespace Parking\Console\Commands;
 
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -45,15 +45,14 @@ class AttemptExit extends Command
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
-            foreach(range(0, random_int(4, 7)) as $_times) {
+            foreach(range(0, random_int(1, 4)) as $_times) {
                 /** @var ParkingLot $lot */
 
                 $entries = $lot->entries()
                     ->whereNull('exited_at')
-                    ->whereNotNull('payed_at')
                     ->orderBy('payed_at')
                     ->orderBy('arrived_at')
-                    ->limit(20)
+                    ->limit(100)
                     ->get();
 
                 if($entries->isEmpty()) {

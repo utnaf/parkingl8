@@ -69670,6 +69670,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -69683,7 +69700,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             listFilter: 'inside',
-            isLoading: true
+            isLoading: true,
+            highlightSearch: false,
+            idToSearchFor: ''
         };
     },
     created: function created() {
@@ -69700,6 +69719,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         entries: function entries() {
+            var _this2 = this;
+
             var entriesToShow = this.$store.state.entries;
 
             if (this.listFilter === 'payed') {
@@ -69707,6 +69728,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             if (this.listFilter === 'inside') {
                 entriesToShow = this.$store.getters.inTheLot;
+            }
+
+            if (this.idToSearchFor) {
+                entriesToShow = entriesToShow.filter(function (entry) {
+                    return entry.id == _this2.idToSearchFor;
+                });
+                this.highlightSearch = true;
+            } else {
+                this.highlightSearch = false;
             }
 
             return entriesToShow;
@@ -70246,6 +70276,48 @@ var render = function() {
             ],
             1
           )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row py-2" }, [
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "input-group mb-2 mr-sm-2" }, [
+              _c("div", { staticClass: "input-group-prepend" }, [
+                _c("div", { staticClass: "input-group-text" }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm._f("translate")("ticketId")) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.idToSearchFor,
+                    expression: "idToSearchFor"
+                  }
+                ],
+                staticClass: "form-control",
+                class: { "is-valid": _vm.highlightSearch },
+                attrs: {
+                  type: "search",
+                  placeholder: _vm._f("translate")("ticketPlaceholder")
+                },
+                domProps: { value: _vm.idToSearchFor },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.idToSearchFor = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("table", { staticClass: "table" }, [

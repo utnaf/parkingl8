@@ -13,7 +13,7 @@ final class EntryObserver {
             $instance->getOriginal('price') === null
             && $instance->getAttribute('price') !== null
         ) {
-            $instance->payed_at = new Carbon();
+            $instance->payed_at = Carbon::now();
         }
     }
 }

@@ -13,6 +13,8 @@ class Entry extends Model {
 
     protected $dates = ['arrived_at', 'exited_at', 'payed_at'];
 
+    protected $fillable = ['arrived_at'];
+
     public function parkingLot() {
         return $this->belongsTo(ParkingLot::class);
     }

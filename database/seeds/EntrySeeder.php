@@ -10,6 +10,6 @@ class EntrySeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(Entry::class, 500)->create();
+        factory(Entry::class, 1000)->create();
     }
 }

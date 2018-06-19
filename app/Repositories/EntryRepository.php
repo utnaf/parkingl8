@@ -5,9 +5,8 @@ namespace Parking\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Carbon;
 use Parking\Entry;
-use Parking\Issue;
 use Parking\Service\FreeSpotsService;
 use Parking\Service\Validators\ValidatorFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -16,6 +15,8 @@ use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EntryRepository {
+
+    const LIMIT = 1000;
 
     /** @var ParkingLotRepository */
     private $parkingLotRepository;
@@ -45,11 +46,12 @@ class EntryRepository {
      * @return Entry[]
      * @throws NotFoundHttpException
      */
-    public function getByParkingLotId(int $parkingLotId): Collection {
+    public function getByParkingLotId(int $parkingLotId) {
         return $this->parkingLotRepository->getById($parkingLotId)->entries()
             ->orderBy('exited_at', 'asc')
             ->orderBy('payed_at', 'asc')
             ->orderBy('arrived_at', 'asc')
+            ->limit(static::LIMIT)
             ->get();
     }
 
@@ -76,13 +78,14 @@ class EntryRepository {
 
         // notice: we can probably go into some race condition here, consider locking tables
         if (!$this->freeSpotsService->areThereFreeSpots($parkingLot)) {
-            $this->issueRepository->addForLot($parkingLot, Issue::TYPE_FULL);
             throw new NotAcceptableHttpException(
                 sprintf('ParkingLot %d does not have any free spot', $parkingLotId)
             );
         }
 
-        return $parkingLot->entries()->create();
+        return $parkingLot->entries()->create([
+            'arrived_at' => Carbon::now()
+        ]);
     }
 
     /**

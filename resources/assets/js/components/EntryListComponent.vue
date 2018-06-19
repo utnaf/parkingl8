@@ -40,6 +40,23 @@
                 </div>
             </div>
 
+            <div class="row py-2">
+                <div class="col-sm">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                {{ 'ticketId' | translate }}
+                            </div>
+                        </div>
+                        <input type="search" 
+                            class="form-control" 
+                            :class="{'is-valid': highlightSearch}"
+                            v-model="idToSearchFor"
+                            :placeholder="'ticketPlaceholder' | translate">
+                    </div>
+                </div>
+            </div>
+
             <table class="table">
                 <thead>
                 <tr>
@@ -85,7 +102,9 @@
         data: () => {
             return {
                 listFilter: 'inside',
-                isLoading: true
+                isLoading: true,
+                highlightSearch: false,
+                idToSearchFor: ''
             }
         },
         created() {
@@ -107,8 +126,18 @@
                     entriesToShow = this.$store.getters.inTheLot
                 }
 
+                if(this.idToSearchFor) {
+                    entriesToShow = entriesToShow.filter((entry) => {
+                        return entry.id == this.idToSearchFor;
+                    });
+                    this.highlightSearch = true;
+                } 
+                else {
+                    this.highlightSearch = false;
+                }
+
                 return entriesToShow;
             }
-        }
+        },
     }
 </script>

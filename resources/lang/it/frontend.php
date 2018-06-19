@@ -22,4 +22,6 @@ return [
     'entry_is_archived' => 'L\'auto è uscita con successo',
     'threshold_minutes' => 'Limite per uscita (in minuti)',
     'loading' => 'Sto caricando...',
+    'ticketId' => 'Numero Biglietto',
+    'ticketPlaceholder' => '(es: 432)',
 ];

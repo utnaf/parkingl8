@@ -35,7 +35,7 @@ class EntryLateSolver extends Solver {
         }
 
         $this->entryRepository->updateFieldsForEntry($entry, [
-            'exited_at' => new Carbon()
+            'exited_at' => Carbon::now()
         ], true);
     }
 

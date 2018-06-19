@@ -21,5 +21,7 @@ return [
     'parking_lots_title' => 'Parking Lots',
     'entry_is_archived' => 'Car exit was completed succesfully',
     'threshold_minutes' => 'Exit threshold (in minutes)',
-    'loading' => 'Content is loading...'
+    'loading' => 'Content is loading...',
+    'ticketId' => 'Entry Code',
+    'ticketPlaceholder' => '(eg: 432)',
 ];

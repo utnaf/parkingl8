@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Parking\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -16,6 +17,8 @@ use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EntryRepository {
+
+    const LIMIT = 1000;
 
     /** @var ParkingLotRepository */
     private $parkingLotRepository;
@@ -50,6 +53,7 @@ class EntryRepository {
             ->orderBy('exited_at', 'asc')
             ->orderBy('payed_at', 'asc')
             ->orderBy('arrived_at', 'asc')
+            ->limit(static::LIMIT)
             ->get();
     }
 
@@ -81,7 +85,9 @@ class EntryRepository {
             );
         }
 
-        return $parkingLot->entries()->create();
+        return $parkingLot->entries()->create([
+            'created_at' => Carbon::now()
+        ]);
     }
 
     /**

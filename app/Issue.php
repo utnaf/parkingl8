@@ -10,8 +10,6 @@ final class Issue extends Model {
 
     const TYPE_FULL      = 'issue_lot_full';
 
-    const TYPE_LATE      = 'issue_entry_late';
-
     const TYPE_NOT_PAYED = 'issue_entry_not_payed';
 
     protected $dates    = ['created_at', 'updated_at'];

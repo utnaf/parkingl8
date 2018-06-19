@@ -76,7 +76,6 @@ class EntryRepository {
 
         // notice: we can probably go into some race condition here, consider locking tables
         if (!$this->freeSpotsService->areThereFreeSpots($parkingLot)) {
-            $this->issueRepository->addForLot($parkingLot, Issue::TYPE_FULL);
             throw new NotAcceptableHttpException(
                 sprintf('ParkingLot %d does not have any free spot', $parkingLotId)
             );

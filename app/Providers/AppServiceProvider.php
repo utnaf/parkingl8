@@ -71,14 +71,9 @@ class AppServiceProvider extends ServiceProvider {
                 new IssueRepository
             );
         });
-        $this->app->bind(LotFullSolver::class, function($app) {
-            return new LotFullSolver(
-                null
-            );
-        });
         $this->app->bind(EntryLateSolver::class, function($app) {
             return new EntryLateSolver(
-                $app->get(LotFullSolver::class),
+                null,
                 $app->get(EntryRepository::class)
             );
         });

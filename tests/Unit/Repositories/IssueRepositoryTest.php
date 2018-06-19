@@ -21,7 +21,7 @@ class IssueRepositoryTest extends TestCase {
         $lot = factory(ParkingLot::class)->create();
 
         $repository = new IssueRepository;
-        $issue = $repository->addForLot($lot, Issue::TYPE_FULL);
+        $issue = $repository->addForLot($lot, Issue::TYPE_LATE);
 
         $lot->refresh();
 
@@ -36,7 +36,7 @@ class IssueRepositoryTest extends TestCase {
         $entry = factory(Entry::class)->create();
 
         $repository = new IssueRepository;
-        $issue = $repository->addForEntry($entry, Issue::TYPE_FULL);
+        $issue = $repository->addForEntry($entry, Issue::TYPE_LATE);
 
         $entry->refresh();
 

@@ -47,15 +47,15 @@ class PayEntry extends Command
             $entries = $lot->entries()
                 ->whereNull('payed_at')
                 ->orderBy('arrived_at')
-                ->limit(30)
+                ->limit(10)
                 ->get();
 
             if($entries->isEmpty()) {
                 return;
             }
 
-            foreach(range(0, random_int(5, 10)) as $_times) {
-                $entry = $entries->random();
+            foreach(range(0, random_int(5, 10)) as $key) {
+                $entry = $entries->get($key);
                 $price = (new PriceCalculatorService)->calculateForEntry($entry);
 
                 /** @var EntryRepository $entryRepository */

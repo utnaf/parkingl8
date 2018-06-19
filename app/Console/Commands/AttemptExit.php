@@ -56,8 +56,8 @@ class AttemptExit extends Command
                 return;
             }
 
-            foreach(range(0, random_int(3, 6)) as $_times) {
-                $entry = $entries->random();
+            foreach(range(0, random_int(3, 6)) as $key) {
+                $entry = $entries->get($key     );
 
                 /** @var EntryRepository $entryRepository */
                 $entryRepository = app()->get(EntryRepository::class);

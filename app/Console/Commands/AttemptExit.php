@@ -50,9 +50,9 @@ class AttemptExit extends Command
 
                 $entries = $lot->entries()
                     ->whereNull('exited_at')
-                    ->orderBy('payed_at')
+                    ->orderBy('payed_at', 'desc')
                     ->orderBy('arrived_at')
-                    ->limit(30)
+                    ->limit(20)
                     ->get();
 
                 if($entries->isEmpty()) {

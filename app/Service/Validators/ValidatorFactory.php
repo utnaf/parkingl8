@@ -21,8 +21,8 @@ class ValidatorFactory {
                 ]);
             case 'exited_at':
                 return new Collection([
-                    app()->get(ExitedAtValidator::class),
-                    app()->get(IsPayedValidator::class)
+                    app()->get(IsPayedValidator::class),
+                    app()->get(ExitedAtValidator::class)
                 ]);
             default:
                 throw new BadRequestHttpException(

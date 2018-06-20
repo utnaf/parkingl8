@@ -42,7 +42,7 @@ class AddEntry extends Command {
         $parkingLots = ParkingLot::all();
 
         $parkingLots->each(function(ParkingLot $lot) {
-            foreach(range(0, random_int(1, 3)) as $_times) {
+            foreach(range(0, random_int(4, 6)) as $_times) {
                 /** @var EntryRepository $repository */
                 $repository = app()->get(EntryRepository::class);
 

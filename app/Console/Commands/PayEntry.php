@@ -3,6 +3,7 @@
 namespace Parking\Console\Commands;
 
 use Illuminate\Console\Command;
+use Parking\Entry;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Parking\Service\PriceCalculatorService;
@@ -54,9 +55,13 @@ class PayEntry extends Command
                 return;
             }
 
-            foreach(range(0, random_int(6, 9)) as $key) {
+            foreach(range(0, random_int(2, 6)) as $key) {
                 $entry = $entries->get($key);
                 $price = (new PriceCalculatorService)->calculateForEntry($entry);
+
+                if(!$entry instanceof Entry) {
+                    continue;
+                }
 
                 /** @var EntryRepository $entryRepository */
                 $entryRepository = app()->get(EntryRepository::class);

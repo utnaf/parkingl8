@@ -47,6 +47,7 @@ class AttemptExit extends Command
         $parkingLots->each(function(ParkingLot $lot) {
             $entries = $lot->entries()
                 ->whereNull('exited_at')
+                ->whereNotNull('payed_at')
                 ->orderBy('payed_at', 'asc')
                 ->orderBy('arrived_at')
                 ->limit(40)

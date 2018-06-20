@@ -2,6 +2,7 @@
 
 namespace Parking\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;

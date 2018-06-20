@@ -47,17 +47,17 @@ class AttemptExit extends Command
         $parkingLots->each(function(ParkingLot $lot) {
             $entries = $lot->entries()
                 ->whereNull('exited_at')
-                ->orderBy('payed_at', 'desc')
+                ->orderBy('payed_at', 'asc')
                 ->orderBy('arrived_at')
-                ->limit(20)
+                ->limit(40)
                 ->get();
 
             if($entries->isEmpty()) {
                 return;
             }
 
-            foreach(range(0, random_int(3, 6)) as $key) {
-                $entry = $entries->get($key     );
+            foreach(range(0, random_int(0, 1)) as $key) {
+                $entry = $entries->get($key);
 
                 /** @var EntryRepository $entryRepository */
                 $entryRepository = app()->get(EntryRepository::class);

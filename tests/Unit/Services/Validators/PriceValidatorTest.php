@@ -35,6 +35,7 @@ final class PriceValidatorTest extends TestCase {
             'correct price 1' => ['43', true],
             'correct price 2' => ['3.33', true],
             'correct price 3' => ['0.11', true],
+            'correct price 4' => ['0', true],
             'wrong price 1' => ['-0.11', false],
             'wrong price 2' => ["asd", false],
             'wrong price 3' => ["12asd", false],

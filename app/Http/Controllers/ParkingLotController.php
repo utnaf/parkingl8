@@ -201,12 +201,6 @@ class ParkingLotController extends Controller
             abort(Response::HTTP_NOT_FOUND);
         }
 
-        return view(
-            'lots.edit',
-            [
-                'lot' => $lot,
-                'success' => true
-            ]
-        );
+        return redirect()->route('lot.edit', ['id'=>$parkingLotId])->with('success', true);
     }
 }

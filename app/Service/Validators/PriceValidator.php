@@ -12,7 +12,7 @@ final class PriceValidator extends ValidatorAbstract {
         return !validator($data, [
             'price' => 'numeric'
         ])->fails()
-            && $data['price'] > 0;
+            && $data['price'] >= 0;
     }
 
     public function getException(): HttpException {

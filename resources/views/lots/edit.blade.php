@@ -12,7 +12,7 @@
                     @endforeach
                 </ul>
             </div>
-        @elseif(isset($success) && $success===true)
+        @elseif(session()->has('success') && session()->get('success')===true)
             <div class="alert alert-success">
                 {{ __('general.operation_success') }}, <a href="{{ route('dashboard') }}">{{ __('frontend.go_back') }}</a>
             </div>

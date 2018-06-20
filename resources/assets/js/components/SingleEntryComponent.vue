@@ -46,7 +46,7 @@
                 <p class="p1">
                     <router-link :to="{name: 'dashboard'}" class="btn btn-primary py-2">
                         <span class="oi oi-chevron-left"></span>
-                        {{ 'go_back' | translate }}
+                        {{ 'dashboard' | translate }}
                     </router-link>
                 </p>
 

@@ -28,5 +28,6 @@ return [
     'price' => 'Prezzo',
     'parking_lot' => 'Garage',
     'payed_at' => 'Pagato alle',
-    'exited_at' => 'Uscito alle'
+    'exited_at' => 'Uscito alle',
+    'dashboard' => 'Vai alla dashboard'
 ];

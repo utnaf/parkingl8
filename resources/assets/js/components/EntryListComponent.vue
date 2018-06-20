@@ -74,7 +74,11 @@
                     </td>
                 </tr>
                 <tr v-for="entry in entries" v-show="!isLoading">
-                    <td>{{ entry.id }}</td>
+                    <td>
+                        <router-link :to="{name: 'singleEntry', params: {id: entry.id}}">
+                            #{{ entry.id }}
+                        </router-link>
+                    </td>
                     <td>{{ entry.arrived_at | formatDate('L') }} {{ entry.arrived_at | formatDate('LT') }}</td>
                     <td>{{ entry.payed_at ? entry.price : null | formatNumber }}</td>
                     <td><span class="oi oi-check" v-if="entry.exited_at !== null"></span></td>

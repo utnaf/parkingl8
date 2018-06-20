@@ -69790,6 +69790,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -70395,7 +70399,30 @@ var render = function() {
                     ]
                   },
                   [
-                    _c("td", [_vm._v(_vm._s(entry.id))]),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "singleEntry",
+                                params: { id: entry.id }
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        #" +
+                                _vm._s(entry.id) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
@@ -70784,7 +70811,7 @@ var render = function() {
                       _c("span", { staticClass: "oi oi-chevron-left" }),
                       _vm._v(
                         "\n                    " +
-                          _vm._s(_vm._f("translate")("go_back")) +
+                          _vm._s(_vm._f("translate")("dashboard")) +
                           "\n                "
                       )
                     ]

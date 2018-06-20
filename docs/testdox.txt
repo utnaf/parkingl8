@@ -99,6 +99,7 @@ Unit\Services\Validators\PriceValidator
  [x] Given a price it should return if it's correct or wrong in the right way correct price 1
  [x] Given a price it should return if it's correct or wrong in the right way correct price 2
  [x] Given a price it should return if it's correct or wrong in the right way correct price 3
+ [x] Given a price it should return if it's correct or wrong in the right way correct price 4
  [x] Given a price it should return if it's correct or wrong in the right way wrong price 1
  [x] Given a price it should return if it's correct or wrong in the right way wrong price 2
  [x] Given a price it should return if it's correct or wrong in the right way wrong price 3

@@ -4,6 +4,7 @@ namespace Parking\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Parking\Entry;
 use Parking\ParkingLot;
 use Parking\Repositories\EntryRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -59,6 +60,10 @@ class AttemptExit extends Command
 
             foreach(range(0, random_int(3, 4)) as $key) {
                 $entry = $entries->get($key);
+
+                if(!$entry instanceof Entry) {
+                    continue;
+                }
 
                 /** @var EntryRepository $entryRepository */
                 $entryRepository = app()->get(EntryRepository::class);

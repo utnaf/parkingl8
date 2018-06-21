@@ -59,9 +59,10 @@ class AttemptExit extends Command
             }
 
             foreach(range(0, random_int(2, 6)) as $key) {
+                /** @var Entry $entry */
                 $entry = $entries->get($key);
 
-                if(!$entry instanceof Entry) {
+                if(!$entry instanceof Entry && $entry->issues()->count() > 0) {
                     continue;
                 }
 

@@ -62,7 +62,7 @@ class AttemptExit extends Command
                 /** @var Entry $entry */
                 $entry = $entries->get($key);
 
-                if(!$entry instanceof Entry && $entry->issues()->count() > 0) {
+                if(!$entry instanceof Entry || $entry->issues()->count() > 0) {
                     continue;
                 }
 

@@ -13,6 +13,8 @@ Run on a Docker environment, so be sure to have Docker installed and run the fol
 
 ```bash
 make up
+composer install
+npm install # if frontend dev is needed
 cp .env.example .env
 make artisan key:generate
 make artisan migrate
@@ -30,6 +32,7 @@ The above commands must be ran only the first time. Daily work consists of:
 ```bash
 make up
 make kill # to kill the containers obviously
+npm run watch # for frontend dev
 ```
 
 Be sure to run the migration (`make artisan migrate`) after you pull, just in case.

@@ -48,7 +48,7 @@ class AddEntry extends Command {
 
         if($currentHour >= 8 && $currentHour <= 17) {
             $min = 3;
-            $max = 7;
+            $max = 4;
         }
 
         $parkingLots->each(function(ParkingLot $lot) use ($min, $max) {

@@ -10,4 +10,8 @@ RUN apt-get update \
     && apt-get install -y git-core \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && pecl install xdebug-2.6.0beta1 \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable xdebug \
+    && apt-get -y install cron
+
+ADD ./build/crontab /etc/cron.d/app-cron
+RUN chmod 0644 /etc/cron.d/app-cron

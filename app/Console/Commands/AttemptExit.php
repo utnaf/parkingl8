@@ -62,7 +62,7 @@ class AttemptExit extends Command
                 return;
             }
 
-            foreach(range(0, random_int(2, 6)) as $key) {
+            foreach(range(0, random_int(4, 6)) as $key) {
                 /** @var Entry $entry */
                 $entry = $entries->get($key);
 

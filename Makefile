@@ -1,7 +1,7 @@
 BASE_DOCKER_COMPOSE = docker-compose -f build/docker-compose.yml
 
 up:
-	$(BASE_DOCKER_COMPOSE) up --force-recreate -d
+	$(BASE_DOCKER_COMPOSE) up --force-recreate
 .PHONY: up
 
 kill:

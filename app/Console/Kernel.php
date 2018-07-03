@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-        $schedule->command('simulator:entry:add')->everyFiveMinutes();
+        $schedule->command('simulator:entry:add')->everyMinute();
         $schedule->command('simulator:entry:pay')->everyFiveMinutes();
         $schedule->command('simulator:entry:exit')->everyFiveMinutes();
     }

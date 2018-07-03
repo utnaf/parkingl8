@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder {
         $this->truncateTables();
 
         $this->call(ParkingLotSeeder::class);
-        $this->call(EntrySeeder::class);
+//        $this->call(EntrySeeder::class);
     }
 
     private function truncateTables() {

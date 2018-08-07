@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EntryRepository {
 
-    const LIMIT = 1000;
+    const LIMIT = 300;
 
     /** @var ParkingLotRepository */
     private $parkingLotRepository;

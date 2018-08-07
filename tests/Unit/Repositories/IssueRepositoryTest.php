@@ -84,4 +84,20 @@ class IssueRepositoryTest extends TestCase {
         $this->assertEquals(1, $newIssue->solved);
         $this->assertInstanceOf(User::class, $newIssue->completedBy()->first());
     }
+
+    /**
+     * @testdox Given an entry with an issue of type TYPE_LATE when I try to add an issue of the same type to that entry then it should throw the correct exception
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException
+     */
+    public function testNotAddSameTypeIssue() {
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        factory(ParkingLot::class)->create();
+        $entry = factory(Entry::class)->create();
+
+        $repository = new IssueRepository;
+        $repository->addForEntry($entry, Issue::TYPE_LATE);
+        $repository->addForEntry($entry, Issue::TYPE_LATE);
+    }
 }

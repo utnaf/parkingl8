@@ -41,8 +41,18 @@ class AddEntry extends Command {
     public function handle() {
         $parkingLots = ParkingLot::all();
 
-        $parkingLots->each(function(ParkingLot $lot) {
-            foreach(range(0, random_int(1, 4)) as $_times) {
+        $min = 1;
+        $max = 3;
+
+        $currentHour = Carbon::now()->hour;
+
+        if($currentHour >= 8 && $currentHour <= 17) {
+            $min = 3;
+            $max = 4;
+        }
+
+        $parkingLots->each(function(ParkingLot $lot) use ($min, $max) {
+            foreach(range(0, random_int($min, $max)) as $_times) {
                 /** @var EntryRepository $repository */
                 $repository = app()->get(EntryRepository::class);
 

@@ -55,7 +55,7 @@ class PayEntry extends Command
                 return;
             }
 
-            foreach(range(0, random_int(2, 6)) as $key) {
+            foreach(range(0, random_int(2, 3)) as $key) {
                 $entry = $entries->get($key);
                 $price = (new PriceCalculatorService)->calculateForEntry($entry);
 

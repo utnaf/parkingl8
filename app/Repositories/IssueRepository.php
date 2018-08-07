@@ -13,6 +13,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class IssueRepository {
 
+    const LIMIT = 300;
+
     public function addForLot(ParkingLot $lot, string $type): Issue {
         return $lot->issues()->create([
             'type' => $type
@@ -47,7 +49,7 @@ final class IssueRepository {
 
     /** @return Issue[] */
     public function getAll(): Collection {
-        return Issue::with(['lot', 'entry', 'completedBy'])->get();
+        return Issue::with(['lot', 'entry'])->where('solved', 0)->get();
     }
 
     public function openIssueCount(): int {
